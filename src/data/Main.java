@@ -1,5 +1,6 @@
 package data;
 
+import data.app.Contacts.Contacts;
 import data.app.Tic_Tac_Toe.Tic_Tac_Toe;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -159,14 +160,21 @@ public class Main extends Application {
 //
 //        main_scene.getChildren().setAll(root);
         Parent root = FXMLLoader.load(
-                Tic_Tac_Toe.class.getResource("loading_screen.fxml"));
+                Objects.requireNonNull(Tic_Tac_Toe.class.getResource("loading_screen.fxml")));
 
         MAIN_SCENE.getChildren().setAll(root);
     }
-
+@FXML
     void contacts(ActionEvent event) throws IOException {
 //TODO
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
+
+        MAIN_SCENE.getChildren().setAll(root);
+
     }
+
+
 
 
 }

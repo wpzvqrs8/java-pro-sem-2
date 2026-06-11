@@ -57,7 +57,7 @@
       </VBox>
       <VBox layoutX="125.0" layoutY="519.0" prefHeight="64.0" prefWidth="50.0">
          <children>
-            <Button maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#ttt" prefHeight="50.0" prefWidth="50.0" text="C">
+            <Button maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#contacts" prefHeight="50.0" prefWidth="50.0" text="C">
                <VBox.margin>
                   <Insets bottom="-15.0" top="15.0" />
                </VBox.margin>
