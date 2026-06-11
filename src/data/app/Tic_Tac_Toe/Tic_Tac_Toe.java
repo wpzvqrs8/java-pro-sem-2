@@ -1,5 +1,6 @@
 package data.app.Tic_Tac_Toe;
 
+import data.Main;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -11,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -37,15 +40,17 @@ public class Tic_Tac_Toe extends Application {
     private Label statusLabel;
     @FXML
     private Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8;
+    Parent root;
 
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent root = FXMLLoader.load(
+        this.root = FXMLLoader.load(
                 getClass().getResource("loading_screen.fxml"));
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(this.root);
         stage.setScene(scene);
         stage.show();
+
     }
 
     static void main() {
@@ -55,6 +60,10 @@ public class Tic_Tac_Toe extends Application {
     void play_with_computer(ActionEvent event) {
         is_computer = true;
         try {
+//
+//            Main.prev.getChildren().setAll(root);
+
+            data.Main.prev = (AnchorPane) data.Main.MAIN_SCENE.getChildren().get(0);
             Parent root = FXMLLoader.load(
                     getClass().getResource("main_frame_player_computer.fxml"));
 //            Stage stage = (Stage) ((Node) event.getSource())
@@ -67,6 +76,7 @@ public class Tic_Tac_Toe extends Application {
             data.Main.MAIN_SCENE.getChildren().setAll(root);
 
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,6 +85,9 @@ public class Tic_Tac_Toe extends Application {
     @FXML
     void play_with_friend(ActionEvent event) {
         try {
+//            Main.prev.getChildren().setAll(root);
+
+            data.Main.prev = (AnchorPane) data.Main.MAIN_SCENE.getChildren().get(0);
             Parent root = FXMLLoader.load(
                     getClass().getResource("main_frame_2player.fxml"));
 
@@ -90,6 +103,7 @@ public class Tic_Tac_Toe extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 
