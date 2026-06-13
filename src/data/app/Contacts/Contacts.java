@@ -1,8 +1,10 @@
 package data.app.Contacts;
 
+import data.Main;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.scene.control.ListView;
+import javafx.event.ActionEvent;
+import javafx.scene.control.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,11 +24,18 @@ public class Contacts extends Application {
     static Connection conn;
     @FXML
     private ListView<Contact> contacts_list  = new ListView<>();
-
+    @FXML
+    TextField name,phoneNumber,email, category, company,notes, address;
+    @FXML
+    CheckBox favorite;
+    @FXML
+    Button save_new_button;
+    Contact new_contact;// local contact..
 
     @FXML
     public void initialize()  {
         try {
+
             Class.forName("org.postgresql.Driver");
 
         conn = DriverManager.getConnection(url, user, password);
@@ -45,16 +54,19 @@ public class Contacts extends Application {
 
     private ObservableList<Contact> contacts_from_db ;
 
+    Parent root = null;
+    static Stage stage ;
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage1) {
+        Scene scene;
 
-        Parent root = null;
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("contacts_main_frame.fxml")));
+
         } catch (IOException e) {
         }
-        Scene scene = new Scene(root);
-
+         scene = new Scene(root);
+        stage = new Stage();
         stage.setScene(scene);
         stage.show();
 
@@ -84,6 +96,7 @@ public class Contacts extends Application {
                     rs.getString("company"),
                     rs.getString("notes"),
                     rs.getBoolean("favorite")
+
             );
 
             list.add(contact);
@@ -93,14 +106,67 @@ public class Contacts extends Application {
 //        System.out.println(contacts_from_db.getFirst().name);
         rs.close();
         st.close();
-
         return list;
 
     }
+
+
+
+    @FXML
+    void add_contact(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(getClass().getResource("add_new_contact.fxml"))
+        );
+
+        contacts_list.getScene().setRoot(root);
+
+
+    }
+     @FXML
+    void save_new_contact(ActionEvent event){
+
+
+    }
+    @FXML
+    private void save_object(ActionEvent event) {
+        Object source = event.getSource();
+// add to local object - Contact new_contact
+        new_contact  = new Contact();
+        if (source == name) {
+            // name
+            new_contact.name = ((TextField)source).getText();
+            // do same for all the fields ...
+            phoneNumber.requestFocus();
+        } else if (source == phoneNumber) {
+            email.requestFocus();
+        } else if (source == email) {
+            category.requestFocus();
+        }
+        else if (source == company) {
+            notes.requestFocus();
+        } else if (source == address) {
+            company.requestFocus();
+        }
+        else if (source == category) {
+            address.requestFocus();
+        } else if (source == notes) {
+            favorite.requestFocus();
+        } else if (source == favorite) {
+            save_new_button.requestFocus();
+        }
+
+        try {
+            System.out.println(((TextField)source).getId()+"-"+((TextField)source).getText());
+        }catch (Exception e){
+            System.out.println(((CheckBox)source).getId()+"-"+((CheckBox)source).isSelected());
+        }
+
+    }
+
 }
 
 
-// BASE CLASS (Contact) ==================
+// BASE CLASS (Contact) ==================>
 class Contact {
     int id;
     String name,phoneNumber,email, category,address, company,notes;
@@ -116,6 +182,9 @@ class Contact {
         this.company = company;
         this.notes = notes;
         this.favorite = favorite;
+    }
+
+    public Contact() {
     }
 
     public void updateContact(String name, String phoneNumber, String email, String category) {

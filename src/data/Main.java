@@ -109,7 +109,6 @@ public class Main extends Application {
     void back_btn(ActionEvent event) throws IOException {
         System.out.println(prev);
         if(prev==null){
-            prev = (AnchorPane) home_screen_root;
 
             Parent root = FXMLLoader.load(
                     getClass().getResource("home_screen.fxml")
@@ -122,14 +121,20 @@ public class Main extends Application {
             stage.getScene().setRoot(root);
             System.out.println("if");
 
+            MAIN_SCENE.getChildren().clear();
+            MAIN_SCENE.getChildren().setAll(prev);
+            System.out.println("done");
+
         }
-        MAIN_SCENE.getChildren().clear();
-        MAIN_SCENE.getChildren().setAll(prev);
-        System.out.println("done");
+        else{
+            MAIN_SCENE.getChildren().clear();
+            MAIN_SCENE.getChildren().setAll(prev);
+            System.out.println("done");
+        }
     }
     @FXML
     void home_btn(ActionEvent event) throws IOException {
-
+        prev = null;
         Parent root = FXMLLoader.load(
                 getClass().getResource("home_screen.fxml")
         );
@@ -151,9 +156,6 @@ public class Main extends Application {
 
     @FXML
     void ttt(ActionEvent event) throws IOException {
-
-
-
 //
 //        Parent root = FXMLLoader.load(
 //                Tic_Tac_Toe.class.getResource("loading_screen.fxml"));
@@ -167,8 +169,9 @@ public class Main extends Application {
 @FXML
     void contacts(ActionEvent event) throws IOException {
 //TODO
-        Parent root = FXMLLoader.load(
+    Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
+
 
         MAIN_SCENE.getChildren().setAll(root);
 
