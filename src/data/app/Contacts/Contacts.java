@@ -39,7 +39,6 @@ public class Contacts extends Application {
     @FXML
     public void initialize()  {
         try {
-
             Class.forName("org.postgresql.Driver");
 
         conn = DriverManager.getConnection(url, user, password);

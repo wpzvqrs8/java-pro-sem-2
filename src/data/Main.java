@@ -171,6 +171,7 @@ public class Main extends Application {
     }
     @FXML
     void recent_btn(){
+//TODO
 
     }
 
@@ -214,6 +215,7 @@ public class Main extends Application {
         root.setLayoutY(25);
         MAIN_SCENE.getChildren().setAll(root);
     }
+
     @FXML
     void gmail(ActionEvent event)throws Exception {
         System.out.println("remaining");
