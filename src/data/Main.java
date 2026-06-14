@@ -2,6 +2,9 @@ package data;
 
 import data.app.Contacts.Contacts;
 import data.app.Tic_Tac_Toe.Tic_Tac_Toe;
+import data.app.Youtube.Youtube;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +20,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Collections;
@@ -29,7 +34,7 @@ public class Main extends Application {
     @FXML
     Label header;
     @FXML
-    Label header1;
+    private  Label header1;
     @FXML
     ImageView wallpaper;
     @FXML
@@ -41,6 +46,7 @@ public class Main extends Application {
     public static AnchorPane MAIN_SCENE;
     public static AnchorPane prev ;
 
+    static LocalTime time = LocalTime.now();
 
     @FXML
     public void initialize() {
@@ -57,7 +63,6 @@ public class Main extends Application {
                 18
         );
 
-        LocalTime time = LocalTime.now();
         System.out.println("\uE72B \uE80F \uECA5");
 //        back.setFont(iconFont);
 //        home.setFont(iconFont);
@@ -76,15 +81,30 @@ public class Main extends Application {
         header.setFont(iconFont);
         header.setText("               \uEC3B \uEC3F \uF5FC");
         header1.setFont(Font.font(15));
-        header1.setText((time.getHour() % 12 == 0 ? "  12 : " : String.valueOf("  " +time.getHour() % 12+" : "))+  (time.getMinute()<10?"0"+time.getMinute():time.getMinute()));
+//        header1.setText((time.getHour() % 12 == 0 ? "  12 : " : String.valueOf("  " +time.getHour() % 12+" : "))+  (time.getMinute()<10?"0"+time.getMinute():time.getMinute()));
 
         Image wallpaper_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/data/data/sys_data/wallpaper.jpg")));
         wallpaper.setImage(wallpaper_img);
+        Timeline clock = new Timeline(
+                new KeyFrame(Duration.seconds(0), e ->
+                {
+                    LocalTime time = LocalTime.now();
 
+                    String hour = String.valueOf(time.getHour() % 12 == 0 ? 12 : time.getHour() % 12);
+                    String minute = String.format("%02d", time.getMinute());
+
+                    header1.setText("  " + hour + " : " + minute);
+                }),
+                new KeyFrame(Duration.seconds(1))
+        );
+
+        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.play();
 
     }
 
     static void main() {
+
         launch();
 //
     }
@@ -155,6 +175,22 @@ public class Main extends Application {
 //    ------------------------------------------------ apps
 
     @FXML
+    void phone(ActionEvent event) throws IOException {
+
+    }
+    @FXML
+    void contacts(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
+        MAIN_SCENE.getChildren().setAll(root);
+    }
+
+    @FXML
+    void message(ActionEvent event) throws Exception{
+
+    }
+
+    @FXML
     void ttt(ActionEvent event) throws IOException {
 //
 //        Parent root = FXMLLoader.load(
@@ -166,16 +202,26 @@ public class Main extends Application {
 
         MAIN_SCENE.getChildren().setAll(root);
     }
-@FXML
-    void contacts(ActionEvent event) throws IOException {
-//TODO
-    Parent root = FXMLLoader.load(
-                Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
+    @FXML
+    void youtube(ActionEvent event) throws Exception {
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(Youtube.class.getResource("youtube.fxml")));
 
-
+        root.setLayoutY(25);
         MAIN_SCENE.getChildren().setAll(root);
-
     }
+    @FXML
+    void gmail(ActionEvent event)throws Exception {}
+    @FXML
+    void chrome(ActionEvent event)throws Exception {}
+    @FXML
+    void gallery(ActionEvent event)throws Exception {}
+    @FXML
+    void calculator(ActionEvent event)throws Exception {}
+    @FXML
+    void payment_app(ActionEvent event)throws Exception {}
+    @FXML
+    void clock(ActionEvent event)throws Exception{}
 
 
 

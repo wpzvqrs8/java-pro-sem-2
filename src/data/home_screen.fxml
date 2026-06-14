@@ -43,7 +43,7 @@
    </VBox>
       <VBox layoutX="75.0" layoutY="535.0" prefHeight="64.0" prefWidth="50.0">
          <children>
-            <Button maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#ttt" prefHeight="50.0" prefWidth="50.0" text="P">
+            <Button maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#phone" prefHeight="50.0" prefWidth="50.0" text="P">
                <VBox.margin>
                   <Insets left="-20.0" right="20.0" />
                </VBox.margin>
@@ -70,8 +70,30 @@
          </children>
       </VBox>
       <VBox layoutX="175.0" layoutY="519.0" prefHeight="64.0" prefWidth="50.0" />
-      <Button layoutX="200.0" layoutY="535.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#ttt" prefHeight="50.0" prefWidth="50.0" text="M" />
+      <Button layoutX="200.0" layoutY="535.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#message" prefHeight="50.0" prefWidth="50.0" text="M" />
       <Label alignment="CENTER" layoutX="200.0" layoutY="583.0" prefHeight="17.0" prefWidth="50.0" text="Msg" textAlignment="CENTER" />
+      <VBox layoutX="25.0" layoutY="359.0" prefHeight="64.0" prefWidth="50.0">
+         <children>
+            <Button maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#chrome" prefHeight="50.0" prefWidth="50.0" text="c" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="50.0" text="Browser" textAlignment="CENTER" />
+         </children>
+      </VBox>
+      <VBox layoutX="93.0" layoutY="359.0" prefHeight="64.0" prefWidth="50.0">
+         <children>
+            <Button maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#youtube" prefHeight="50.0" prefWidth="50.0" text=" " />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="50.0" text="Yt" textAlignment="CENTER" />
+         </children>
+      </VBox>
+      <Button layoutX="93.0" layoutY="445.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#calculator" prefHeight="50.0" prefWidth="50.0" text="+-x%" />
+      <Label alignment="CENTER" layoutX="93.0" layoutY="495.0" prefHeight="17.0" prefWidth="50.0" text="Calc" textAlignment="CENTER" />
+      <Button layoutX="162.0" layoutY="359.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#gmail" prefHeight="50.0" prefWidth="50.0" text="Gmail" />
+      <Label alignment="CENTER" layoutX="163.0" layoutY="409.0" prefHeight="17.0" prefWidth="50.0" text="mail" textAlignment="CENTER" />
+      <Button layoutX="225.0" layoutY="359.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#gallery" prefHeight="50.0" prefWidth="50.0" />
+      <Label alignment="CENTER" layoutX="225.0" layoutY="409.0" prefHeight="17.0" prefWidth="50.0" text="Gallery" textAlignment="CENTER" />
+      <Button layoutX="162.0" layoutY="445.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#payment_app" prefHeight="50.0" prefWidth="50.0" text="\$" />
+      <Label alignment="CENTER" layoutX="162.0" layoutY="495.0" prefHeight="17.0" prefWidth="50.0" text="E-Pay" textAlignment="CENTER" />
+      <Button layoutX="225.0" layoutY="445.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clock" prefHeight="50.0" prefWidth="50.0" />
+      <Label alignment="CENTER" layoutX="225.0" layoutY="495.0" prefHeight="17.0" prefWidth="50.0" text="Clock" textAlignment="CENTER" />
       <padding>
          <Insets top="30.0" />
       </padding>
