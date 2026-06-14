@@ -35,6 +35,7 @@ public class Contacts extends Application {
     @FXML
     AnchorPane main_contact_frame;
 
+
     @FXML
     public void initialize()  {
         try {
