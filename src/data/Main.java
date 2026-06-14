@@ -41,9 +41,10 @@ public class Main extends Application {
     private AnchorPane main_scene;
     @FXML
     private Button back,home,recent;
-    static Parent home_screen_root ;
+    public static Parent home_screen_root ;
 
     public static AnchorPane MAIN_SCENE;
+    public static AnchorPane temp_pane;
     public static AnchorPane prev ;
 
     static LocalTime time = LocalTime.now();
@@ -121,6 +122,9 @@ public class Main extends Application {
 
         Scene scene = new Scene(root);
         prev = new AnchorPane();
+        System.out.println("prev-"+prev);
+        temp_pane = prev;
+        System.out.println("temp-"+temp_pane);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
@@ -128,25 +132,25 @@ public class Main extends Application {
     @FXML
     void back_btn(ActionEvent event) throws IOException {
         System.out.println(prev);
-        if(prev==null){
+        System.out.println(temp_pane);
+        if(prev==null || prev == temp_pane|| prev==home_screen_root){
 
             Parent root = FXMLLoader.load(
                     getClass().getResource("home_screen.fxml")
             );
-
             Stage stage = (Stage) ((Button) event.getSource())
                     .getScene()
                     .getWindow();
-
             stage.getScene().setRoot(root);
-            System.out.println("if");
 
-            MAIN_SCENE.getChildren().clear();
-            MAIN_SCENE.getChildren().setAll(prev);
-            System.out.println("done");
+            try{
+                prev = (AnchorPane) root;
+                temp_pane = prev;
 
-        }
-        else{
+                MAIN_SCENE.getChildren().setAll(prev);
+            } catch (Exception e) {
+            }
+        }else {
             MAIN_SCENE.getChildren().clear();
             MAIN_SCENE.getChildren().setAll(prev);
             System.out.println("done");
@@ -176,7 +180,7 @@ public class Main extends Application {
 
     @FXML
     void phone(ActionEvent event) throws IOException {
-
+        System.out.println("remaining");
     }
     @FXML
     void contacts(ActionEvent event) throws IOException {
@@ -187,7 +191,7 @@ public class Main extends Application {
 
     @FXML
     void message(ActionEvent event) throws Exception{
-
+        System.out.println("remaining");
     }
 
     @FXML
@@ -211,17 +215,31 @@ public class Main extends Application {
         MAIN_SCENE.getChildren().setAll(root);
     }
     @FXML
-    void gmail(ActionEvent event)throws Exception {}
+    void gmail(ActionEvent event)throws Exception {
+        System.out.println("remaining");
+
+    }
     @FXML
-    void chrome(ActionEvent event)throws Exception {}
+    void chrome(ActionEvent event)throws Exception {
+        System.out.println("remaining");
+
+    }
     @FXML
-    void gallery(ActionEvent event)throws Exception {}
+    void gallery(ActionEvent event)throws Exception {
+        System.out.println("remaining");
+    }
     @FXML
-    void calculator(ActionEvent event)throws Exception {}
+    void calculator(ActionEvent event)throws Exception {
+        System.out.println("remaining");
+    }
     @FXML
-    void payment_app(ActionEvent event)throws Exception {}
+    void payment_app(ActionEvent event)throws Exception {
+        System.out.println("remaining");
+    }
     @FXML
-    void clock(ActionEvent event)throws Exception{}
+    void clock(ActionEvent event)throws Exception{
+        System.out.println("remaining");
+    }
 
 
 

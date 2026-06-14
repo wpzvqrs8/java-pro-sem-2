@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
@@ -31,6 +32,8 @@ public class Contacts extends Application {
     @FXML
     Button save_new_button;
     Contact new_contact;// local contact..
+    @FXML
+    AnchorPane main_contact_frame;
 
     @FXML
     public void initialize()  {
@@ -67,6 +70,7 @@ public class Contacts extends Application {
         }
          scene = new Scene(root);
         stage = new Stage();
+        Main.prev  = (AnchorPane)data.Main.home_screen_root;
         stage.setScene(scene);
         stage.show();
 
@@ -114,12 +118,12 @@ public class Contacts extends Application {
 
     @FXML
     void add_contact(ActionEvent event) throws IOException {
+        data.Main.prev = main_contact_frame;
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(getClass().getResource("add_new_contact.fxml"))
         );
 
-        contacts_list.getScene().setRoot(root);
-
+        data.Main.MAIN_SCENE.getChildren().setAll(root);
 
     }
      @FXML

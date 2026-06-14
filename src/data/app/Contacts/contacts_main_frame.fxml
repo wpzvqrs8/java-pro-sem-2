@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Contacts.Contacts">
+<AnchorPane fx:id="main_contact_frame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Contacts.Contacts">
    <children>
       <ListView fx:id="contacts_list" layoutY="67.0" prefHeight="548.0" prefWidth="313.0" style="-fx-border-radius: 50;">
          <cursor>
