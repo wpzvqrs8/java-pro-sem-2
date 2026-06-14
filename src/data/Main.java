@@ -3,6 +3,7 @@ package data;
 import data.app.Contacts.Contacts;
 import data.app.Tic_Tac_Toe.Tic_Tac_Toe;
 import data.app.Youtube.Youtube;
+import data.data.sys_data.get_sys_info;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -80,7 +81,6 @@ public class Main extends Application {
         System.out.println("\uEC37 \uEC38 \uEC39 \uEC3A \uEC3B \uEC3C \uEC3D \uEC3E \uEC3F \uEC40 \uEC41 \uF5F2\uF5F3\uF5F4\uF5F5\uF5F6\uF5F7\uF5F8\uF5F9\uF5FA\uF5FB\uF5FC\uF5FD\uF5FE\uF5FF\uF600\uF601\uF602\uF603\uF604\uF605\uF606\uF607");
 
         header.setFont(iconFont);
-        header.setText("               \uEC3B \uEC3F \uF5FC");
         header1.setFont(Font.font(15));
 //        header1.setText((time.getHour() % 12 == 0 ? "  12 : " : String.valueOf("  " +time.getHour() % 12+" : "))+  (time.getMinute()<10?"0"+time.getMinute():time.getMinute()));
 
@@ -90,17 +90,33 @@ public class Main extends Application {
                 new KeyFrame(Duration.seconds(0), e ->
                 {
                     LocalTime time = LocalTime.now();
-
-                    String hour = String.valueOf(time.getHour() % 12 == 0 ? 12 : time.getHour() % 12);
-                    String minute = String.format("%02d", time.getMinute());
-
-                    header1.setText("  " + hour + " : " + minute);
+                    header1.setText("  " + (time.getHour() % 12 == 0 ? 12 : time.getHour() % 12) + " : " + String.format("%02d", time.getMinute())+" : " + String.format("%02d", time.getSecond()));
                 }),
                 new KeyFrame(Duration.seconds(1))
         );
-
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
+        Timeline header_symbols = new Timeline(
+                new KeyFrame(Duration.seconds(0), e ->
+                {
+                    get_sys_info sys_stats  = new get_sys_info();
+
+                    try {
+                        header.setFont(iconFont);
+
+
+//                        header.setText("               \uEC3B");
+                        header.setText("             \uEC3B  "+sys_stats.getWifi()+"  "+sys_stats.getBattery());
+
+                    } catch (Exception ex) {
+                        header.setFont(iconFont);
+                        header.setText("             \uEC3B \uEC3F \uF5FC");
+                    }
+                }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        header_symbols.setCycleCount(Timeline.INDEFINITE);
+        header_symbols.play();
 
     }
 
@@ -154,6 +170,7 @@ public class Main extends Application {
             MAIN_SCENE.getChildren().clear();
             MAIN_SCENE.getChildren().setAll(prev);
             System.out.println("done");
+
         }
     }
     @FXML
