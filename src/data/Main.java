@@ -1,5 +1,9 @@
 package data;
+/*
 
+ --module-path "E:\ProgramFiles\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.web --add-exports javafx.graphics/com.sun.javafx.util=ALL-UNNAMED --enable-native-access=javafx.media
+                ^ your fx folder path
+ */
 import data.app.Contacts.Contacts;
 import data.app.Tic_Tac_Toe.Tic_Tac_Toe;
 import data.app.Youtube.Youtube;
@@ -27,7 +31,11 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Objects;
+/*
 
+ --module-path "E:\ProgramFiles\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.web --add-exports javafx.graphics/com.sun.javafx.util=ALL-UNNAMED --enable-native-access=javafx.media
+                ^ your fx folder path
+ */
 
 public class Main extends Application {
 
