@@ -1,5 +1,9 @@
 package data.app.Contacts;
+/*
 
+ --module-path "E:\ProgramFiles\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.web --add-exports javafx.graphics/com.sun.javafx.util=ALL-UNNAMED --enable-native-access=javafx.media
+                ^ your fx folder path
+ */
 import data.Main;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
