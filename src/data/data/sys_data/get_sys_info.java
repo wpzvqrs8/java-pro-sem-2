@@ -67,7 +67,7 @@ public class get_sys_info {
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(p.getInputStream())
         );
-
+//dummy
         String line,wifi="";
 
         while ((line = br.readLine()) != null) {
