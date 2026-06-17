@@ -29,9 +29,9 @@
       </children>
 
    </HBox>
-   <AnchorPane fx:id="main_scene" prefHeight="597.0" prefWidth="300.0">
+   <AnchorPane fx:id="main_scene" prefHeight="660.0" prefWidth="301.0">
 
-         <ImageView fx:id="wallpaper" fitHeight="597.0" fitWidth="300.0" layoutY="23.0" pickOnBounds="true" preserveRatio="false" />
+         <ImageView fx:id="wallpaper" fitHeight="597.0" fitWidth="301.0" layoutY="23.0" pickOnBounds="true" preserveRatio="false" />
 
    <VBox layoutX="25.0" layoutY="445.0" prefHeight="64.0" prefWidth="50.0">
 

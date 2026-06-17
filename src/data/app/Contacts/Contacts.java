@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 
@@ -34,10 +36,20 @@ public class Contacts extends Application {
     Contact new_contact;// local contact..
     @FXML
     AnchorPane main_contact_frame;
-
-
+    @FXML
+    private Label avatar_label;
+    @FXML
+    private Label name_label;
+    @FXML
+    private Label mno_label;
+    @FXML
+    private Label others_label;
+    static Contact selected_from_list;
+    static boolean done_init = false;
     @FXML
     public void initialize()  {
+
+           done_init = true;
         try {
             Class.forName("org.postgresql.Driver");
 
@@ -48,6 +60,38 @@ public class Contacts extends Application {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        contacts_list.setOnMouseClicked(event -> {
+            Contact selected = contacts_list.getSelectionModel().getSelectedItem();
+
+            if (selected != null) {
+                try {
+                    openContact(selected);
+                } catch (IOException e) {}
+            }
+        });
+        try {
+            if(selected_from_list!= null){
+                avatar_label.setText(String.valueOf(selected_from_list.name.toUpperCase().charAt(0)));
+                avatar_label.setFont(Font.font("System", FontWeight.BOLD, 20));
+    //            avatar_label.setFont(Font.font("System", FontWeight.BOLD, 20));
+                name_label.setText(selected_from_list.name);
+                name_label.setFont(Font.font("Noto Sans Georgian Bold", FontWeight.BOLD, 20));
+    //            name_label.setFont(Font.font("System", FontWeight.BOLD, 20));
+
+                mno_label.setText(selected_from_list.phoneNumber);
+                mno_label.setFont(Font.font("Noto Sans Georgian Bold", FontWeight.BOLD, 20));
+    //            mno_label.setFont(Font.font("System", FontWeight.BOLD, 20));
+                String s = "";
+                if(!selected_from_list.address.isEmpty())s+= "Address      : "+selected_from_list.address;
+                if(!selected_from_list.email.isEmpty())s+=   "\nEmail         : "+selected_from_list.email;
+                if(!selected_from_list.category.isEmpty())s+="\nCategory   : "+selected_from_list.category;
+                if(!selected_from_list.company.isEmpty())s+= "\nCompany   : "+selected_from_list.company;
+                if(!selected_from_list.notes.isEmpty())s+=   "\nNote          : "+selected_from_list.notes;
+                others_label.setText(s);
+                others_label.setFont(new Font(15));
+
+            }
+        } catch (Exception e) {}
     }
 
     static void main() throws Exception {
@@ -135,6 +179,8 @@ public class Contacts extends Application {
     private void save_object(ActionEvent event) {
         Object source = event.getSource();
 // add to local object - Contact new_contact
+        Main.prev = (AnchorPane) main_contact_frame;
+
         new_contact  = new Contact();
         if (source == name) {
             // name
@@ -165,6 +211,17 @@ public class Contacts extends Application {
             System.out.println(((CheckBox)source).getId()+"-"+((CheckBox)source).isSelected());
         }
 
+    }
+
+    @FXML
+    void  openContact(Contact contact) throws IOException {
+        selected_from_list = contact;
+        Main.prev = (AnchorPane) main_contact_frame;
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(getClass().getResource("contact_info.fxml"))
+        );
+        root.setLayoutY(25);
+        Main.MAIN_SCENE.getChildren().setAll(root);
     }
 
 }

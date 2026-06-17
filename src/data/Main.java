@@ -4,6 +4,7 @@ package data;
  --module-path "E:\ProgramFiles\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.web --add-exports javafx.graphics/com.sun.javafx.util=ALL-UNNAMED --enable-native-access=javafx.media
                 ^ your fx folder path
  */
+import data.app.Browser.Browser;
 import data.app.Contacts.Contacts;
 import data.app.Tic_Tac_Toe.Tic_Tac_Toe;
 import data.app.Youtube.Youtube;
@@ -55,14 +56,15 @@ public class Main extends Application {
     public static AnchorPane MAIN_SCENE;
     public static AnchorPane temp_pane;
     public static AnchorPane prev ;
+    public static AnchorPane prev_prev;
 
     static LocalTime time = LocalTime.now();
 
     @FXML
     public void initialize() {
-
+        System.out.println("main init");
         MAIN_SCENE = main_scene;
-
+        prev_prev = MAIN_SCENE;
 //        System.out.println(Font.getFamilies().contains("Segoe Fluent Icons"));
 //        java.time.LocalTime time = java.time.LocalTime.now();
 //        header.setStyle("-fx-font-family: 'Segoe Fluent Icons'; -fx-font-size: 18;");
@@ -121,7 +123,7 @@ public class Main extends Application {
                         header.setText("             \uEC3B \uEC3F \uF5FC");
                     }
                 }),
-                new KeyFrame(Duration.seconds(1))
+                new KeyFrame(Duration.seconds(10))
         );
         header_symbols.setCycleCount(Timeline.INDEFINITE);
         header_symbols.play();
@@ -193,6 +195,7 @@ public class Main extends Application {
                 .getWindow();
 
         stage.getScene().setRoot(root);
+
     }
     @FXML
     void recent_btn(){
@@ -213,6 +216,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
         MAIN_SCENE.getChildren().setAll(root);
+
     }
 
     @FXML
@@ -248,7 +252,11 @@ public class Main extends Application {
     }
     @FXML
     void chrome(ActionEvent event)throws Exception {
-        System.out.println("remaining");
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(Browser.class.getResource("browser_home_page.fxml")));
+
+        root.setLayoutY(25);
+        MAIN_SCENE.getChildren().setAll(root);
 
     }
     @FXML

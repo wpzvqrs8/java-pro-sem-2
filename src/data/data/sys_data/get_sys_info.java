@@ -81,10 +81,10 @@ public class get_sys_info {
         }
         wifi = wifi.replace("%","");
         String wifiIcon = switch (Math.min(4, Integer.parseInt(wifi) / 25)) {
-            case 0 -> "\uEC40";
-            case 1 -> "\uEC3C";
-            case 2 -> "\uEC3D";
-            case 3 -> "\uEC3E";
+            case 0 -> "\uEC3C";
+            case 1 -> "\uEC3D";
+            case 2 -> "\uEC3E";
+            case 3 -> "\uEC3F";
             default -> "\uEC3F"; // 100%
         };
 
