@@ -22,7 +22,7 @@ import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Objects;
 
-
+//--module-path "C:\Users\NAMASVI\Downloads\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.web
 public class Main extends Application {
 
     Stage stage;

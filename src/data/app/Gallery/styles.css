@@ -1,0 +1,22 @@
+.gallery-scroll {
+    -fx-background-color: #1e1e1e;
+}
+.image-card {
+    -fx-background-color: #2a2a2a;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-cursor: hand;
+}
+.image-card:hover {
+    -fx-effect: dropshadow(three-pass-box, #00adb5, 12, 0, 0, 0);
+}
+.button {
+    -fx-background-color: #00adb5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+}
+.button:hover {
+    -fx-background-color: #007c82;
+}
