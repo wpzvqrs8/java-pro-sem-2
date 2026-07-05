@@ -81,7 +81,7 @@ public class Main extends Application {
     public Main() throws IOException {
     }
 
-    @FXML
+        @FXML
     public void initialize() {
         MAIN_SCENE = main_scene;
         main_scene.requestFocus();
@@ -311,8 +311,8 @@ root.requestFocus();
 //        main_scene.getChildren().setAll(root);
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Tic_Tac_Toe.class.getResource("loading_screen.fxml")));
+        root.setLayoutY(25);
         show_fxml(root);
-
 //        MAIN_SCENE.getChildren().setAll(root);
     }
     @FXML

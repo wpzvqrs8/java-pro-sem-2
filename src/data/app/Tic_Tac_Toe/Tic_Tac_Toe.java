@@ -54,6 +54,17 @@ public class Tic_Tac_Toe extends Application {
         stage.show();
 
     }
+    @FXML
+    public void initialize(){
+        System.out.println(btn0);
+        if(btn0!=null){
+            Button b[] = {btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8};
+
+            for (int i = 0; i < b.length; i++) {
+                b[i].setStyle("-fx-border-color: transparent; -fx-background-color: #f0e3c0;");
+            }
+        }
+    }
 
     static void main() {
         launch();
@@ -75,6 +86,7 @@ public class Tic_Tac_Toe extends Application {
 //            Scene scene = new Scene(root);
 //            stage.setScene(scene);
 //            stage.show();
+            root.setLayoutY(25);
             data.Main.MAIN_SCENE.getChildren().setAll(root);
             Main.prev_screen_stack.push(root);
 
@@ -101,6 +113,7 @@ public class Tic_Tac_Toe extends Application {
 //            Scene scene = new Scene(root);
 //            stage.setScene(scene);
 //            stage.show();
+            root.setLayoutY(25);
 
             data.Main.MAIN_SCENE.getChildren().setAll(root);
         } catch (Exception e) {
@@ -292,11 +305,11 @@ public class Tic_Tac_Toe extends Application {
                 if (player == 'X') {
                     b.setStyle("-fx-text-fill: #0324dd;" +
                             "-fx-font-size: 40px;" +
-                            "-fx-background-color: white;" +
+                            "-fx-background-color: #f0e3c0;" +
                             "-fx-border-color: transparent;");
                 } else b.setStyle("-fx-text-fill: #db0707;" +
                         "-fx-font-size: 40px;" +
-                        "-fx-background-color: white;" +
+                        "-fx-background-color: #f0e3c0;" +
                         "-fx-border-color: transparent;");
                 is_bot_move = false;
             }
@@ -307,11 +320,11 @@ public class Tic_Tac_Toe extends Application {
                 if (player == 'X') {
                     b.setStyle("-fx-text-fill: #0324dd;" +
                             "-fx-font-size: 40px;" +
-                            "-fx-background-color: white;" +
+                            "-fx-background-color: #f0e3c0;" +
                             "-fx-border-color: transparent;");
                 } else b.setStyle("-fx-text-fill: #db0707;" +
                         "-fx-font-size: 40px;" +
-                        "-fx-background-color: white;" +
+                        "-fx-background-color: #f0e3c0;" +
                         "-fx-border-color: transparent;");
                 switch (b.getId()) {
                     case "btn0" -> board[0][0] = player;
@@ -329,11 +342,11 @@ public class Tic_Tac_Toe extends Application {
                 if (player == 'X') {
                     b.setStyle("-fx-text-fill: #0324dd;" +
                             "-fx-font-size: 40px;" +
-                            "-fx-background-color: white;" +
+                            "-fx-background-color: #f0e3c0;" +
                             "-fx-border-color: transparent;");
                 } else b.setStyle("-fx-text-fill: #db0707;" +
                         "-fx-font-size: 40px;" +
-                        "-fx-background-color: white;" +
+                        "-fx-background-color: #f0e3c0;" +
                         "-fx-border-color: transparent;");
 
                 change_cell(event);
@@ -353,11 +366,11 @@ public class Tic_Tac_Toe extends Application {
             if (player == 'X') {
                 b.setStyle("-fx-text-fill: #0324dd;" +
                         "-fx-font-size: 40px;" +
-                        "-fx-background-color: white;" +
+                        "-fx-background-color: #f0e3c0;" +
                         "-fx-border-color: transparent;");
             } else b.setStyle("-fx-text-fill: #db0707;" +
                     "-fx-font-size: 40px;" +
-                    "-fx-background-color: white;" +
+                    "-fx-background-color: #f0e3c0;" +
                     "-fx-border-color: transparent;");
             switch (b.getId()) {
                 case "btn0" -> board[0][0] = player;
@@ -449,15 +462,15 @@ public class Tic_Tac_Toe extends Application {
         btn6.setText("");
         btn7.setText("");
         btn8.setText("");
-        btn0.setStyle("-fx-background-color: white;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn1.setStyle("-fx-background-color: white;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn2.setStyle("-fx-background-color: white;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn3.setStyle("-fx-background-color: white;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn4.setStyle("-fx-background-color: white;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn5.setStyle("-fx-background-color: white;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn6.setStyle("-fx-background-color: white;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn7.setStyle("-fx-background-color: white;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn8.setStyle("-fx-background-color: white;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        btn0.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        btn1.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        btn2.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        btn3.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        btn4.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        btn5.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        btn6.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        btn7.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        btn8.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
         move_no = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

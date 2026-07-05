@@ -56,6 +56,7 @@ public class Contacts extends Application {
         conn = DriverManager.getConnection(url, user, password);
             contacts_from_db = get_contents_from_database();
             contacts_list.setItems(contacts_from_db);
+            contacts_list.setCellFactory(list -> new ContactCell());
             System.out.println("Loaded contacts: " + contacts_from_db.size());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -167,6 +168,8 @@ public class Contacts extends Application {
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(getClass().getResource("add_new_contact.fxml"))
         );
+        root.setLayoutY(25);
+
 //        Main.prev_screen_stack.push(root);
         data.Main.MAIN_SCENE.getChildren().setAll(root);
 //        Main.prev_screen_stack.push((AnchorPane) root);
