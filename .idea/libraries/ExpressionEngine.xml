@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ExpressionEngine">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/referances/calculator_expression/ExpressionEngine.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

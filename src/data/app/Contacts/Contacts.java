@@ -163,16 +163,17 @@ public class Contacts extends Application {
     @FXML
     void add_contact(ActionEvent event) throws IOException {
         data.Main.prev = main_contact_frame;
+        Main.prev_prev = (AnchorPane) Main.home_screen_root;
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(getClass().getResource("add_new_contact.fxml"))
         );
-
+        Main.prev_screen_stack.push(main_contact_frame);
         data.Main.MAIN_SCENE.getChildren().setAll(root);
-
+        Main.prev_screen_stack.push((AnchorPane) root);
     }
      @FXML
     void save_new_contact(ActionEvent event){
-
+         Main.prev_screen_stack.push((AnchorPane) Main.home_screen_root);
 
     }
     @FXML
