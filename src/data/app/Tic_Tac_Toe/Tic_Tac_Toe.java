@@ -47,6 +47,8 @@ public class Tic_Tac_Toe extends Application {
 
         this.root = FXMLLoader.load(
                 getClass().getResource("loading_screen.fxml"));
+//        Main.prev_screen_stack.push(root);
+
         Scene scene = new Scene(this.root);
         stage.setScene(scene);
         stage.show();
@@ -63,7 +65,7 @@ public class Tic_Tac_Toe extends Application {
 //
 //            Main.prev.getChildren().setAll(root);
 
-            data.Main.prev = (AnchorPane) data.Main.MAIN_SCENE.getChildren().get(0);
+//            data.Main.prev = (AnchorPane) data.Main.MAIN_SCENE.getChildren().get(0);
             Parent root = FXMLLoader.load(
                     getClass().getResource("main_frame_player_computer.fxml"));
 //            Stage stage = (Stage) ((Node) event.getSource())
@@ -74,6 +76,7 @@ public class Tic_Tac_Toe extends Application {
 //            stage.setScene(scene);
 //            stage.show();
             data.Main.MAIN_SCENE.getChildren().setAll(root);
+            Main.prev_screen_stack.push(root);
 
 
 
@@ -87,10 +90,10 @@ public class Tic_Tac_Toe extends Application {
         try {
 //            Main.prev.getChildren().setAll(root);
 
-            data.Main.prev = (AnchorPane) data.Main.MAIN_SCENE.getChildren().get(0);
+//            data.Main.prev = (AnchorPane) data.Main.MAIN_SCENE.getChildren().get(0);
             Parent root = FXMLLoader.load(
                     getClass().getResource("main_frame_2player.fxml"));
-
+            Main.prev_screen_stack.push(root);
 //            Stage stage = (Stage) ((Node) event.getSource())
 //                    .getScene()
 //                    .getWindow();

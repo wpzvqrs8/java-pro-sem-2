@@ -114,6 +114,6 @@ public class get_sys_info {
         return !status.equals("1");
     }
     public String get_date_time_now(){
-        return  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        return  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'|'HH:mm:ss"));
     }
 }

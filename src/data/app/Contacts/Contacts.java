@@ -114,7 +114,7 @@ public class Contacts extends Application {
         }
          scene = new Scene(root);
         stage = new Stage();
-        Main.prev  = (AnchorPane)data.Main.home_screen_root;
+//        Main.prev  = (AnchorPane)data.Main.home_screen_root;
         stage.setScene(scene);
         stage.show();
 
@@ -162,25 +162,24 @@ public class Contacts extends Application {
 
     @FXML
     void add_contact(ActionEvent event) throws IOException {
-        data.Main.prev = main_contact_frame;
-        Main.prev_prev = (AnchorPane) Main.home_screen_root;
+//        data.Main.prev = main_contact_frame;
+//        Main.prev_prev = (AnchorPane) Main.home_screen_root;
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(getClass().getResource("add_new_contact.fxml"))
         );
-        Main.prev_screen_stack.push(main_contact_frame);
+//        Main.prev_screen_stack.push(root);
         data.Main.MAIN_SCENE.getChildren().setAll(root);
-        Main.prev_screen_stack.push((AnchorPane) root);
+//        Main.prev_screen_stack.push((AnchorPane) root);
     }
      @FXML
     void save_new_contact(ActionEvent event){
-         Main.prev_screen_stack.push((AnchorPane) Main.home_screen_root);
-
+//         Main.prev_screen_stack.push((AnchorPane) Main.home_screen_root);
     }
     @FXML
     private void save_object(ActionEvent event) {
         Object source = event.getSource();
 // add to local object - Contact new_contact
-        Main.prev = (AnchorPane) main_contact_frame;
+//        Main.prev = (AnchorPane) main_contact_frame;
 
         new_contact  = new Contact();
         if (source == name) {
@@ -217,7 +216,9 @@ public class Contacts extends Application {
     @FXML
     void  openContact(Contact contact) throws IOException {
         selected_from_list = contact;
-        Main.prev = (AnchorPane) main_contact_frame;
+//        Main.prev = (AnchorPane) main_contact_frame;
+//        Main.prev_screen_stack.push(main_contact_frame);
+
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(getClass().getResource("contact_info.fxml"))
         );

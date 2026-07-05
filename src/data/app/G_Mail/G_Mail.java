@@ -1,5 +1,6 @@
 package data.app.G_Mail;
 
+import data.Main;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +35,7 @@ public class G_Mail  extends Application {
         """);
             }
         });
+
 
     }
 

@@ -1,5 +1,6 @@
 package data.app.Calculator;
 
+import data.Main;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,7 @@ public class Calculator extends Application {
     public void start(Stage stage1) throws Exception {
         stage = stage1;
         Parent root  = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Calculator.fxml")));
+        Main.prev_screen_stack.push(root);
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -34,6 +36,8 @@ public class Calculator extends Application {
     @FXML
     public void initialize() throws IOException {
 //        history_list = new ListView<>();
+//        Parent root  = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Calculator.fxml")));
+//        Main.prev_screen_stack.push(root);
         System.out.println(history_list);
         System.out.println("init");
         if (history_list != null){
@@ -47,10 +51,15 @@ public class Calculator extends Application {
     }
     @FXML
     void show_history(ActionEvent event) throws IOException {
+
         Parent root  = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("History.fxml")));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+        root.setLayoutY(25);
+        Main.prev_screen_stack.push(root);
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        stage.setScene(new Scene(root));
+//        stage.show();
+        data.Main.MAIN_SCENE.getChildren().setAll(root);
+
     }
 
     void add_to_History_list(String calc){
