@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="file://E:/ProgramFiles/openjfx-26.0.1_windows-x64_bin-sdk/javafx-sdk-26.0.1/lib" />
       <root url="jar://$USER_HOME$/Downloads/postgresql-42.7.10.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/ExpressionEngine.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

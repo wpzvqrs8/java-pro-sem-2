@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="main_contact_frame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Contacts.Contacts">
    <children>
-      <ListView fx:id="contacts_list" layoutY="67.0" prefHeight="548.0" prefWidth="313.0" style="-fx-border-radius: 50;">
+      <ListView fx:id="contacts_list" layoutY="67.0" prefHeight="548.0" prefWidth="317.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></ListView>
@@ -18,7 +18,7 @@
             <Font name="Cambria Math" size="31.0" />
          </font>
       </Label>
-      <Button onAction="#add_contact" layoutX="257.0" layoutY="567.0" minWidth="39.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="39.0" text="+" textFill="#355aff" wrapText="true">
+      <Button layoutX="257.0" layoutY="567.0" minWidth="39.0" mnemonicParsing="false" onAction="#add_contact" prefHeight="32.0" prefWidth="39.0" text="+" textFill="#355aff" wrapText="true">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

@@ -1,5 +1,9 @@
 package data.app.G_Mail;
 
+<<<<<<< HEAD
+=======
+import data.Main;
+>>>>>>> main
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +39,10 @@ public class G_Mail  extends Application {
             }
         });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
     }
 
     private Scene scene;

@@ -4,9 +4,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.web.WebView?>
 
+<<<<<<< HEAD
 <AnchorPane prefHeight="600.0" prefWidth="350.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="gmail">
 
     <WebView fx:id="webView"
+=======
+<AnchorPane prefHeight="600.0" prefWidth="350.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="data.app.G_Mail.G_Mail">
+
+    <WebView fx:id="g_mail"
+>>>>>>> main
              layoutY="45.0"
              prefHeight="600.0"
              prefWidth="300.0"/>

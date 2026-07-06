@@ -2,6 +2,8 @@ package data.data.sys_data;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class get_sys_info {
 
@@ -110,5 +112,8 @@ public class get_sys_info {
         p.waitFor();
         p.destroy();
         return !status.equals("1");
+    }
+    public String get_date_time_now(){
+        return  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'|'HH:mm:ss"));
     }
 }
