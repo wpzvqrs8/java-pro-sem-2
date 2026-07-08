@@ -127,15 +127,14 @@ CREATE TABLE users (
                        name VARCHAR(100) NOT NULL,
                        mobile VARCHAR(15) UNIQUE NOT NULL,
                        upi_id VARCHAR(50) UNIQUE,
-                       pin VARCHAR(10) NOT NULL,
-                       balance DOUBLE PRECISION DEFAULT 0,
+                       pin VARCHAR(4) NOT NULL,
+                       balance DOUBLE PRECISION DEFAULT 10000,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        blocked BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE transactions (
                               txn_id SERIAL PRIMARY KEY,
-
                               from_user_id INT,
                               to_user_id INT,
 
@@ -144,7 +143,6 @@ CREATE TABLE transactions (
 
                               amount DOUBLE PRECISION NOT NULL,
 
-                              txn_type VARCHAR(30),   -- UPI, Recharge, Bill, FASTAG etc
                               status VARCHAR(20),     -- SUCCESS, FAILED
 
                               created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

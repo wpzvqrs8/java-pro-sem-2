@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Payment.payment">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="300.0">
+         <children>
+            <Label prefHeight="28.0" prefWidth="300.0" text="Your Past Transactions :">
+               <font>
+                  <Font name="Calibri" size="17.0" />
+               </font>
+            </Label>
+            <ListView prefHeight="572.0" prefWidth="300.0" fx:id="trans_history_list" />
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="30.0" layoutY="544.0" prefHeight="47.0" prefWidth="243.0" style="-fx-border-color: black; -fx-border-radius: 9999; -fx-background-radius: 9999; -fx-border-width: 2; -fx-background-color: #FF7909;" AnchorPane.leftAnchor="27.5" AnchorPane.rightAnchor="27.5">
+         <children>
+            <Button fx:id="pay_screen_button" mnemonicParsing="false" onAction="#open_payment" prefHeight="43.0" prefWidth="126.0" style="-fx-border-radius: 9999; -fx-background-radius: 9999; -fx-background-color: null;" text="Payment" textFill="WHITE">
+               <font>
+                  <Font name="Candara" size="21.0" />
+               </font>
+            </Button>
+            <Button fx:id="open_transactions_button" mnemonicParsing="false" onAction="#open_transactions" prefHeight="43.0" prefWidth="128.0" style="-fx-background-radius: 9999; -fx-border-radius: 9999; -fx-background-color: #018B3D;" text="Transactions" textFill="WHITE">
+               <font>
+                  <Font name="Candara" size="18.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+   </children>
+</AnchorPane>

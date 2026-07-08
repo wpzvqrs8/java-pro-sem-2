@@ -1,4 +1,42 @@
 contact-cell-idea/code
 system-info-code
-Expression_evaluation-code
+Expression_evaluation-code(not in use)
 SQL- queries wrting and dummy data
+
+-
+        results.clear();
+
+        String search = search_bar.getText();
+
+        String sql = """
+            SELECT name, mobile, upi_id
+            FROM users
+            WHERE name ILIKE ?
+            OR mobile ILIKE ?
+            OR upi_id ILIKE ?
+            """;
+
+        try {
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, "%" + search + "%");
+            ps.setString(2, "%" + search + "%");
+            ps.setString(3, "%" + search + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                String data =
+                        rs.getString("name") + " | "
+                                + rs.getString("mobile") + " | "
+                                + rs.getString("upi_id");
+
+                results.add(data);
+            }
+
+            result_list.setItems(results);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }

@@ -1,4 +1,4 @@
-package data.app.Contacts;
+package data.app.Payment;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -17,22 +17,11 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
 
-public class contact_cell{
+public class transaction_cell{
 
     @FXML
-    Label intital_avatar,display_name,display_no,is_fav;
-    public void set_contact_cell(Contact c){
-        intital_avatar.setStyle("-fx-font-size:16px; -fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color:black; -fx-background-color:"+get_random_hex()+";");
+    Label display_upi_id,display_amount;
 
-        display_name.setStyle("-fx-font-size:16px;");
-        display_no.setStyle("-fx-font-size:12px;");
-        if(c.favorite) is_fav.setVisible(true);
-        is_fav.setStyle("-fx-text-fill:gold;-fx-font-size:20px;");
-        String  s[] = c.name.split(" ");
-        intital_avatar.setText(""+s[0].charAt(0)+s[1].charAt(0));
-        display_name.setText(c.name);
-        display_no.setText(c.phoneNumber);
-    }
 
     String get_random_hex(){
         String[] fx_colors = {"#90ced6","#fa985f","#678de6","#d1a4de","#597ccf","#87dea4","#e3af98","#ed7a07","#ed9a9a","#a0e3f2","#faae82","#61c7a2","#a1f7c9","#eb98a5","#90ced6","#fa985f","#678de6","#d1a4de","#597ccf","#87dea4","#e3af98","#ed7a07","#ed9a9a","#a0e3f2","#faae82","#61c7a2","#a1f7c9","#eb98a5","#90ced6","#fa985f","#678de6","#d1a4de","#597ccf","#87dea4","#e3af98","#ed7a07","#ed9a9a","#a0e3f2","#faae82","#61c7a2","#a1f7c9","#eb98a5"};
@@ -42,13 +31,13 @@ public class contact_cell{
 
 
 //A.I.
-class ContactCell extends ListCell<Contact> {
+class TransactionCell extends ListCell<Transaction> {
 
     @Override
-    protected void updateItem(Contact contact, boolean empty) {
-        super.updateItem(contact, empty);
+    protected void updateItem(Transaction t, boolean empty) {
+        super.updateItem(t, empty);
 
-        if (empty || contact == null) {
+        if (empty || t == null) {
             setGraphic(null);
             setText(null);
         } else {
@@ -56,12 +45,12 @@ class ContactCell extends ListCell<Contact> {
             try {
 
                 FXMLLoader loader =
-                        new FXMLLoader(getClass().getResource("contact_cell.fxml"));
+                        new FXMLLoader(getClass().getResource("transaction_cell.fxml"));
 
                 Parent root = loader.load();
                 root.setLayoutX(30);
-                contact_cell controller = loader.getController();
-                controller.set_contact_cell(contact);
+//                data.app.Contacts.contact_cell controller = loader.getController();
+//                controller.set_contact_cell(t);
 
                 setGraphic(root);
 
@@ -73,4 +62,14 @@ class ContactCell extends ListCell<Contact> {
 
 
 
+}
+
+class Transaction {
+    String  to_user_id,  to_upi, amount ;
+
+    public Transaction(String to_user_id, String to_upi, String amount) {
+        this.to_user_id = to_user_id;
+        this.to_upi = to_upi;
+        this.amount = amount;
+    }
 }
