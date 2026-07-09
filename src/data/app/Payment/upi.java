@@ -92,10 +92,10 @@ void show_warning() {
             RandomAccessFile raf = new RandomAccessFile("C:\\Users\\Admin\\IdeaProjects\\Java-2_Project\\src\\data\\data\\user_login_data.txt","rw");
 
 
-            raf.writeUTF(name_s);
-            raf.writeUTF(country_code_s+phoneNumber_s);
-            raf.writeUTF(upi_id_s);
-            raf.writeUTF(upi_password_s);
+            raf.write((name_s+"\n").getBytes());
+            raf.write((country_code_s+phoneNumber_s+"\n").getBytes());
+            raf.write((upi_id_s+"\n").getBytes());
+            raf.write((upi_password_s).getBytes());
         }
     }
     @FXML

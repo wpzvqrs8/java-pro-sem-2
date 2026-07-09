@@ -28,8 +28,13 @@ public class contact_cell{
         display_no.setStyle("-fx-font-size:12px;");
         if(c.favorite) is_fav.setVisible(true);
         is_fav.setStyle("-fx-text-fill:gold;-fx-font-size:20px;");
-        String  s[] = c.name.split(" ");
-        intital_avatar.setText(""+s[0].charAt(0)+s[1].charAt(0));
+        try {
+            String  s[] = c.name.split(" ");
+            intital_avatar.setText("" + s[0].charAt(0) + s[1].charAt(0));
+        }
+        catch (Exception e){
+            intital_avatar.setText(""+c.name.charAt(0));
+        }
         display_name.setText(c.name);
         display_no.setText(c.phoneNumber);
     }

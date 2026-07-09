@@ -14,7 +14,7 @@
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(to bottom right, #e8f5e9, #9eeb86);">
          <children>
-            <VBox layoutX="-1.0" layoutY="24.0" prefHeight="533.0" prefWidth="295.0" style="-fx-background-color: bottlegreen;">
+            <VBox layoutX="-1.0" layoutY="24.0" prefHeight="533.0" prefWidth="295.0" >
                <children>
                   <VBox prefHeight="83.0" prefWidth="323.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black; -fx-background-color: #7abf9b;">
                      <children>
@@ -60,7 +60,7 @@
                                     <Insets top="-7.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" prefHeight="25.0" prefWidth="60.0" promptText="Country code" style="-fx-background-color: #b0f7de;" text="91">
+                              <TextField alignment="CENTER" prefHeight="25.0" prefWidth="60.0" promptText="Country code" style="-fx-background-color: #b0f7de;" text="91" fx:id="country_code">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -174,7 +174,7 @@
                      </VBox.margin>
                   </HBox>
                   <Label prefHeight="17.0" prefWidth="64.0" />
-                  <CheckBox fx:id="favorite" mnemonicParsing="false" onAction="#save_object" prefHeight="17.0" prefWidth="159.0" style="-fx-border-color: 10;" text="Add To Favorite">
+                  <CheckBox fx:id="favorite" mnemonicParsing="false" onAction="#save_object" prefHeight="17.0" prefWidth="159.0" style="" text="Add To Favorite">
                      <padding>
                         <Insets left="10.0" />
                      </padding>

@@ -8,6 +8,7 @@ import data.app.Browser.Browser;
 import data.app.Calculator.Calculator;
 import data.app.Contacts.Contacts;
 import data.app.G_Mail.G_Mail;
+import data.app.Payment.upi;
 import data.app.Tic_Tac_Toe.Tic_Tac_Toe;
 import data.app.Youtube.Youtube;
 import data.data.sys_data.get_sys_info;
@@ -358,7 +359,10 @@ root.requestFocus();
     }
     @FXML
     void payment_app(ActionEvent event)throws Exception {
-        System.out.println("remaining");
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(upi.class.getResource("login_screen.fxml")));
+        root.setLayoutY(25);
+        show_fxml(root);
     }
     @FXML
     void clock(ActionEvent event)throws Exception{

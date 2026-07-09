@@ -1,11 +1,13 @@
 package data.app.Payment;
 
+import data.Main;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -13,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
@@ -35,10 +38,12 @@ public class payment extends Application {
     public static String name_s,phoneNumber_s,country_code_s,upi_id_s,upi_password_s;
 
     public static void get_user_details() throws IOException {
-
-        List<String> ls = Files.readAllLines(Path.of("C:\\Users\\Admin\\IdeaProjects\\Java-2_Project\\src\\data\\data\\user_login_data.txt"));
-//        System.out.println(name_s+phoneNumber_s);
-        System.out.println(ls);
+        RandomAccessFile raf = new RandomAccessFile("C:\\Users\\Admin\\IdeaProjects\\Java-2_Project\\src\\data\\data\\user_login_data.txt","rw");
+        name_s=raf.readLine();
+        phoneNumber_s = raf.readLine();
+        upi_id_s = raf.readLine();
+        upi_password_s = raf.readLine();
+        System.out.println(name_s+upi_id_s+upi_password_s);
     }
 
 
@@ -122,18 +127,25 @@ public class payment extends Application {
 
         System.out.println("t");
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("transaction_history.fxml")))));
 
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("transaction_history.fxml")));
+        stage.setScene(new Scene(root));
+//        Main.MAIN_SCENE.getChildren().setAll(root);
     }
     @FXML
     public void open_payment(ActionEvent event) throws IOException {
+
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("payment.fxml")))));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("payment.fxml")));
+        stage.setScene(new Scene(root));
+//        Main.MAIN_SCENE.getChildren().setAll(root);
         System.out.println("pay");
     }
-    void get_transactions_db() throws SQLException {
-
-        PreparedStatement ps = conn.prepareStatement("select * from transactions");
+    void get_transactions_db() throws Exception {
+        get_user_details();
+        String  qry = "select * from transactions where from_upi = '"+upi_id_s+"' OR to_upi = '"+upi_id_s+"'";
+        System.out.println(qry);
+        PreparedStatement ps = conn.prepareStatement(qry);
         ResultSet rs = ps.executeQuery();
         transactions.clear();
         while (rs.next()) {

@@ -28,12 +28,12 @@ public class Contacts extends Application {
     @FXML
     private ListView<Contact> contacts_list  = new ListView<>();
     @FXML
-    TextField name,phoneNumber,email, category, company,notes, address;
+    TextField name,country_code,phoneNumber,email, category, company,notes, address;
     @FXML
     CheckBox favorite;
     @FXML
     Button save_new_button;
-    Contact new_contact;// local contact..
+    static Contact new_contact  = new Contact();;// local contact..
     @FXML
     AnchorPane main_contact_frame;
     @FXML
@@ -176,46 +176,106 @@ public class Contacts extends Application {
 //        Main.prev_screen_stack.push((AnchorPane) root);
     }
      @FXML
-    void save_new_contact(ActionEvent event){
+    void save_new_contact(ActionEvent event) throws Exception{
 //         Main.prev_screen_stack.push((AnchorPane) Main.home_screen_root);
+         String new_contact_query = "INSERT INTO contacts(name,phone_number,email,category,address,company,notes,favorite) VALUES(?,?,?,?,?,?,?,?)";
+         PreparedStatement statement = conn.prepareStatement(new_contact_query);
+         statement.setString(1,new_contact.name);
+         statement.setString(2,new_contact.phoneNumber);
+         statement.setString(3,new_contact.email);
+         statement.setString(4,new_contact.category);
+         statement.setString(5,new_contact.address);
+         statement.setString(6,new_contact.company);
+         statement.setString(7,new_contact.notes);
+         statement.setBoolean(8,new_contact.favorite);
+         int row = statement.executeUpdate();
+         if(row>0){
+             System.out.println("New contact added");
+             Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+         }else{
+             System.out.println("New contact is not added");
+         }
     }
+
+
     @FXML
-    private void save_object(ActionEvent event) {
+    private void save_object(ActionEvent event) throws Exception {
+//        Object source = event.getSource();
+//// add to local object - Contact new_contact
+////        Main.prev = (AnchorPane) main_contact_frame;
+//        new_contact  = new Contact();
+
         Object source = event.getSource();
 // add to local object - Contact new_contact
 //        Main.prev = (AnchorPane) main_contact_frame;
 
-        new_contact  = new Contact();
         if (source == name) {
             // name
             new_contact.name = ((TextField)source).getText();
             // do same for all the fields ...
-            phoneNumber.requestFocus();
-        } else if (source == phoneNumber) {
+            if(new_contact.name!=null)
+                phoneNumber.requestFocus();
+            else save_new_button.setVisible(false);
+        } else if (source == country_code) {
+            //phone number
+            if(country_code.getText().length()>3){
+                new_contact.phoneNumber = "+"+country_code.getText().substring(0,4);
+            }
+            if(country_code.getText().toUpperCase().equals(country_code.getText().toLowerCase()))
+                phoneNumber.requestFocus();
+            else save_new_button.setVisible(false);
+        }
+        else if (source == phoneNumber) {
+            //phone number
+            new_contact.phoneNumber = phoneNumber.getText();
+            if(new_contact.phoneNumber.length()>10){
+                new_contact.phoneNumber += new_contact.phoneNumber.substring(0,11);
+            }
             email.requestFocus();
         } else if (source == email) {
+            //email
+            new_contact.email = ((TextField)source).getText();
+            if(new_contact.email.length()>100){
+                new_contact.email = new_contact.email.substring(0,101);
+            }
             category.requestFocus();
         }
         else if (source == company) {
+            //company
+            new_contact.company = ((TextField)source).getText();
+            if(new_contact.company.length()>100){
+                new_contact.company = new_contact.company.substring(0,101);
+            }
             notes.requestFocus();
         } else if (source == address) {
+            //address
+            new_contact.address = ((TextField)source).getText();
+            if(new_contact.address.length()>255){
+                new_contact.address = new_contact.address.substring(0,255);
+            }
             company.requestFocus();
         }
         else if (source == category) {
+            //category
+            new_contact.category = ((TextField)source).getText();
+            if(new_contact.category.length()>50){
+                new_contact.category = new_contact.category.substring(0,51);
+            }
             address.requestFocus();
         } else if (source == notes) {
+            //notes
+            new_contact.notes = ((TextField)source).getText();
+
             favorite.requestFocus();
         } else if (source == favorite) {
+            //favourite
+            new_contact.favorite = ((CheckBox) source).isSelected();
             save_new_button.requestFocus();
         }
 
-        try {
-            System.out.println(((TextField)source).getId()+"-"+((TextField)source).getText());
-        }catch (Exception e){
-            System.out.println(((CheckBox)source).getId()+"-"+((CheckBox)source).isSelected());
-        }
-
     }
+
 
     @FXML
     void  openContact(Contact contact) throws IOException {
