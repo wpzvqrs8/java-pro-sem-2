@@ -1,7 +1,7 @@
 package data;
 /*
 
- --module-path "E:\ProgramFiles\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.web --add-exports javafx.graphics/com.sun.javafx.util=ALL-UNNAMED --enable-native-access=javafx.media
+     --module-path "E:\ProgramFiles\openjfx-26.0.1_windows-x64_bin-sdk\javafx-sdk-26.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.web --add-exports javafx.graphics/com.sun.javafx.util=ALL-UNNAMED --enable-native-access=javafx.media
                 ^ your fx folder path
  */
 import data.app.Browser.Browser;

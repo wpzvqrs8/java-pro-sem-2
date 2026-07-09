@@ -46,6 +46,7 @@ public class Contacts extends Application {
     private Label others_label;
     static Contact selected_from_list;
     static boolean done_init = false;
+
     @FXML
     public void initialize()  {
 

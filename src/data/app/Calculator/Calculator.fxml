@@ -9,82 +9,82 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Calculator.Calculator">
     <children>
-        <Button alignment="CENTER" layoutX="14.0" layoutY="488.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="1" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="14.0" layoutY="488.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="1" onAction="#one" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="75.0" layoutY="488.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="2" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="75.0" layoutY="488.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="2" onAction="#two" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="136.0" layoutY="488.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="3" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="136.0" layoutY="488.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="3" onAction="#three" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="75.0" layoutY="537.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="." textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="75.0" layoutY="537.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="." onAction="#dot" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="136.0" layoutY="537.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="=" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="136.0" layoutY="537.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="=" onAction="#equal" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="14.0" layoutY="537.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="0" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="14.0" layoutY="537.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="0" onAction="#zero" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="14.0" layoutY="439.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="4" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="14.0" layoutY="439.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="4" onAction="#four" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="75.0" layoutY="439.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="5" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="75.0" layoutY="439.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="5" onAction="#five" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="136.0" layoutY="439.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="6" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="136.0" layoutY="439.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="6" onAction="#six" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="14.0" layoutY="390.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="7" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="14.0" layoutY="390.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="7" onAction="#seven" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="75.0" layoutY="390.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="8" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="75.0" layoutY="390.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="8" onAction="#eight" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="136.0" layoutY="390.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="9" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="136.0" layoutY="390.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="9" onAction="#nine" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="197.0" layoutY="537.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="76.0" text="+" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="197.0" layoutY="537.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="76.0" text="+" onAction="#addition" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="197.0" layoutY="488.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="76.0" text="-" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="197.0" layoutY="488.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="76.0" text="-" onAction="#subtraction" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="197.0" layoutY="439.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="76.0" text="*" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="197.0" layoutY="439.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="76.0" text="*" onAction="#multiplication" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="197.0" layoutY="390.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="76.0" text="/" textAlignment="JUSTIFY">
+        <Button alignment="CENTER" layoutX="197.0" layoutY="390.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="76.0" text="/" onAction="#division" textAlignment="JUSTIFY">
             <font>
                 <Font size="18.0" />
             </font>
@@ -95,7 +95,7 @@
             </font>
         </Label>
         <Button onAction="#show_history" alignment="CENTER" layoutX="214.0" layoutY="18.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="61.0" text="History" textAlignment="JUSTIFY" />
-        <TextField alignment="CENTER_RIGHT" blendMode="DARKEN" editable="false" layoutX="14.0" layoutY="307.0" prefHeight="39.0" prefWidth="262.0" promptText="0">
+        <TextField fx:id="expression_text" alignment="CENTER_RIGHT" blendMode="DARKEN" editable="false" layoutX="14.0" layoutY="307.0" prefHeight="39.0" prefWidth="262.0" promptText="0">
             <font>
                 <Font size="18.0" />
             </font>
