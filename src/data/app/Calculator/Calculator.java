@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -175,5 +176,14 @@ public class Calculator extends Application {
             }
         }
 
+    }
+    public void remove(ActionEvent event){
+        if (expression_text != null && !expression.isEmpty()) {
+            expression_text.setText(expression.substring(0, expression.length() - 2));
+        }
+    }
+    public void removeAll(ActionEvent event){
+        expression_text.clear();
+        expression = "";
     }
 }
