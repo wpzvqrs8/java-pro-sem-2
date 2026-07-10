@@ -23,7 +23,7 @@ import java.util.Objects;
 public class Contacts extends Application {
     static String url = "jdbc:postgresql://localhost:5432/java_2_pro";
     static String user = "postgres";
-    static String password = "postgres";
+    static String password = "admin";
     static Connection conn;
     @FXML
     private ListView<Contact> contacts_list  = new ListView<>();

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600"
+            prefWidth="300"
+            stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="data.app.Clock.TimerController">
+
+    <children>
+
+        <VBox alignment="TOP_CENTER"
+              spacing="20"
+              AnchorPane.topAnchor="0"
+              AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0">
+
+            <padding>
+                <Insets top="15"/>
+            </padding>
+
+            <children>
+
+                <Label text="Timer">
+
+                    <font>
+
+                        <Font size="24"/>
+
+                    </font>
+
+                </Label>
+
+                <Separator prefWidth="280"/>
+
+                <HBox alignment="CENTER"
+                      spacing="10">
+
+                    <children>
+
+                        <Spinner fx:id="spMinute"
+                                 prefWidth="70"/>
+
+                        <Label text=":"/>
+
+                        <Spinner fx:id="spSecond"
+                                 prefWidth="70"/>
+
+                    </children>
+
+                </HBox>
+
+                <Label fx:id="lblTimer"
+                       text="00:00">
+
+                    <font>
+
+                        <Font size="42"/>
+
+                    </font>
+
+                </Label>
+
+                <HBox alignment="CENTER"
+                      spacing="15">
+
+                    <children>
+
+                        <Button text="Start"
+                                onAction="#startTimer"/>
+
+                        <Button text="Stop"
+                                onAction="#stopTimer"/>
+
+                        <Button text="Reset"
+                                onAction="#resetTimer"/>
+
+                    </children>
+
+                </HBox>
+
+                <Button text="← Back"
+                        onAction="#backHome"/>
+
+
+            </children>
+
+        </VBox>
+
+    </children>
+
+</AnchorPane>

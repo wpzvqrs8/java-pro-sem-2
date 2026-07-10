@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="300.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="data.app.Clock.ClockController">
+
+   <children>
+
+      <VBox alignment="TOP_CENTER"
+            prefHeight="600"
+            prefWidth="300"
+            stylesheets="@style.css"
+            spacing="15"
+            AnchorPane.topAnchor="0"
+            AnchorPane.bottomAnchor="0"
+            AnchorPane.leftAnchor="0"
+            AnchorPane.rightAnchor="0">
+
+         <padding>
+            <Insets top="15" left="10" right="10" bottom="10"/>
+         </padding>
+
+         <children>
+
+            <Label fx:id="lblTime" text="08:45:00">
+               <font>
+                  <Font name="Segoe UI" size="40"/>
+               </font>
+            </Label>
+
+            <Label fx:id="lblDate" text="Thursday, July 10"/>
+
+            <Separator prefWidth="280"/>
+
+            <Label text="Alarm">
+               <font>
+                  <Font size="18"/>
+               </font>
+            </Label>
+
+            <HBox alignment="CENTER" spacing="10">
+
+               <children>
+
+                  <Spinner fx:id="spHour"
+                           prefWidth="70"/>
+
+                  <Label text=":"/>
+
+                  <Spinner fx:id="spMinute"
+                           prefWidth="70"/>
+
+               </children>
+
+            </HBox>
+
+            <Button fx:id="btnAddAlarm"
+                    text="Add Alarm"
+                    onAction="#addAlarm"
+                    prefWidth="180"/>
+
+            <ListView fx:id="alarmList"
+                      prefHeight="220"
+                      prefWidth="280"/>
+
+            <HBox alignment="CENTER"
+                  spacing="15">
+
+               <children>
+
+                  <Button text="World Clock"
+                          onAction="#openWorldClock"/>
+
+                  <Button text="Timer"
+                          onAction="#openTimer"/>
+
+               </children>
+
+            </HBox>
+
+         </children>
+
+      </VBox>
+
+   </children>
+
+</AnchorPane>

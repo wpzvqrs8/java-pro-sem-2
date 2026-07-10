@@ -1,0 +1,164 @@
+/* =========================
+   ROOT
+========================= */
+
+.root{
+    -fx-background-color:#111827;
+    -fx-font-family:"Segoe UI";
+}
+
+/* =========================
+   LABELS
+========================= */
+
+.label{
+    -fx-text-fill:white;
+}
+
+#lblTime{
+    -fx-font-size:42px;
+    -fx-font-weight:bold;
+    -fx-text-fill:#ffffff;
+}
+
+#lblDate{
+    -fx-font-size:16px;
+    -fx-text-fill:#bfc7d5;
+}
+
+#lblTimer{
+    -fx-font-size:42px;
+    -fx-font-weight:bold;
+    -fx-text-fill:#00c8ff;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.button{
+
+    -fx-background-color:#1f6feb;
+
+    -fx-background-radius:15;
+
+    -fx-text-fill:white;
+
+    -fx-font-size:14px;
+
+    -fx-font-weight:bold;
+
+    -fx-cursor:hand;
+
+}
+
+.button:hover{
+
+    -fx-background-color:#388bfd;
+
+}
+
+.button:pressed{
+
+    -fx-background-color:#1158c7;
+
+}
+
+/* =========================
+   SPINNER
+========================= */
+
+.spinner{
+
+    -fx-background-color:#1f2937;
+
+    -fx-background-radius:10;
+
+}
+
+.spinner .text-field{
+
+    -fx-background-color:#1f2937;
+
+    -fx-text-fill:white;
+
+    -fx-font-size:15px;
+
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button{
+
+    -fx-background-color:#2563eb;
+
+}
+
+/* =========================
+   LIST VIEW
+========================= */
+
+.list-view{
+
+    -fx-background-color:#1f2937;
+
+    -fx-background-radius:15;
+
+    -fx-border-radius:15;
+
+    -fx-border-color:#374151;
+
+}
+
+.list-cell{
+
+    -fx-background-color:#1f2937;
+
+    -fx-text-fill:white;
+
+    -fx-font-size:14px;
+
+}
+
+.list-cell:filled:selected{
+
+    -fx-background-color:#2563eb;
+
+}
+
+/* =========================
+   SCROLL PANE
+========================= */
+
+.scroll-pane{
+
+    -fx-background:#111827;
+
+    -fx-background-color:#111827;
+
+}
+
+.scroll-pane > .viewport{
+
+    -fx-background-color:#111827;
+
+}
+
+/* =========================
+   SEPARATOR
+========================= */
+
+.separator *.line{
+
+    -fx-border-color:#374151;
+
+}
+
+/* =========================
+   VBOX
+========================= */
+
+.vbox{
+
+    -fx-background-color:#111827;
+
+}
