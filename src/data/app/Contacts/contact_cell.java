@@ -23,7 +23,6 @@ public class contact_cell{
     Label intital_avatar,display_name,display_no,is_fav;
     public void set_contact_cell(Contact c){
         intital_avatar.setStyle("-fx-font-size:16px; -fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color:black; -fx-background-color:"+get_random_hex()+";");
-
         display_name.setStyle("-fx-font-size:16px;");
         display_no.setStyle("-fx-font-size:12px;");
         if(c.favorite) is_fav.setVisible(true);

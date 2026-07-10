@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,25 +33,35 @@ public class payment extends Application {
     @FXML
     ListView<String> result_list;
     @FXML
-    ListView<String> trans_history_list;
+    ListView<Transaction> trans_history_list;
     @FXML
     TextField search_bar;
 
     public static String name_s,phoneNumber_s,country_code_s,upi_id_s,upi_password_s;
 
     public static void get_user_details() throws IOException {
-        RandomAccessFile raf = new RandomAccessFile("C:\\Users\\Admin\\IdeaProjects\\Java-2_Project\\src\\data\\data\\user_login_data.txt","rw");
+        /*
+        RandomAccessFile raf = new RandomAccessFile("C:\\Users\\Admin\\IdeaProjects\\Java-2_Project\\src\\data\\data\\user_login_data.bin","rw");
         name_s=raf.readLine();
         phoneNumber_s = raf.readLine();
         upi_id_s = raf.readLine();
         upi_password_s = raf.readLine();
+
+        */
+        //OR
+
+        name_s=Main.user_details[0];
+        phoneNumber_s =Main.user_details[1];
+        upi_id_s =Main.user_details[2];
+        upi_password_s =Main.user_details[3];
         System.out.println(name_s+upi_id_s+upi_password_s);
+
     }
 
 
 
     ObservableList<String> results = FXCollections.observableArrayList();
-    ObservableList<String> transactions = FXCollections.observableArrayList();
+    ObservableList<Transaction> t_list = FXCollections.observableArrayList();
 
     static {
 
@@ -75,8 +87,11 @@ public class payment extends Application {
         if (trans_history_list != null) {
             try {
                 get_transactions_db();
+                trans_history_list.setItems(t_list);
+                trans_history_list.setCellFactory(list->new TransactionCell());
             } catch (Exception e) { }
         }
+
     }
     @FXML
     public void show_results(){
@@ -124,30 +139,30 @@ public class payment extends Application {
     }
     @FXML
     public void open_transactions(ActionEvent event) throws IOException, SQLException {
-
-        System.out.println("t");
-        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("transaction_history.fxml")));
-        stage.setScene(new Scene(root));
+        root.setLayoutY(25);
+        data.Main.MAIN_SCENE.getChildren().setAll(root);
 //        Main.MAIN_SCENE.getChildren().setAll(root);
     }
     @FXML
     public void open_payment(ActionEvent event) throws IOException {
 
-        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("payment.fxml")));
-        stage.setScene(new Scene(root));
+        root.setLayoutY(25);
+        data.Main.MAIN_SCENE.getChildren().setAll(root);
 //        Main.MAIN_SCENE.getChildren().setAll(root);
         System.out.println("pay");
     }
     void get_transactions_db() throws Exception {
         get_user_details();
-        String  qry = "select * from transactions where from_upi = '"+upi_id_s+"' OR to_upi = '"+upi_id_s+"'";
-        System.out.println(qry);
+        String  qry = "select * from transactions where from_upi = ? OR to_upi = ?";
         PreparedStatement ps = conn.prepareStatement(qry);
+        ps.setString(1,upi_id_s);
+        ps.setString(2,upi_id_s);
+        System.out.println(qry);
         ResultSet rs = ps.executeQuery();
-        transactions.clear();
+//        transactions.clear();
         while (rs.next()) {
 //                              from_user_id INT,
 //                              to_user_id INT,
@@ -165,9 +180,10 @@ public class payment extends Application {
                             + rs.getString("status")+ " | "
                             + rs.getTimestamp("created_at");
             if(rs.getString("from_upi").equals(upi_id_s)||rs.getString("to_upi").equals(upi_id_s))
-            transactions.add(data);
+//            transactions.add(data);
+            if( rs.getString("to_upi").equals(upi_id_s)) t_list.add(new Transaction(rs.getString("from_upi"),rs.getString("amount"),false));
+            if( rs.getString("from_upi").equals(upi_id_s)) t_list.add(new Transaction(rs.getString("to_upi"),rs.getString("amount"),true));
         }
-        trans_history_list.setItems(transactions);
     }
 
 }

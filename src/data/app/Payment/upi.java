@@ -1,4 +1,5 @@
 package data.app.Payment;
+import data.Main;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -12,11 +13,9 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class upi extends Application {
@@ -35,7 +34,7 @@ public class upi extends Application {
     HBox invalid_warning_message;
     static boolean valid_values = true;
     static payment payment_app_open  = new payment();
-    String name_s,phoneNumber_s,country_code_s,upi_id_s,upi_password_s;
+    static String name_s,phoneNumber_s,country_code_s,upi_id_s,upi_password_s;
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("login_screen.fxml"))));
@@ -55,7 +54,10 @@ public class upi extends Application {
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() throws Exception{
+        if(Main.logined)
+            payment_app_open.open_transactions(new ActionEvent());
+
         login_button.setDisable(true);
         country_code_s = "+91";
         invalid_warning_message.setVisible(false);
@@ -78,24 +80,61 @@ void show_warning() {
             name.requestFocus();
         }
         else {
-//            A.I. as i fel lzy
 
-            String sql = "INSERT INTO users (name, mobile, upi_id, pin) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, name_s);
-            ps.setString(2, country_code_s + phoneNumber_s);
-            ps.setString(3, upi_id_s);
-            ps.setString(4, upi_password_s);
-            System.out.println(ps.executeUpdate()>0?"done":"err");
-         payment_app_open.open_transactions(event);
+//            A.I. as i feel lzy
+
+            try {
+                String sql = "INSERT INTO users (name, mobile, upi_id, pin) VALUES (?, ?, ?, ?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, name_s);
+                ps.setString(2, country_code_s + phoneNumber_s);
+                ps.setString(3, upi_id_s);
+                ps.setString(4, upi_password_s);
+                System.out.println(sql);
+                if(ps.executeUpdate()>0)payment_app_open.open_transactions(event);
+
+
+            } catch (SQLException e) {
+                e.getStackTrace();
+                System.out.println("here");
+                try {
+                    String sql = "SELECT * from users where upi_id = ? and pin = ? ";
+                    PreparedStatement ps_new = conn.prepareStatement(sql);
+                    ps_new.setString(1,upi_id_s);
+                    ps_new.setString(2,  upi_password_s);
+                    ResultSet rs = ps_new.executeQuery();
+
+                    if (rs.next()){
+                        Main.user_details[0] = rs.getString("name");
+                        Main.user_details[1] = rs.getString("mobile");
+                        Main.user_details[2] = rs.getString("upi_id");
+                        Main.user_details[3] = rs.getString("pin");
+                        System.out.println(Arrays.toString(Main.user_details));
+                        payment_app_open.open_transactions(event);
+                    }
+                    else {
+
+                        show_warning();
+                        System.out.println("user not found");
+                    }
+
+
+                    System.out.println(ps_new.executeUpdate()>0?"done":"err");
+                } catch (SQLException ex) {
+                    ex.getStackTrace();
+                    return;
+                }
+            }
 //         payment_app_open.set_user_details(name_s,phoneNumber_s,country_code_s,upi_id_s,upi_password_s);
-            RandomAccessFile raf = new RandomAccessFile("C:\\Users\\Admin\\IdeaProjects\\Java-2_Project\\src\\data\\data\\user_login_data.txt","rw");
-
-
+            RandomAccessFile raf = new RandomAccessFile("C:\\Users\\Admin\\IdeaProjects\\Java-2_Project\\src\\data\\data\\user_login_data.bin","rw");
             raf.write((name_s+"\n").getBytes());
             raf.write((country_code_s+phoneNumber_s+"\n").getBytes());
             raf.write((upi_id_s+"\n").getBytes());
             raf.write((upi_password_s).getBytes());
+            Main.user_details[0] = name_s;
+            Main.user_details[1] = country_code_s+phoneNumber_s;
+            Main.user_details[2] = upi_id_s;
+            Main.user_details[3 ] = upi_password_s;
         }
     }
     @FXML
@@ -107,7 +146,6 @@ void show_warning() {
         }
         else {
             show_warning();
-            valid_values = false;
         }
 //        System.out.println(" - "+valid_values);
     }
@@ -122,7 +160,7 @@ void show_warning() {
         else {
             show_warning();
             invalid_warning_message.setVisible(true);
-            valid_values = false;
+
         }
         System.out.println(" - "+valid_values);
     }
@@ -143,6 +181,8 @@ void show_warning() {
         if(upi_id.getText().length()<=50 && upi_id.getText().contains("@")&&(upi_id.getText().lastIndexOf("@")<upi_id.getText().length()-1) && upi_id.getText().length()>0){
             valid_values = true;
             upi_id_s=upi_id.getText();
+            System.out.println(upi_id.getText());
+            System.out.println(upi_id_s);
             upi_password.requestFocus();
         }
         else {show_warning();
@@ -155,6 +195,8 @@ void show_warning() {
         if(upi_password.getText().length()==4 && (upi_password.getText().toUpperCase().equals(upi_password.getText().toLowerCase())) && upi_password.getText().length()>0){
             valid_values = true;
             upi_password_s=upi_password.getText();
+            System.out.println(upi_password.getText());
+            System.out.println(upi_password_s);
             agree_cb.requestFocus();
         }
         else {
@@ -171,7 +213,6 @@ void show_warning() {
         }
         else {
             login_button.setDisable(true);
-            valid_values = false;
         }
     }
 

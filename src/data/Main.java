@@ -5,6 +5,8 @@ package data;
                 ^ your fx folder path
  */
 import data.app.Browser.Browser;
+import data.app.Payment.payment;
+import data.data.recent_apps.recent_apps;
 import data.app.Calculator.Calculator;
 import data.app.Contacts.Contacts;
 import data.app.G_Mail.G_Mail;
@@ -12,8 +14,6 @@ import data.app.Payment.upi;
 import data.app.Tic_Tac_Toe.Tic_Tac_Toe;
 import data.app.Youtube.Youtube;
 import data.data.sys_data.get_sys_info;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,20 +24,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Stack;
 /*
@@ -62,23 +55,27 @@ public class Main extends Application {
     public static Parent home_screen_root ;
 
     private static Parent root;
+    public static boolean logined = false;
+    public static String user_details[] = new String[4];
 
     static {
         try {
             root = FXMLLoader.load(Main.class.getResource("home_screen.fxml"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (IOException e) {}
     }
 
     ;
     public static AnchorPane MAIN_SCENE;
-    public static AnchorPane temp_pane;
+//    public static AnchorPane temp_pane;
 
     static LocalTime time = LocalTime.now();
     public static Stack<Parent> prev_screen_stack  = new Stack<>();
+    public static Stack<Parent> recent_apps_stack = new Stack<>();
     static boolean is_initialised = false;
+    //Screensss..
 
+
+    Parent recent_root ;
     public Main() throws IOException {
     }
 
@@ -165,6 +162,7 @@ public class Main extends Application {
 
     static void main() {
         launch();
+
     }
 
     @Override
@@ -182,66 +180,24 @@ root.requestFocus();
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
-    }
 
 
-    void show_fxml(Parent root_screen){
-        if(!MAIN_SCENE.getChildren().isEmpty()){
-            prev_screen_stack.push(root_screen);
-        }
-        MAIN_SCENE.getChildren().setAll(root_screen);
     }
+
     @FXML
     void back_btn(ActionEvent event) throws IOException {
         System.out.println(prev_screen_stack);
-//        System.out.println(temp_pane);
-//        if(prev==null || prev == temp_pane|| prev==home_screen_root){
-//
-//            Parent root = FXMLLoader.load(
-//                    getClass().getResource("home_screen.fxml")
-//            );
-//            Stage stage = (Stage) ((Button) event.getSource())
-//                    .getScene()
-//                    .getWindow();
-//            stage.getScene().setRoot(root);
-//
-//            try{
-//                prev = (AnchorPane) root;
-//                temp_pane = prev;
-//                MAIN_SCENE.getChildren().setAll(prev);
-//                prev_screen_stack.push(prev);
-//            } catch (Exception e) {
-//            }
-//        }else {
-//
-//            MAIN_SCENE.getChildren().clear();
-//            MAIN_SCENE.getChildren().setAll(prev);
-//            System.out.println("done");
-//
-//        }
-
- /*       try {
-//            MAIN_SCENE.getChildren().clear();
-            System.out.println(MAIN_SCENE);
-
-            MAIN_SCENE.getChildren().setAll(prev_screen_stack.pop());
-            System.out.println("done");
-        } catch (Exception e) {
-            MAIN_SCENE.getChildren().setAll(root);
-        }*/
-        if(!prev_screen_stack.isEmpty()){
+        if(prev_screen_stack.size()>1){
 //            MAIN_SCENE.getChildren().setAll(prev_screen_stack.pop());
 
 
-            Parent prevScreen = prev_screen_stack.pop();
-
+            Parent prevScreen = prev_screen_stack.peek();
+            System.out.println("ps-"+prevScreen);
             if (prevScreen == root || prevScreen == home_screen_root) {
-
                 MAIN_SCENE.getChildren().clear();
-            } else {
-                MAIN_SCENE.getChildren().setAll(prevScreen);
+            } else MAIN_SCENE.getChildren().setAll(prev_screen_stack.pop());
             }
-        }
+
         else {
 //            MAIN_SCENE.getChildren().clear();
 //            MAIN_SCENE.getChildren().setAll(home_screen_root);
@@ -249,11 +205,10 @@ root.requestFocus();
             Parent root = FXMLLoader.load(
                     getClass().getResource("home_screen.fxml")
             );
-//TODO
+//TODO - screen set method ..
             Stage stage = (Stage) ((Button) event.getSource())
                     .getScene()
                     .getWindow();
-
             stage.getScene().setRoot(root);
 //        show_fxml(root);
             System.out.println("done");
@@ -276,9 +231,12 @@ root.requestFocus();
         System.out.println("done");
     }
     @FXML
-    void recent_btn(){
-//TODO
+    void recent_btn() throws IOException {
+//        MAIN_SCENE.getChildren().setAll(root);
+            recent_root = FXMLLoader.load(
+                Objects.requireNonNull(recent_apps.class.getResource("recent_screen.fxml")));
 
+        show_fxml(recent_root);
     }
 
 
@@ -293,9 +251,8 @@ root.requestFocus();
     void contacts(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
-//        MAIN_SCENE.getChildren().setAll(root);
+        recent_apps_stack.push(root);
         show_fxml(root);
-
     }
 
     @FXML
@@ -312,7 +269,7 @@ root.requestFocus();
 //        main_scene.getChildren().setAll(root);
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Tic_Tac_Toe.class.getResource("loading_screen.fxml")));
-        root.setLayoutY(25);
+        recent_apps_stack.push(root);
         show_fxml(root);
 //        MAIN_SCENE.getChildren().setAll(root);
     }
@@ -320,8 +277,7 @@ root.requestFocus();
     void youtube(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Youtube.class.getResource("youtube.fxml")));
-
-        root.setLayoutY(25);
+        recent_apps_stack.push(root);
         MAIN_SCENE.getChildren().setAll(root);
     }
 
@@ -330,18 +286,16 @@ root.requestFocus();
 //        System.out.println("remaining");
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(G_Mail.class.getResource("G_Mail.fxml")));
-        root.setLayoutY(-20);
         show_fxml(root);
-
+        recent_apps_stack.push(root);
 //        MAIN_SCENE.getChildren().setAll(root);
     }
     @FXML
     void chrome(ActionEvent event)throws Exception {
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Browser.class.getResource("browser_home_page.fxml")));
-
-        root.setLayoutY(25);
         show_fxml(root);
+        recent_apps_stack.push(root);
 //        MAIN_SCENE.getChildren().setAll(root);
 
     }
@@ -351,17 +305,24 @@ root.requestFocus();
     }
     @FXML
     void calculator(ActionEvent event)throws Exception {
+        System.out.println(prev_screen_stack);
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Calculator.class.getResource("Calculator.fxml")));
-
-        root.setLayoutY(25);
+        recent_apps_stack.push(root);
         show_fxml(root);
     }
     @FXML
     void payment_app(ActionEvent event)throws Exception {
-        Parent root = FXMLLoader.load(
-                Objects.requireNonNull(upi.class.getResource("login_screen.fxml")));
-        root.setLayoutY(25);
+        Parent root ;
+        if (!logined){
+             root=FXMLLoader.load(
+                    Objects.requireNonNull(upi.class.getResource("login_screen.fxml")));
+            logined= true;
+        }else {
+             root = FXMLLoader.load(
+                    Objects.requireNonNull(payment.class.getResource("payment.fxml")));
+        }
+        recent_apps_stack.push(root);
         show_fxml(root);
     }
     @FXML
@@ -376,4 +337,12 @@ root.requestFocus();
         System.out.println("["+new get_sys_info().get_date_time_now()+"] : "+msg);
     }
 
+    void show_fxml(Parent root_screen) throws IOException {
+        if(!MAIN_SCENE.getChildren().isEmpty() && !prev_screen_stack.contains(root_screen)){
+            prev_screen_stack.push(root_screen);
+
+        }
+        root_screen.setLayoutY(25);
+        MAIN_SCENE.getChildren().setAll(root_screen);
+    }
 }
