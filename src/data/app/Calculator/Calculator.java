@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import javax.swing.text.html.parser.Parser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -164,17 +165,8 @@ public class Calculator extends Application {
     }
     @FXML
     public void equal(ActionEvent event){
-        String[] data = expression.split(" ");
-
-        ArrayDeque<Double> numbers = new ArrayDeque<>();
-        ArrayDeque<String> operators = new ArrayDeque<>();
-        for(int i =0; i< data.length;i++){
-            if(data[i].matches(".*[+\\-*/].*")){
-                operators.add(data[i]);
-            }else{
-                numbers.add(Double.parseDouble(data[i]));
-            }
-        }
+        ExpressionTreeEngine solver = new ExpressionTreeEngine();
+        solver.evaluate(expression);
 
     }
     public void remove(ActionEvent event){
@@ -185,5 +177,107 @@ public class Calculator extends Application {
     public void removeAll(ActionEvent event){
         expression_text.clear();
         expression = "";
+    }
+}
+class Nodes {
+    String value;
+    Nodes left, right;
+
+    Nodes(String value) {
+        this.value = value;
+    }
+
+    boolean isOperator() {
+        return value.equals("+") ||
+                value.equals("-") ||
+                value.equals("*") ||
+                value.equals("/");
+    }
+}
+class ExpressionTreeEngine {
+    public double evaluate(String expression) {
+
+            List<String> postfix = Expression_Parser.toPostfix(expression);
+            Nodes root = Expression_Parser.buildTree(postfix);
+
+            return evaluateTree(root);
+        }
+
+        private double evaluateTree(Nodes root) {
+
+            if (!root.isOperator()) {
+                return Double.parseDouble(root.value);
+            }
+
+            double left = evaluateTree(root.left);
+            double right = evaluateTree(root.right);
+
+            return switch (root.value) {
+                case "+" -> left + right;
+                case "-" -> left - right;
+                case "*" -> left * right;
+                case "/" -> left / right;
+                default -> 0;
+            };
+        }
+}
+class Expression_Parser {
+
+    static int precedence(String op) {
+        return switch (op) {
+            case "+", "-" -> 1;
+            case "*", "/" -> 2;
+            default -> -1;
+        };
+    }
+
+    static List<String> toPostfix(String exp) {
+        List<String> output = new ArrayList<>();
+        Stack<String> stack = new Stack<>();
+
+        String[] tokens = exp.split(" ");
+
+        for (String token : tokens) {
+
+            if (token.matches("\\d+(\\.\\d+)?")) {
+                output.add(token);
+            }
+
+            else if ("+-*/".contains(token)) {
+                while (!stack.isEmpty() &&
+                        precedence(stack.peek()) >= precedence(token)) {
+                    output.add(stack.pop());
+                }
+                stack.push(token);
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            output.add(stack.pop());
+        }
+
+        return output;
+    }
+
+    static Nodes buildTree(List<String> postfix) {
+        Stack<Nodes> stack = new Stack<>();
+
+        for (String token : postfix) {
+
+            if (token.matches("\\d+(\\.\\d+)?")) {
+                stack.push(new Nodes(token));
+            } else {
+                Nodes right = stack.pop();
+                Nodes left = stack.pop();
+
+                Nodes op = new Nodes(token);
+                op.left = left;
+                op.right = right;
+
+                stack.push(op);
+            }
+        }
+
+        return stack.pop();
     }
 }

@@ -6,272 +6,77 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity"
-            maxWidth="-Infinity"
-            minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="600.0"
-            prefWidth="300.0"
-            style="-fx-background-color: black;"
-            xmlns="http://javafx.com/javafx/26"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="data.app.Calculator.Calculator">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Calculator.Calculator">
 
     <children>
 
-        <Label layoutX="17.0"
-               layoutY="14.0"
-               prefHeight="32.0"
-               prefWidth="90.0"
-               text="Calculator"
-               textFill="WHITE">
+        <Label layoutX="17.0" layoutY="14.0" prefHeight="32.0" prefWidth="90.0" text="Calculator" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
 
-        <Button onAction="#show_history"
-                layoutX="214.0"
-                layoutY="18.0"
-                prefHeight="22.0"
-                prefWidth="61.0"
-                text="History"
-                style="-fx-background-color:#444444;
-                       -fx-text-fill:white;
-                       -fx-background-radius:20;" />
+        <Button layoutX="214.0" layoutY="18.0" onAction="#show_history" prefHeight="22.0" prefWidth="61.0" style="-fx-background-color:#444444;                        -fx-text-fill:white;                        -fx-background-radius:20;" text="History" />
 
-        <TextField fx:id="expression_text"
-                   alignment="CENTER_RIGHT"
-                   editable="false"
-                   layoutX="14.0"
-                   layoutY="250.0"
-                   prefHeight="70.0"
-                   prefWidth="262.0"
-                   promptText="0"
-                   style="-fx-background-color:black;
-                          -fx-text-fill:white;
-                          -fx-font-size:30px;
-                          -fx-border-color:transparent;">
+        <TextField fx:id="expression_text" alignment="CENTER_RIGHT" editable="false" layoutX="14.0" layoutY="250.0" prefHeight="70.0" prefWidth="262.0" promptText="0" style="-fx-background-color: black; -fx-text-fill: white; -fx-font-size: 30px; -fx-border-color: transparent;">
             <font>
                 <Font size="30.0" />
             </font>
         </TextField>
 
         <!-- AC Button -->
-        <Button layoutX="14.0"
-                layoutY="340.0"
-                prefHeight="40.0"
-                prefWidth="60.0"
-                text="AC"
-                onAction="#clearAll"
-                style="-fx-background-color:#A5A5A5;
-                       -fx-text-fill:black;
-                       -fx-background-radius:30;
-                       -fx-font-size:18px;" />
+        <Button layoutX="14.0" layoutY="340.0" onAction="#removeAll" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color:#A5A5A5;                        -fx-text-fill:black;                        -fx-background-radius:30;                        -fx-font-size:18px;" text="AC" />
 
         <!-- Remove Button -->
-        <Button layoutX="80.0"
-                layoutY="340.0"
-                prefHeight="40.0"
-                prefWidth="60.0"
-                text="⌫"
-                onAction="#removeLast"
-                style="-fx-background-color:#A5A5A5;
-                       -fx-text-fill:black;
-                       -fx-background-radius:30;
-                       -fx-font-size:18px;" />
+        <Button layoutX="80.0" layoutY="340.0" onAction="#remove" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color:#A5A5A5;                        -fx-text-fill:black;                        -fx-background-radius:30;                        -fx-font-size:18px;" text="⌫" />
 
         <!-- Division -->
-        <Button layoutX="224.0"
-                layoutY="390.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="/"
-                onAction="#division"
-                style="-fx-background-color:#FF9F0A;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:24px;" />
+        <Button layoutX="197.0" layoutY="340.0" onAction="#division" prefHeight="49.0" prefWidth="76.0" style="-fx-background-color:#FF9F0A;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:24px;" text="/" />
 
         <!-- 7 -->
-        <Button layoutX="14.0"
-                layoutY="390.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="7"
-                onAction="#seven"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="14.0" layoutY="390.0" onAction="#seven" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="7" />
 
         <!-- 8 -->
-        <Button layoutX="75.0"
-                layoutY="390.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="8"
-                onAction="#eight"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="75.0" layoutY="390.0" onAction="#eight" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="8" />
 
         <!-- 9 -->
-        <Button layoutX="136.0"
-                layoutY="390.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="9"
-                onAction="#nine"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="136.0" layoutY="390.0" onAction="#nine" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="9" />
 
         <!-- Multiply -->
-        <Button layoutX="224.0"
-                layoutY="390.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="*"
-                onAction="#multiplication"
-                style="-fx-background-color:#FF9F0A;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:24px;" />
+        <Button layoutX="197.0" layoutY="390.0" onAction="#multiplication" prefHeight="49.0" prefWidth="76.0" style="-fx-background-color:#FF9F0A;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:24px;" text="*" />
 
         <!-- 4 -->
-        <Button layoutX="14.0"
-                layoutY="439.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="4"
-                onAction="#four"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="14.0" layoutY="439.0" onAction="#four" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="4" />
 
         <!-- 5 -->
-        <Button layoutX="75.0"
-                layoutY="439.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="5"
-                onAction="#five"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="75.0" layoutY="439.0" onAction="#five" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="5" />
 
         <!-- 6 -->
-        <Button layoutX="136.0"
-                layoutY="439.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="6"
-                onAction="#six"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="136.0" layoutY="439.0" onAction="#six" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="6" />
 
         <!-- Minus -->
-        <Button layoutX="224.0"
-                layoutY="390.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="-"
-                onAction="#subtraction"
-                style="-fx-background-color:#FF9F0A;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:24px;" />
+        <Button layoutX="197.0" layoutY="439.0" onAction="#subtraction" prefHeight="49.0" prefWidth="76.0" style="-fx-background-color:#FF9F0A;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:24px;" text="-" />
 
         <!-- 1 -->
-        <Button layoutX="14.0"
-                layoutY="488.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="1"
-                onAction="#one"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="14.0" layoutY="488.0" onAction="#one" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="1" />
 
         <!-- 2 -->
-        <Button layoutX="75.0"
-                layoutY="488.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="2"
-                onAction="#two"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="75.0" layoutY="488.0" onAction="#two" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="2" />
 
         <!-- 3 -->
-        <Button layoutX="136.0"
-                layoutY="488.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="3"
-                onAction="#three"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="136.0" layoutY="488.0" onAction="#three" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="3" />
 
         <!-- Plus -->
-        <Button layoutX="224.0"
-                layoutY="390.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="+"
-                onAction="#addition"
-                style="-fx-background-color:#FF9F0A;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:24px;" />
+        <Button layoutX="197.0" layoutY="488.0" onAction="#addition" prefHeight="49.0" prefWidth="76.0" style="-fx-background-color:#FF9F0A;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:24px;" text="+" />
 
         <!-- 0 -->
-        <Button layoutX="14.0"
-                layoutY="537.0"
-                prefHeight="49.0"
-                prefWidth="122.0"
-                text="0"
-                onAction="#zero"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="14.0" layoutY="537.0" onAction="#zero" prefHeight="49.0" prefWidth="122.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="0" />
 
         <!-- Dot -->
-        <Button layoutX="136.0"
-                layoutY="537.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="."
-                onAction="#dot"
-                style="-fx-background-color:#333333;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:22px;" />
+        <Button layoutX="136.0" layoutY="537.0" onAction="#dot" prefHeight="45.0" prefWidth="55.0" style="-fx-background-color:#333333;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:22px;" text="." />
 
         <!-- Equal -->
-        <Button layoutX="224.0"
-                layoutY="390.0"
-                prefWidth="55.0"
-                prefHeight="45.0"
-                text="="
-                onAction="#equal"
-                style="-fx-background-color:#FF9F0A;
-                       -fx-text-fill:white;
-                       -fx-background-radius:30;
-                       -fx-font-size:24px;" />
+        <Button layoutX="197.0" layoutY="537.0" onAction="#equal" prefHeight="49.0" prefWidth="76.0" style="-fx-background-color:#FF9F0A;                        -fx-text-fill:white;                        -fx-background-radius:30;                        -fx-font-size:24px;" text="=" />
 
     </children>
 
