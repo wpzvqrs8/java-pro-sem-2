@@ -180,7 +180,7 @@ public class Contacts extends Application {
 //         Main.prev_screen_stack.push((AnchorPane) Main.home_screen_root);
     }
     @FXML
-    private void save_object(ActionEvent event) {
+    private void save_object(ActionEvent event) throws SQLException {
         Object source = event.getSource();
 // add to local object - Contact new_contact
 //        Main.prev = (AnchorPane) main_contact_frame;
