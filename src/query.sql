@@ -152,3 +152,13 @@ CREATE TABLE transactions (
                               FOREIGN KEY (from_user_id) REFERENCES users(user_id),
                               FOREIGN KEY (to_user_id) REFERENCES users(user_id)
 );
+CREATE TABLE messages(
+                        id integer PRIMARY KEY,
+                        name varchar(200),
+                        extra timestamp,
+                        message varchar(1000),
+                        c_id int,
+                        FOREIGN KEY (c_id)
+                        REFERENCES contacts(id)
+);
+--NAME OF FORIGN KEY IS m_foreign_key
