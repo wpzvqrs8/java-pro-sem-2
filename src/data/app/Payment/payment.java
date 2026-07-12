@@ -156,11 +156,11 @@ public class payment extends Application {
     }
     void get_transactions_db() throws Exception {
         get_user_details();
-        String  qry = "select * from transactions where from_upi = ? OR to_upi = ?";
+        String  qry = "select * from transactions where from_upi = ? OR to_upi = ? order by created_at desc";
         PreparedStatement ps = conn.prepareStatement(qry);
         ps.setString(1,upi_id_s);
         ps.setString(2,upi_id_s);
-        System.out.println(qry);
+//        System.out.println(qry);
         ResultSet rs = ps.executeQuery();
 //        transactions.clear();
         while (rs.next()) {
@@ -181,8 +181,8 @@ public class payment extends Application {
                             + rs.getTimestamp("created_at");
             if(rs.getString("from_upi").equals(upi_id_s)||rs.getString("to_upi").equals(upi_id_s))
 //            transactions.add(data);
-            if( rs.getString("to_upi").equals(upi_id_s)) t_list.add(new Transaction(rs.getString("from_upi"),rs.getString("amount"),false));
-            if( rs.getString("from_upi").equals(upi_id_s)) t_list.add(new Transaction(rs.getString("to_upi"),rs.getString("amount"),true));
+            if( rs.getString("to_upi").equals(upi_id_s)) t_list.add(new Transaction(rs.getString("from_upi"),rs.getString("amount"), rs.getTimestamp("created_at").toLocalDateTime(),false));
+            if( rs.getString("from_upi").equals(upi_id_s)) t_list.add(new Transaction(rs.getString("to_upi"),rs.getString("amount"), rs.getTimestamp("created_at").toLocalDateTime(),true));
         }
     }
 

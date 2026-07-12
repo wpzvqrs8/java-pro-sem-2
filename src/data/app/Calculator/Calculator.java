@@ -8,9 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import referances.calculator_expression.ExpressionTreeEngine;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,11 +48,23 @@ public class Calculator extends Application {
         System.out.println("init");
         if (history_list != null){
             history_list.setEditable(false);
-            history_list.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial';");
+            history_list.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-background-color:black; ");
             String HISTORY_FILE = "src/data/data/calculator_history.txt";
+            history_list.setCellFactory(lv -> new ListCell<String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                        setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-background-color:black;   -fx-text-fill:white;  ");
+                    } else {
+                        setText(item);
+                        setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-background-color:black;   -fx-text-fill:white;  ");
+                    }
+                }
+            });
             history_list.getItems().setAll(Files.readAllLines(new File(HISTORY_FILE).toPath()));
 //            System.out.println(Files.readAllLines(Path.of(HISTORY_FILE)));
-
         }
     }
     @FXML
@@ -175,5 +189,23 @@ public class Calculator extends Application {
             }
         }
 
+        ExpressionTreeEngine e = new ExpressionTreeEngine();
+        expression_text.setText(""+e.evaluate(expression_text.getText()));
+
+        expression= "";
+
     }
+    @FXML
+    public  void removeLast(ActionEvent event){
+        expression = expression.substring(0,expression.length()-2);
+        expression_text.setText(expression);
+        expression_text.end();
+    }
+    @FXML
+    public  void clearAll(ActionEvent event){
+        expression = "";
+        expression_text.setText(expression);
+        expression_text.end();
+    }
+
 }

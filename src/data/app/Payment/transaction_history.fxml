@@ -11,14 +11,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Payment.payment">
    <children>
-      <VBox prefHeight="600.0" prefWidth="300.0">
+      <VBox prefHeight="600.0" prefWidth="325.0">
          <children>
             <Label prefHeight="28.0" prefWidth="300.0" text="Your Past Transactions :">
                <font>
                   <Font name="Calibri" size="17.0" />
                </font>
             </Label>
-            <ListView prefHeight="572.0" prefWidth="300.0" fx:id="trans_history_list" />
+            <ListView fx:id="trans_history_list" prefHeight="572.0" prefWidth="300.0" />
          </children>
       </VBox>
       <HBox alignment="CENTER" layoutX="30.0" layoutY="544.0" prefHeight="47.0" prefWidth="243.0" style="-fx-border-color: black; -fx-border-radius: 9999; -fx-background-radius: 9999; -fx-border-width: 2; -fx-background-color: #FF7909;" AnchorPane.leftAnchor="27.5" AnchorPane.rightAnchor="27.5">
