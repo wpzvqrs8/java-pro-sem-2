@@ -5,9 +5,12 @@ package data;
                 ^ your fx folder path
  */
 import data.app.Browser.Browser;
+import data.app.Gallery.GalleryApp;
 import data.app.Payment.payment;
+import data.app.Phone.PhoneApp;
 import data.data.recent_apps.recent_apps;
 import data.app.Calculator.Calculator;
+import data.app.Clock.Clock;
 import data.app.Contacts.Contacts;
 import data.app.G_Mail.G_Mail;
 import data.app.Payment.upi;
@@ -245,7 +248,10 @@ root.requestFocus();
 
     @FXML
     void phone(ActionEvent event) throws IOException {
-        System.out.println("remaining");
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(PhoneApp.class.getResource("phone.fxml")));
+        recent_apps_stack.push(root);
+        show_fxml(root);
     }
     @FXML
     void contacts(ActionEvent event) throws IOException {
@@ -301,7 +307,10 @@ root.requestFocus();
     }
     @FXML
     void gallery(ActionEvent event)throws Exception {
-        System.out.println("remaining");
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(GalleryApp.class.getResource("gallery.fxml")));
+        recent_apps_stack.push(root);
+        show_fxml(root);
     }
     @FXML
     void calculator(ActionEvent event)throws Exception {
@@ -327,7 +336,10 @@ root.requestFocus();
     }
     @FXML
     void clock(ActionEvent event)throws Exception{
-        System.out.println("remaining");
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(Clock.class.getResource("Clock.fxml")));
+        recent_apps_stack.push(root);
+        show_fxml(root);
     }
 
 

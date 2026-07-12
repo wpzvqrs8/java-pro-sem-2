@@ -1,18 +1,18 @@
-//package referances.calculator_expression;
+package referances.calculator_expression;
+
+class Node {
+    String value;
+    Node left, right;
+
+    Node(String value) {
+        this.value = value;
+    }
+
+    boolean isOperator() {
+        return value.equals("+") ||
+                value.equals("-") ||
+                value.equals("*") ||
+                value.equals("/");
+    }
+}
 //
-//class Node {
-//    String value;
-//    Node left, right;
-//
-//    Node(String value) {
-//        this.value = value;
-//    }
-//
-//    boolean isOperator() {
-//        return value.equals("+") ||
-//                value.equals("-") ||
-//                value.equals("*") ||
-//                value.equals("/");
-//    }
-//}
-////
