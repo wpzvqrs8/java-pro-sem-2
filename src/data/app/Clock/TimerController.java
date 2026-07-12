@@ -1,5 +1,9 @@
 package data.app.Clock;
 
+<<<<<<< HEAD
+=======
+import data.Main;
+>>>>>>> 28f9434 (clock . gallery . phone)
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -13,6 +17,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+<<<<<<< HEAD
+=======
+import java.util.Objects;
+>>>>>>> 28f9434 (clock . gallery . phone)
 
 public class TimerController {
 
@@ -116,6 +124,7 @@ public class TimerController {
     }
 
     @FXML
+<<<<<<< HEAD
     private void backHome() {
 
         try {
@@ -142,6 +151,14 @@ public class TimerController {
             e.printStackTrace();
 
         }
+=======
+    private void backHome() throws IOException {
+
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(Clock.class.getResource("Clock.fxml")));
+        root.setLayoutY(25);
+        Main.MAIN_SCENE.getChildren().setAll(root);
+>>>>>>> 28f9434 (clock . gallery . phone)
 
     }
 
