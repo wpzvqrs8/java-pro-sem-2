@@ -14,8 +14,7 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import javax.swing.text.html.parser.Parser;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -64,6 +63,17 @@ public class Calculator extends Application {
 //        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //        stage.setScene(new Scene(root));
 //        stage.show();
+        List<String> lines = Files.readAllLines(Path.of("History.txt"));
+        history_list.getItems().setAll(lines);
+        if (history_list != null) {
+            try {
+                history_list.getItems().setAll(
+                        Files.readAllLines(Path.of("C:\\Users\\aadit\\IdeaProjects\\java-pro-sem-2\\History.txt"))
+                );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         data.Main.MAIN_SCENE.getChildren().setAll(root);
 
     }
@@ -166,17 +176,53 @@ public class Calculator extends Application {
     @FXML
     public void equal(ActionEvent event){
         ExpressionTreeEngine solver = new ExpressionTreeEngine();
-        solver.evaluate(expression);
+        double ans =-1;
+        try{
+            ans = solver.evaluate(expression);
+            expression_text.setText(ans + "");
+            BufferedWriter writer = new BufferedWriter(new FileWriter("History.txt",true));
+            expression = expression+" = "+ ans;
+            writer.append(expression);
+            writer.newLine();
+            writer.close();
+        }catch(InvalidOperators operators){
+            expression_text.setText("Number of operators cannot be equal to more than operands");
+        }
+        catch(IOException exception){
+            System.out.println("Something is wrong in file loading");
+        }
+
 
     }
     public void remove(ActionEvent event){
-        if (expression_text != null && !expression.isEmpty()) {
+        expression = expression.substring(0,expression.length() - 2);
+        expression_text.setText(expression);
+        /*if (expression_text != null && !expression.isEmpty()) {
             expression_text.setText(expression.substring(0, expression.length() - 2));
-        }
+        }*/
     }
     public void removeAll(ActionEvent event){
         expression_text.clear();
         expression = "";
+    }
+    public void showHistory(ActionEvent event) throws IOException {
+        Parent root;
+        /*ArrayList<String> history = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader("History.txt"));
+        String line;
+        while((line= reader.readLine())!=null){
+            history.add(line);
+        }*/
+        //FXMLLoader loader = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("History.fxml")));
+        root = FXMLLoader.load(
+                Objects.requireNonNull(getClass().getResource("C:\\Users\\aadit\\IdeaProjects\\java-pro-sem-2\\History.txt")));
+        root.setLayoutY(25);
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Scene scene= new Scene(root);
+        stage.setScene(scene);
+        //history_list.getItems().addAll(history);
+        //reader.close();
+        stage.show();
     }
 }
 class Nodes {
@@ -195,7 +241,7 @@ class Nodes {
     }
 }
 class ExpressionTreeEngine {
-    public double evaluate(String expression) {
+    public double evaluate(String expression) throws InvalidOperators {
 
             List<String> postfix = Expression_Parser.toPostfix(expression);
             Nodes root = Expression_Parser.buildTree(postfix);
@@ -231,11 +277,23 @@ class Expression_Parser {
         };
     }
 
-    static List<String> toPostfix(String exp) {
+    static List<String> toPostfix(String exp) throws InvalidOperators {
         List<String> output = new ArrayList<>();
         Stack<String> stack = new Stack<>();
 
         String[] tokens = exp.split(" ");
+        int numbers =0;
+        int operators =0;
+        for (String s : tokens) {
+            if (s.matches("[+\\-*/]")) {
+                operators++;
+            } else if (s.matches("-?\\d+(\\.\\d+)?")) {
+                numbers++;
+            }
+        }
+        if(numbers != operators+1){
+            throw new InvalidOperators("No of operators must be 1 less than numbers");
+        }
 
         for (String token : tokens) {
 
@@ -279,5 +337,10 @@ class Expression_Parser {
         }
 
         return stack.pop();
+    }
+}
+class InvalidOperators extends Exception{
+    InvalidOperators(String name){
+        super(name);
     }
 }
