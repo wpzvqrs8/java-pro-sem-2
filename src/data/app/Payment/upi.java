@@ -22,7 +22,7 @@ public class upi extends Application {
 
     static String url = "jdbc:postgresql://localhost:5432/java_2_pro";
     static String user = "postgres";
-    static String password = "postgres";
+    static String password = "admin";
     static Connection conn;
     @FXML
     Button login_button;

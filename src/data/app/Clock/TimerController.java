@@ -39,12 +39,30 @@ public class TimerController {
 
     @FXML
     public void initialize() {
+        TimerService.onTick = this::updateTimer;
 
+        TimerService.onFinish = this::timerFinished;
+
+        updateTimer();
         spMinute.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59,0));
 
         spSecond.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59,0));
+
+    }
+
+    private void updateTimer(){
+
+        int minute = TimerService.totalSeconds / 60;
+
+        int second = TimerService.totalSeconds % 60;
+
+        lblTimer.setText(
+                String.format("%02d:%02d", minute, second));
+
+    }
+    private void timerFinished(){
 
         lblTimer.setText("00:00");
 
@@ -53,74 +71,31 @@ public class TimerController {
     @FXML
     private void startTimer() {
 
-        totalSeconds =
-                spMinute.getValue() * 60 + spSecond.getValue();
+        int seconds = spMinute.getValue() * 60 + spSecond.getValue();
 
-        if(totalSeconds <= 0)
+        if (seconds <= 0)
             return;
 
-        if(timeline != null)
-            timeline.stop();
-
-        timeline = new Timeline(
-
-                new KeyFrame(Duration.seconds(1), e -> {
-
-                    totalSeconds--;
-
-                    int minute = totalSeconds / 60;
-
-                    int second = totalSeconds % 60;
-
-                    lblTimer.setText(
-                            String.format("%02d:%02d",
-                                    minute,
-                                    second));
-
-                    if(totalSeconds <= 0){
-
-                        timeline.stop();
-
-                        java.awt.Toolkit.getDefaultToolkit().beep();
-
-                    }
-
-                })
-
-        );
-
-        timeline.setCycleCount(Timeline.INDEFINITE);
-
-        timeline.play();
+        TimerService.start(seconds);
 
     }
 
     @FXML
     private void stopTimer() {
 
-        if(timeline != null){
-
-            timeline.stop();
-
-        }
+        TimerService.stop();
 
     }
-
     @FXML
     private void resetTimer() {
-
-        if(timeline != null){
-
-            timeline.stop();
-
-        }
-
+        TimerService.stop();
         spMinute.getValueFactory().setValue(0);
 
         spSecond.getValueFactory().setValue(0);
 
-        lblTimer.setText("00:00");
+        TimerService.totalSeconds = 0;
 
+        updateTimer();
     }
 
     @FXML

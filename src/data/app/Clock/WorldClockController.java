@@ -237,3 +237,12 @@ public class WorldClockController {
     }
 
 }
+class time_zones{
+    LocalTime local_time;
+    String place;
+
+    public time_zones(LocalTime local_time, String place) {
+        this.local_time = local_time;
+        this.place = place;
+    }
+}
