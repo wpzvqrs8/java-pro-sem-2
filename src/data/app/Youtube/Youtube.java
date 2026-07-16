@@ -14,7 +14,7 @@ public class Youtube extends Application {
     private WebView youtube;
     @FXML
     public void initialize() {
-        System.out.println("inside init");
+//        System.out.println("inside init");
         youtube.getEngine().setUserAgent(
                 "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) " +
                         "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1"
@@ -22,19 +22,6 @@ public class Youtube extends Application {
 
         youtube.setZoom(0.75);
         youtube.getEngine().load("https://www.youtube.com");
-        youtube.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == javafx.concurrent.Worker.State.SUCCEEDED) {
-                youtube.getEngine().executeScript("""
-        var style = document.createElement('style');
-        style.innerHTML = `
-            ::-webkit-scrollbar {
-                display: none;
-            }
-        `;
-        document.head.appendChild(style);
-        """);
-            }
-        });
 
     }
 

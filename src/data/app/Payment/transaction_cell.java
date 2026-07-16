@@ -31,17 +31,17 @@ public class transaction_cell{
         display_upi_id.setText(upi);
         time_stamp.setText(time.format(DateTimeFormatter.ofPattern("dd-MMMM-yy HH:mm:ss ")));
         display_amount.setText(amount+"₹");
-        time_stamp.setStyle("-fx-font-size: 12px; -fx-font-family: 'Arial';");
-            display_upi_id.setStyle("-fx-font-size: 16px; -fx-font-family: 'Arial';");
+        time_stamp.setStyle("-fx-font-size: 12px; -fx-font-family: 'Arial'; -fx-text-fill: #FFFFFF;");
+            display_upi_id.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: #FFFFFF;");
 
-        if(is_paid){
+        if(!is_paid){
             pill_border.setStyle("-fx-border-color:green;-fx-background-radius: 9999; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: null;");
-            display_amount.setStyle("-fx-text-fill:green;-fx-font-size: 14px; -fx-font-family: 'Arial';-fx-background-radius: 9999;-fx-border-color:green; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: black;");
+            display_amount.setStyle("-fx-text-fill:green;-fx-font-size: 14px; -fx-font-family: 'Arial';-fx-background-radius: 9999;-fx-border-color:green; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: #76cfa4;");
 
         }
         else{
             pill_border.setStyle("-fx-border-color:red; -fx-background-radius: 9999; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: null;");
-            display_amount.setStyle("-fx-text-fill:red; -fx-font-size: 14px; -fx-font-family: 'Arial';-fx-background-radius: 9999;-fx-border-color:red; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: black;");
+            display_amount.setStyle("-fx-text-fill:red; -fx-font-size: 14px; -fx-font-family: 'Arial';-fx-background-radius: 9999;-fx-border-color:red; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: #f5b0ae;");
         }
     }
 }
@@ -71,6 +71,8 @@ class TransactionCell extends ListCell<Transaction> {
 //                controller.set_contact_cell(t);
                 setGraphic(root);
 
+
+                setStyle("-fx-background-color: black;");
             } catch (Exception e) {
                 e.printStackTrace();
             }

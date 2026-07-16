@@ -84,6 +84,16 @@ public class payment extends Application {
     }
     @FXML
     public void initialize(){
+        if(result_list!=null){
+            result_list.setOnMouseClicked(mouseEvent -> {
+                String name_and_upi = result_list.getSelectionModel().getSelectedItem();
+                try {
+                    open_money_screen(name_and_upi);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
         if (trans_history_list != null) {
             try {
                 get_transactions_db();
@@ -116,14 +126,8 @@ public class payment extends Application {
             ps.setString(2, "%" + search + "%");
             ps.setString(3, "%" + search + "%");
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
-
-                String data =
-                        rs.getString("name") + " | "
-                                + rs.getString("mobile") + " | "
-                                + rs.getString("upi_id");
-
+                String data = rs.getString("name") + "\n" + rs.getString("mobile") + "\n." + rs.getString("upi_id");
                 results.add(data);
             }
 
@@ -184,6 +188,14 @@ public class payment extends Application {
             if( rs.getString("to_upi").equals(upi_id_s)) t_list.add(new Transaction(rs.getString("from_upi"),rs.getString("amount"), rs.getTimestamp("created_at").toLocalDateTime(),false));
             if( rs.getString("from_upi").equals(upi_id_s)) t_list.add(new Transaction(rs.getString("to_upi"),rs.getString("amount"), rs.getTimestamp("created_at").toLocalDateTime(),true));
         }
+    }
+
+    void open_money_screen(String u) throws IOException {
+        money_transfer.upi = u;
+        money_transfer.from_upi = upi_id_s;
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("money.fxml")));
+        root.setLayoutY(25);
+        data.Main.MAIN_SCENE.getChildren().setAll(root);
     }
 
 }

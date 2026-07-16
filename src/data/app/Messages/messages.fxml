@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="main_contact_frame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="317.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Messages.Messages">
+    <children>
+        <ListView fx:id="message_list" layoutY="49.0" prefHeight="551.0" prefWidth="317.0">
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor></ListView>
+        <Label prefHeight="53.0" prefWidth="300.0" text="Messages">
+            <font>
+                <Font name="Cambria Math" size="31.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

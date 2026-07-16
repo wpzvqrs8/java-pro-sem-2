@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER_LEFT" prefWidth="270.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Messages.chat_cell">
+
+    <children>
+        <Label fx:id="msg_text" maxWidth="220" style="-fx-background-color: #007AFF;               -fx-background-radius: 15;               -fx-padding: 8 12 8 12;               -fx-text-fill: white;" wrapText="true">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" top="5.0" />
+         </HBox.margin></Label>
+    </children>
+
+</HBox>

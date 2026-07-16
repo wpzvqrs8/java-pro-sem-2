@@ -62,13 +62,9 @@ public class get_sys_info {
 
     public String getWifi() throws Exception {
 
-        Process p = Runtime.getRuntime().exec(
-                "netsh wlan show interfaces"
-        );
+        Process p = Runtime.getRuntime().exec("netsh wlan show interfaces");
 
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(p.getInputStream())
-        );
+        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 //dummy
 
         String line,wifi="";

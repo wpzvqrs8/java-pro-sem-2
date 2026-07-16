@@ -51,7 +51,7 @@
             <Button onAction="#showContacts" text="Contacts" />
          </children>
       </HBox>
-      <Label fx:id="numberField" alignment="CENTER" layoutY="165.0" prefHeight="58.0" prefWidth="300.0" />
+      <Label fx:id="numberField"  alignment="CENTER" layoutY="165.0" prefHeight="58.0" prefWidth="300.0" />
       <Button layoutX="99.0" layoutY="488.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="100.0" text="call me ">
          <font>
             <Font size="15.0" />

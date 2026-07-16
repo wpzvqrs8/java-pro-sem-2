@@ -1,5 +1,4 @@
 package data.app.Phone;
-
 import data.Main;
 import data.app.Contacts.Contacts;
 import javafx.application.Application;
@@ -21,6 +20,8 @@ import java.sql.DriverManager;
 import java.time.LocalTime;
 import java.util.Objects;
 
+import javafx.scene.control.Alert;
+
 public class PhoneApp extends Application {
     static String url = "jdbc:postgresql://localhost:5432/java_2_pro";
     static String user = "postgres";
@@ -31,14 +32,13 @@ public class PhoneApp extends Application {
         Class.forName("org.postgresql.Driver");
 
         conn = DriverManager.getConnection(url, user, password);
-        loadContactsFromDatabase();
     } catch (Exception e) {
         throw new RuntimeException(e);
     }}
-Stage stage;
+    Stage stage;
     @Override
     public void start(Stage stage) throws Exception {
-this.stage = stage;
+        this.stage = stage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("phone.fxml"));
 
         Scene scene = new Scene(loader.load());
@@ -66,7 +66,7 @@ this.stage = stage;
     // CONTACTS
 //    @FXML private ListView<String> contactList;
 
-    // ========== INIT ==========
+
     @FXML
     public void initialize() {
         if(recentList!=null){
@@ -77,16 +77,16 @@ this.stage = stage;
 
 
         }
-        loadContactsFromDatabase();
     }
 
-    // ========== NAVIGATION ==========
+
     @FXML
     public void showRecent(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("phone.fxml"));
         Parent root  = loader.load();
 //        Stage s = (Stage) ((Button) event.getSource()).getScene().getWindow();
 //        s.getScene().setRoot(root);
+        root.setLayoutY(25);
         Main.MAIN_SCENE.getChildren().setAll(root);
     }
 
@@ -102,57 +102,99 @@ this.stage = stage;
     }
 
     @FXML
-    public void showContacts() throws IOException {
-
-            Parent root = FXMLLoader.load(
-                    Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
-            root.setLayoutY(10);
-
-        Main.MAIN_SCENE.getChildren().setAll(root);
-
+    public void showContacts(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                Contacts.class.getResource("contacts_main_frame.fxml"));
+        Parent root = loader.load();
+        root.setLayoutY(15);
+        Main.MAIN_SCENE.getChildren().setAll(root);;
     }
 
     // ========== KEYPAD ==========
     @FXML
-    public void handleNumber(javafx.event.ActionEvent e) {
-//        Button b = (Button) e.getSource();
-//        numberField.appendText(b.getText());
+    public void handleNumber(ActionEvent e) {
+
+        Button b = (Button) e.getSource();
+
+        numberField.setText(numberField.getText() + b.getText());
+
     }
 
     @FXML
     public void delete() {
-//        String text = numberField.getText();
-//        if (!text.isEmpty()) {
-//            numberField.setText(text.substring(0, text.length() - 1));
-//        }
-    }
 
+        String text = numberField.getText();
+
+        if (!text.isEmpty()) {
+
+            numberField.setText(text.substring(0, text.length() - 1));
+
+        }
+
+    }
     @FXML
     public void call() {
-//        String number = numberField.getText();
-//        if (!number.isEmpty()) {
-//            recentList.getItems().add("CALL → " + number + " - " + LocalTime.now());
-//            showRecent();
-//        }
+
+        String number = numberField.getText().trim();
+
+        // Empty number
+        if (number.isEmpty()) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a phone number.");
+            alert.show();
+
+            return;
+        }
+
+        // Check only digits
+        if (!number.matches("\\d+")) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid");
+            alert.setHeaderText(null);
+            alert.setContentText("Phone number must contain only digits.");
+            alert.show();
+
+            return;
+        }
+
+        // Must be 10 digits
+        if (number.length() != 10) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Number");
+            alert.setHeaderText(null);
+            alert.setContentText("Phone number must be exactly 10 digits.");
+            alert.show();
+
+            return;
+        }
+
+        // Dummy contact names
+        String name = "Unknown";
+
+        if(number.equals("9999999999"))
+            name = "Amit";
+
+        else if(number.equals("8888888888"))
+            name = "Ravi";
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Calling");
+        alert.setHeaderText(null);
+        alert.setContentText("Call has been placed to\n\nName : " + name +
+                "\nNumber : " + number);
+
+        alert.show();
+
+        if(recentList != null){
+            recentList.getItems().add(name + " - " + number + " - " + LocalTime.now());
+        }
+
+        numberField.setText("");
+
     }
-
-    // ========== DATABASE PLACE ==========
-    private static void loadContactsFromDatabase() {
-
-        /*
-         🔥 HERE YOU CONNECT YOUR DB
-
-         Example (JDBC idea):
-
-         SELECT name, number FROM contacts;
-
-         contactList.getItems().add(name + " - " + number);
-
-        */
-
-//        // dummy now:
-//        contactList.getItems().add("John - 11111");
-//        contactList.getItems().add("Alex - 22222");
-    }
-
 }

@@ -6,6 +6,7 @@ package data;
  */
 import data.app.Browser.Browser;
 import data.app.Gallery.GalleryApp;
+import data.app.Messages.Messages;
 import data.app.Payment.payment;
 import data.app.Phone.PhoneApp;
 import data.data.recent_apps.recent_apps;
@@ -174,7 +175,7 @@ public class Main extends Application {
 
 //        prev_screen_stack.push(root);
         home_screen_root = root;
-root.requestFocus();
+        root.requestFocus();
         Scene scene = new Scene(root);
 
 //        System.out.println("prev-"+prev);
@@ -186,35 +187,42 @@ root.requestFocus();
 
 
     }
-
     @FXML
-    void back_btn(ActionEvent event) throws IOException {
+    void showstack(){
         System.out.println(prev_screen_stack);
-        if(prev_screen_stack.size()>1){
-//            MAIN_SCENE.getChildren().setAll(prev_screen_stack.pop());
-
-
-            Parent prevScreen = prev_screen_stack.peek();
-            System.out.println("ps-"+prevScreen);
-            if (prevScreen == root || prevScreen == home_screen_root) {
-                MAIN_SCENE.getChildren().clear();
-            } else MAIN_SCENE.getChildren().setAll(prev_screen_stack.pop());
+    }
+    @FXML
+    void back_btn(ActionEvent event)  {
+        try {
+            System.out.println("before-"+prev_screen_stack);
+            if(!prev_screen_stack.isEmpty()){
+    //            MAIN_SCENE.getChildren().setAll(prev_screen_stack.pop());
+                Parent prevScreen = prev_screen_stack.peek();
+                if (prevScreen == root || prevScreen == home_screen_root) {
+                    System.out.println("here");
+                    MAIN_SCENE.getChildren().clear();
+                } else {
+                    prev_screen_stack.pop();
+                    MAIN_SCENE.getChildren().setAll(prev_screen_stack.pop());
+                }
             }
+            else {
+    //            MAIN_SCENE.getChildren().clear();
+    //            MAIN_SCENE.getChildren().setAll(home_screen_root);
+                prev_screen_stack.clear();
+                Parent root = FXMLLoader.load(
+                        getClass().getResource("home_screen.fxml")
+                );
+    //TODO - screen set method ..
+                Stage stage = (Stage) ((Button) event.getSource())
+                        .getScene()
+                        .getWindow();
+                stage.getScene().setRoot(root);
+    //        show_fxml(root);
+            }
+            System.out.println("after-"+prev_screen_stack);
+        } catch (Exception e) {
 
-        else {
-//            MAIN_SCENE.getChildren().clear();
-//            MAIN_SCENE.getChildren().setAll(home_screen_root);
-            prev_screen_stack.clear();
-            Parent root = FXMLLoader.load(
-                    getClass().getResource("home_screen.fxml")
-            );
-//TODO - screen set method ..
-            Stage stage = (Stage) ((Button) event.getSource())
-                    .getScene()
-                    .getWindow();
-            stage.getScene().setRoot(root);
-//        show_fxml(root);
-            System.out.println("done");
         }
 
     }
@@ -263,7 +271,10 @@ root.requestFocus();
 
     @FXML
     void message(ActionEvent event) throws Exception{
-        System.out.println("remaining");
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(Messages.class.getResource("Messages.fxml")));
+        recent_apps_stack.push(root);
+        show_fxml(root);
     }
 
     @FXML
@@ -284,6 +295,7 @@ root.requestFocus();
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Youtube.class.getResource("youtube.fxml")));
         recent_apps_stack.push(root);
+        root.setLayoutY(25);
         MAIN_SCENE.getChildren().setAll(root);
     }
 

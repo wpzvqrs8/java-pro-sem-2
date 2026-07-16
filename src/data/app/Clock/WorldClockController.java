@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -43,7 +44,7 @@ public class WorldClockController {
     @FXML
     private ImageView globeImage;
 
-    private final Map<String, Label> cityLabels = new HashMap<>();
+    private final Map<String, Label>   cityLabels = new HashMap<>();
 
     private final Map<String, ZoneId> cities = new HashMap<>();
     @FXML private StackPane globePane;
