@@ -57,29 +57,46 @@ public class money_transfer extends Application {
     void pay() throws Exception {
         if(get_amount()){
         System.out.println("yes");
-        String  qry = "update users set balance = ? where upi_id = ?";
-        PreparedStatement ps = conn.prepareStatement(qry);
-
-        ps.setString(2,upi.substring(upi.lastIndexOf(".")+1,upi.length()));
+        String  credit_qry = "update users set balance = ? where upi_id = ?";
+        PreparedStatement to_user_qry = conn.prepareStatement(credit_qry);
+        String  debit_qry = "update users set balance = ? where upi_id = ?";
+        PreparedStatement from_user_qry = conn.prepareStatement(debit_qry);
         debit = Double.parseDouble(amount_text_field.getText());
-        System.out.println("d-"+debit);
-        ps.setDouble(1,balance-debit );
-        System.out.println("bd"+(balance-debit));
-        System.out.println(ps.executeUpdate());
+            System.out.println();
+            System.out.println(balance+debit);
+            System.out.println(balance-debit);
+            System.out.println();
+        from_user_qry.setDouble(1,balance+debit);
+        from_user_qry.setString(2,upi.substring(upi.lastIndexOf(".")+1,upi.length()));
+        to_user_qry.setDouble(1,balance-debit);
+        to_user_qry.setString(2,from_upi);
+            from_user_qry.executeUpdate();
+            to_user_qry.executeUpdate();
+
+
+
+//
+//        ps.setString(2,upi.substring(upi.lastIndexOf(".")+1,upi.length()));
+//        debit = Double.parseDouble(amount_text_field.getText());
+//        System.out.println("d-"+debit);
+//        ps.setDouble(1,balance-debit );
+//        System.out.println("bd"+(balance-debit));
+//        System.out.println(ps.executeUpdate());
         }
+        else System.out.println("err");
     }
     @FXML
     boolean get_amount() throws Exception {
         if(!amount_text_field.getText().toUpperCase().equals(amount_text_field.getText().toLowerCase())){
             invalid_digit_amount.setVisible(true);
-            PauseTransition pt = new PauseTransition(Duration.seconds(3));
+            PauseTransition pt = new PauseTransition(Duration.seconds(2));
             pt.setOnFinished(e->{
                 invalid_digit_amount.setVisible(false);
             });
             pt.play();
 
         }
-        else if (!check_balance(upi)) {
+        else if (check_balance(upi)) {
             amount_letters_label.setText(amount_text_field.getText()+" -/ only");
             return true;
         }
@@ -89,13 +106,14 @@ public class money_transfer extends Application {
 
         String  qry = "select * from users where upi_id = ?";
         PreparedStatement ps = conn.prepareStatement(qry);
-        System.out.println("--"+u.substring(u.lastIndexOf("."),u.length()));
-        ps.setString(1,u.substring(u.lastIndexOf(".")+1,u.length()));
+
+        ps.setString(1,from_upi);
 
 //        System.out.println(qry);
         ResultSet rs = ps.executeQuery();
 //        transactions.clear();
         while (rs.next()) {
+            System.out.println("fu-"+rs.getDouble("balance"));
 //                              from_user_id INT,
 //                              to_user_id INT,
 //                              from_upi VARCHAR(50),
@@ -103,10 +121,12 @@ public class money_transfer extends Application {
 //                              amount DOUBLE PRECISION NOT NULL,
 //                              status VARCHAR(20),     -- SUCCESS, FAILED
 //                              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            System.out.println(rs.getDouble("balance"));
+
             balance  = rs.getDouble("balance");
-            if(rs.getDouble("balance")>=Double.parseDouble(amount_text_field.getText()))
+            if(rs.getDouble("balance")>=Double.parseDouble(amount_text_field.getText())) {
+
                 return true;
+            }
 
 
         }
