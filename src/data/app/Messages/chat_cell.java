@@ -49,7 +49,7 @@ class ChatCell extends ListCell<Chat> {
 
                 FXMLLoader loader ;
 
-                if(!c.is_sent) loader = new FXMLLoader(getClass().getResource("to_chat_cell.fxml"));
+                if(c.is_sent) loader = new FXMLLoader(getClass().getResource("to_chat_cell.fxml"));
                 else loader = new FXMLLoader(getClass().getResource("from_chat_cell.fxml"));
 
                 Parent root = loader.load();

@@ -93,6 +93,7 @@ public class Main extends Application {
             print_sys_msg("System Booted Sucessfully");
 
             System.out.println(MAIN_SCENE);
+
         }
 //        System.out.println(Font.getFamilies().contains("Segoe Fluent Icons"));
 //        java.time.LocalTime time = java.time.LocalTime.now();

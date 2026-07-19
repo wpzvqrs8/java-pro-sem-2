@@ -60,7 +60,7 @@ public class Messages extends Application {
             conn = DriverManager.getConnection(url, user, password);
             message_from_db = get_contents_from_database();
             message_list.setItems(message_from_db);
-            System.out.println(message_from_db);
+//            System.out.println(message_from_db);
             message_list.setCellFactory(list -> new MessageCell());
 //            System.out.println("Loaded contacts: " + contacts_from_db.size());
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class Messages extends Application {
 
             if (selected != null) {
                 try {
-                    System.out.println(selected.name);
+//                    System.out.println(selected.name);
                     openChat(selected);
                 }  catch (Exception e) {
                     throw new RuntimeException(e);
@@ -92,7 +92,7 @@ public class Messages extends Application {
         );
         Parent root = loader.load();
         open_chat controller = loader.getController();
-        System.out.println("se"+selected);
+//        System.out.println("se"+selected);
         controller.setMessage(selected);
         root.setLayoutY(25);
         Main.MAIN_SCENE.getChildren().setAll(root);
