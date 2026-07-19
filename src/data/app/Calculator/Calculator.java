@@ -1,6 +1,7 @@
 package data.app.Calculator;
 
 import data.Main;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,10 +13,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import referances.calculator_expression.ExpressionTreeEngine;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -38,6 +42,16 @@ public class Calculator extends Application {
         stage.show();
     }
     static void main() {launch();}
+    String HISTORY_FILE = "src/data/data/calculator_history.txt";
+    RandomAccessFile raf;
+
+    {
+        try {
+            raf = new RandomAccessFile(HISTORY_FILE,"rw");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     public void initialize() throws IOException {
@@ -49,7 +63,6 @@ public class Calculator extends Application {
         if (history_list != null){
             history_list.setEditable(false);
             history_list.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-background-color:black; ");
-            String HISTORY_FILE = "src/data/data/calculator_history.txt";
             history_list.setCellFactory(lv -> new ListCell<String>() {
                 @Override
                 protected void updateItem(String item, boolean empty) {
@@ -80,103 +93,105 @@ public class Calculator extends Application {
 
     }
 
-    void add_to_History_list(String calc){
-
+    void add_to_History_list(String calc) throws Exception {
+        raf.seek(raf.length());
+        raf.write(("\n"+calc).getBytes());
     }
 
     private String expression = "";
     @FXML
     public void one(ActionEvent event){
-        expression += "1 ";
+        expression += "1";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void two(ActionEvent event){
-        expression += "2 ";
+        expression += "2";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void three(ActionEvent event){
-        expression += "3 ";
+        expression += "3";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void four(ActionEvent event){
-        expression += "4 ";
+        expression += "4";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void five(ActionEvent event){
-        expression += "5 ";
+        expression += "5";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void six(ActionEvent event){
-        expression += "6 ";
+        expression += "6";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void seven(ActionEvent event){
-        expression += "7 ";
+        expression += "7";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void eight(ActionEvent event){
-        expression += "8 ";
+        expression += "8";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void nine(ActionEvent event){
-        expression += "9 ";
+        expression += "9";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void zero(ActionEvent event){
-        expression += "0 ";
+        expression += "0";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void addition(ActionEvent event){
-        expression += "+ ";
+        expression += " + ";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void subtraction(ActionEvent event){
-        expression += "- ";
+        expression += " - ";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void multiplication(ActionEvent event){
-        expression += "* ";
+        expression += " * ";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void division(ActionEvent event){
-        expression += "/ ";
+        expression += " / ";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void dot(ActionEvent event){
-        expression += ". ";
+        expression += ".";
         expression_text.setText(expression);
         expression_text.end();
     }
     @FXML
     public void equal(ActionEvent event){
+        try {
         String[] data = expression.split(" ");
 
         ArrayDeque<Double> numbers = new ArrayDeque<>();
@@ -190,15 +205,27 @@ public class Calculator extends Application {
         }
 
         ExpressionTreeEngine e = new ExpressionTreeEngine();
-        expression_text.setText(""+e.evaluate(expression_text.getText()));
 
+            add_to_History_list(expression_text.getText()+" = "+e.evaluate(expression_text.getText()));
+            expression_text.setText(""+e.evaluate(expression_text.getText()));
+        } catch (Exception ex) {
+            expression_text.setText("Error");
+            PauseTransition pt = new PauseTransition(Duration.seconds(1.5));
+            pt.setOnFinished(e->expression_text.setText(""));
+            pt.play();
+        }
         expression= "";
 
     }
     @FXML
     public  void removeLast(ActionEvent event){
-        expression = expression.substring(0,expression.length()-2);
-        expression_text.setText(expression);
+       if(expression_text.getText().charAt(expression_text.getLength()-1)==' '){
+           expression = expression.substring(0,expression.length()-2);
+       }
+       else
+           expression = expression.substring(0,expression.length()-1);
+
+           expression_text.setText(expression);
         expression_text.end();
     }
     @FXML

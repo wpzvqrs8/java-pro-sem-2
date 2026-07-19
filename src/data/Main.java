@@ -61,6 +61,7 @@ public class Main extends Application {
     private static Parent root;
     public static boolean logined = false;
     public static String user_details[] = new String[4];
+    public static String my_name = "Bhavy Patel";
 
     static {
         try {
@@ -262,7 +263,7 @@ public class Main extends Application {
         show_fxml(root);
     }
     @FXML
-    void contacts(ActionEvent event) throws IOException {
+    public void contacts(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
         recent_apps_stack.push(root);

@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
@@ -36,6 +37,8 @@ public class payment extends Application {
     ListView<Transaction> trans_history_list;
     @FXML
     TextField search_bar;
+    @FXML
+    Label balance_label;
 
     public static String name_s,phoneNumber_s,country_code_s,upi_id_s,upi_password_s;
 
@@ -83,7 +86,7 @@ public class payment extends Application {
         get_user_details();
     }
     @FXML
-    public void initialize(){
+    public void initialize() throws SQLException {
         if(result_list!=null){
             result_list.setOnMouseClicked(mouseEvent -> {
                 String name_and_upi = result_list.getSelectionModel().getSelectedItem();
@@ -99,7 +102,13 @@ public class payment extends Application {
                 get_transactions_db();
                 trans_history_list.setItems(t_list);
                 trans_history_list.setCellFactory(list->new TransactionCell());
+
             } catch (Exception e) { }
+            PreparedStatement ps = conn.prepareStatement("select balance from users where upi_id = ?");
+            ps.setString(1,upi_id_s);
+            ResultSet rs =  ps.executeQuery();
+            rs.next();
+            balance_label.setText("Your current balance :-   "+rs.getString(1)+" ₹");
         }
 
     }
@@ -110,14 +119,7 @@ public class payment extends Application {
 
         String search = search_bar.getText();
 
-        String sql = """
-            SELECT name, mobile, upi_id
-            FROM users
-            WHERE name ILIKE ?
-            OR mobile ILIKE ?
-            OR upi_id ILIKE ?
-            """;
-
+        String sql = "SELECT name, mobile, upi_id FROM users WHERE (name ILIKE ? OR mobile ILIKE ? OR upi_id ILIKE ?) AND upi_id <> ?";
         try {
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -125,9 +127,10 @@ public class payment extends Application {
             ps.setString(1, "%" + search + "%");
             ps.setString(2, "%" + search + "%");
             ps.setString(3, "%" + search + "%");
+            ps.setString(4,upi_id_s);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String data = rs.getString("name") + "\n" + rs.getString("mobile") + "\n." + rs.getString("upi_id");
+                String data = rs.getString("name") + "\n." + rs.getString("mobile") + "\n." + rs.getString("upi_id");
                 results.add(data);
             }
 
@@ -191,7 +194,7 @@ public class payment extends Application {
     }
 
     void open_money_screen(String u) throws IOException {
-        money_transfer.upi = u;
+        money_transfer.upi = u.substring(u.lastIndexOf("\n.") + 2);
         money_transfer.from_upi = upi_id_s;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("money.fxml")));
         root.setLayoutY(25);

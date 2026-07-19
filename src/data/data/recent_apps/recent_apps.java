@@ -68,9 +68,18 @@ public class recent_apps extends Application {
                     setAlignment(Pos.CENTER);
                     setOnMouseClicked(event -> {
                         if (event.getClickCount() == 1) {
-                            System.out.println("Clicked app: " + getIndex());
+//                            System.out.println("Clicked app: " + getIndex());
+//                            Main.MAIN_SCENE.getChildren().setAll(Main.recent_apps_stack.get(Main.recent_apps_stack.size()-getIndex()));
+//                            System.out.println(Main.recent_apps_stack.get(Main.recent_apps_stack.size()-1-getIndex()));
 
-                            // do something here
+                            int iindx = Main.recent_apps_stack.size()-1- getIndex();
+
+                            Parent selected_app_screen = Main.recent_apps_stack.get(iindx);
+                            Main.recent_apps_stack.remove(iindx);
+                            Main.recent_apps_stack.push(selected_app_screen);
+                            make_thumbnail();
+                            selected_app_screen.setLayoutY(25);
+                            Main.MAIN_SCENE.getChildren().setAll(selected_app_screen);
                         }
                     });
                     setStyle("-fx-background-color: null;");
@@ -90,11 +99,11 @@ public class recent_apps extends Application {
 
     void make_thumbnail(){
 
-       temp = Main.recent_apps_stack;
-        System.out.println(temp);
+//       temp = Main.recent_apps_stack;
+//        Collections.reverse(temp);
+        temp = new Stack<>();
+        temp.addAll(Main.recent_apps_stack);
         Collections.reverse(temp);
-        System.out.println(temp);
-
         for (Parent r : temp) {
 
             // Give the node a size before taking a snapshot

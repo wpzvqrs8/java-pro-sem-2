@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Random;
@@ -15,17 +16,17 @@ public class chat_cell extends Application {
     @FXML
     private Label msg_text;
     @FXML
+    private Text msg_time;
+
+    @FXML
     public void initialize()  {
 
     }
 
     public void setChat_cell(Chat m){
-
         msg_text.setText(m.msg);
-
+        msg_time.setText(m.sent_at.getHour()+":"+m.sent_at.getMinute());
     }
-
-
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -48,7 +49,7 @@ class ChatCell extends ListCell<Chat> {
 
                 FXMLLoader loader ;
 
-                if(c.is_sent) loader = new FXMLLoader(getClass().getResource("to_chat_cell.fxml"));
+                if(!c.is_sent) loader = new FXMLLoader(getClass().getResource("to_chat_cell.fxml"));
                 else loader = new FXMLLoader(getClass().getResource("from_chat_cell.fxml"));
 
                 Parent root = loader.load();

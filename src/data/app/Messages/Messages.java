@@ -85,10 +85,10 @@ public class Messages extends Application {
 //        } catch (Exception e) {}
     }
 
-    private void openChat(Message selected) throws Exception {
+    public static void openChat(Message selected) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("open_chat.fxml")
+                Messages.class.getResource("open_chat.fxml")
         );
         Parent root = loader.load();
         open_chat controller = loader.getController();
@@ -132,7 +132,7 @@ public class Messages extends Application {
                 FXCollections.observableArrayList();
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(
-                "SELECT * FROM message ORDER BY updated_at asc "
+                "SELECT * FROM message where name<> 'Bhavy Patel' ORDER BY updated_at asc "
         );
 
 //        contacts_from_db = FXCollections.observableArrayList();

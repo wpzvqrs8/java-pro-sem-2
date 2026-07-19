@@ -13,9 +13,9 @@
    <children>
       
 
-       <ListView fx:id="chats_listview" layoutY="43.0" prefHeight="499.0" prefWidth="300.0" />
-      <TextField layoutX="9.0" layoutY="552.0" prefHeight="37.0" prefWidth="238.0" />
-      <Button layoutX="233.0" layoutY="525.0" mnemonicParsing="false" prefHeight="92.0" prefWidth="84.0" style="-fx-background-color: null;" text="➤">
+       <ListView fx:id="chats_listview" layoutY="43.0" prefHeight="499.0" prefWidth="323.0" />
+      <TextField fx:id="chat_tf" layoutX="9.0" layoutY="552.0" prefHeight="37.0" prefWidth="238.0" />
+      <Button layoutX="233.0" layoutY="525.0" mnemonicParsing="false" onAction="#send_text" prefHeight="92.0" prefWidth="84.0" style="-fx-background-color: null;" text="➤">
          <font>
             <Font size="35.0" />
          </font>

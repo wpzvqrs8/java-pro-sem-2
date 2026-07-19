@@ -13,7 +13,7 @@
    <children>
       <VBox prefHeight="600.0" prefWidth="325.0">
          <children>
-            <Label prefHeight="28.0" prefWidth="300.0" text="Your Past Transactions :">
+            <Label fx:id="balance_label" prefHeight="28.0" prefWidth="300.0" >
                <font>
                   <Font name="Calibri" size="17.0" />
                </font>

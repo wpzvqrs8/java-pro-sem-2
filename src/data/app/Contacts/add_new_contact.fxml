@@ -12,13 +12,13 @@
 
 <AnchorPane fx:id="main_contact_frame" maxHeight="600.0" maxWidth="300.0" minHeight="600.0" minWidth="300.0" prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Contacts.Contacts">
    <children>
-      <AnchorPane layoutX="1.0" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: white;">
+      <AnchorPane layoutX="1.0" prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(to bottom right, #0B1F3A, #153E75);">
          <children>
             <VBox layoutX="-1.0" layoutY="24.0" prefHeight="533.0" prefWidth="295.0">
                <children>
-                  <VBox prefHeight="83.0" prefWidth="323.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black; -fx-background-color: #1c0202;">
+                  <VBox prefHeight="83.0" prefWidth="323.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #aed6fc;-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #BFDFFF; -fx-border-width: 1;">
                      <children>
-                        <Label prefHeight="33.0" prefWidth="85.0" text="Name  : " textFill="WHITE">
+                        <Label prefHeight="33.0" prefWidth="85.0" text="Name  : " textFill="#1E3A5F">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -26,7 +26,7 @@
                               <Insets left="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="name" onAction="#save_object" prefHeight="33.0" prefWidth="267.0" promptText="Enter Full Name" style="-fx-background-color: #02224d; -fx-border-color: black;">
+                        <TextField fx:id="name" onAction="#save_object" prefHeight="33.0" prefWidth="267.0" promptText="Enter Full Name" style="-fx-background-color: white; ">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </VBox.margin>
@@ -40,9 +40,9 @@
                      </VBox.margin>
                   </VBox>
                   <Label />
-                  <VBox prefHeight="102.0" prefWidth="290.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black; -fx-background-color: #1c0202;">
+                  <VBox prefHeight="102.0" prefWidth="290.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #aed6fc;-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #BFDFFF; -fx-border-width: 1;">
                      <children>
-                        <Label prefHeight="42.0" prefWidth="79.0" text="Phone  :" textFill="WHITE">
+                        <Label prefHeight="42.0" prefWidth="79.0" text="Phone  :" textFill="#1E3A5F">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -52,7 +52,7 @@
                         </Label>
                         <HBox prefHeight="29.0" prefWidth="295.0">
                            <children>
-                              <Label alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="37.0" text="+" textFill="#f7f1f1">
+                              <Label alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="37.0" text="+" textFill="Black">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -60,12 +60,12 @@
                                     <Insets top="-7.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="country_code" alignment="CENTER" prefHeight="25.0" prefWidth="60.0" promptText="Country code" style="-fx-background-color: #02224d;" text="91">
+                              <TextField fx:id="country_code" alignment="CENTER" prefHeight="25.0" prefWidth="60.0" promptText="Country code" style="-fx-background-color: white;" text="91">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </TextField>
-                              <TextField fx:id="phoneNumber" onAction="#save_object" prefHeight="25.0" prefWidth="210.0" promptText="M.No" style="-fx-background-color: #02224d;">
+                              <TextField fx:id="phoneNumber" onAction="#save_object" prefHeight="25.0" prefWidth="210.0" promptText="M.No" style="-fx-background-color: white;">
                                  <HBox.margin>
                                     <Insets left="-10.0" right="10.0" />
                                  </HBox.margin>
@@ -78,14 +78,14 @@
                      </VBox.margin>
                   </VBox>
                   <Label prefHeight="28.0" prefWidth="64.0" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="295.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black; -fx-background-color: #1c0202;">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="295.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #aed6fc;-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #BFDFFF; -fx-border-width: 1;">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="81.0" text="Email      :" textFill="WHITE">
+                        <Label prefHeight="25.0" prefWidth="81.0" text="Email      :" textFill="#1E3A5F">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="email" onAction="#save_object" prefHeight="25.0" prefWidth="201.0" promptText="Mail" style="-fx-background-color: #02224d;">
+                        <TextField fx:id="email" onAction="#save_object" prefHeight="25.0" prefWidth="201.0" promptText="Mail" style="-fx-background-color: white;">
                            <HBox.margin>
                               <Insets left="-10.0" right="10.0" />
                            </HBox.margin>
@@ -96,14 +96,14 @@
                      </VBox.margin>
                   </HBox>
                   <Label prefHeight="17.0" prefWidth="64.0" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="295.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black; -fx-background-color: #1c0202;">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="295.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #aed6fc;-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #BFDFFF; -fx-border-width: 1;">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="75.0" text="Category :" textFill="WHITE">
+                        <Label prefHeight="25.0" prefWidth="75.0" text="Category :" textFill="#1E3A5F">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="category" onAction="#save_object" prefHeight="25.0" prefWidth="199.0" promptText="Ex. Friend,Family,Work,Emergency" style="-fx-background-color: #02224d;">
+                        <TextField fx:id="category" onAction="#save_object" prefHeight="25.0" prefWidth="199.0" promptText="Ex. Friend,Family,Work,Emergency" style="-fx-background-color: white;">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -114,9 +114,9 @@
                      </VBox.margin>
                   </HBox>
                   <Label prefHeight="17.0" prefWidth="64.0" />
-                  <VBox prefHeight="93.0" prefWidth="290.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black; -fx-background-color: #1c0202;">
+                  <VBox prefHeight="93.0" prefWidth="290.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #aed6fc;-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #BFDFFF; -fx-border-width: 1;">
                      <children>
-                        <Label prefHeight="29.0" prefWidth="73.0" text="Address :" textFill="WHITE">
+                        <Label prefHeight="29.0" prefWidth="73.0" text="Address :" textFill="#1E3A5F">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -124,7 +124,7 @@
                               <Insets left="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="address" alignment="TOP_LEFT" onAction="#save_object" prefHeight="45.0" prefWidth="273.0" promptText="Permanent Address" style="-fx-background-color: #02224d;">
+                        <TextField fx:id="address" alignment="TOP_LEFT" onAction="#save_object" prefHeight="45.0" prefWidth="273.0" promptText="Permanent Address" style="-fx-background-color: white;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -138,14 +138,14 @@
                      </VBox.margin>
                   </VBox>
                   <Label prefHeight="0.0" prefWidth="64.0" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="295.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black; -fx-background-color: #1c0202;">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="295.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #aed6fc;-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #BFDFFF; -fx-border-width: 1;">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="83.0" text="Company :" textFill="WHITE">
+                        <Label prefHeight="25.0" prefWidth="83.0" text="Company :" textFill="#1E3A5F">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="company" onAction="#save_object" prefHeight="25.0" prefWidth="186.0" promptText="Company Name" style="-fx-background-color: #02224d;">
+                        <TextField fx:id="company" onAction="#save_object" prefHeight="25.0" prefWidth="186.0" promptText="Company Name" style="-fx-background-color: white;">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -156,14 +156,14 @@
                      </VBox.margin>
                   </HBox>
                   <Label prefHeight="17.0" prefWidth="64.0" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="290.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: black; -fx-background-color: #1c0202;">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="290.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #aed6fc;-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #BFDFFF; -fx-border-width: 1;">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="85.0" text="Note         :" textFill="WHITE">
+                        <Label prefHeight="25.0" prefWidth="85.0" text="Note         :" textFill="#1E3A5F">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="notes" onAction="#save_object" prefHeight="25.0" prefWidth="186.0" promptText="Additional Note" style="-fx-background-color: #02224d;">
+                        <TextField fx:id="notes" onAction="#save_object" prefHeight="25.0" prefWidth="186.0" promptText="Additional Note" style="-fx-background-color: white;">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -174,7 +174,7 @@
                      </VBox.margin>
                   </HBox>
                   <Label prefHeight="17.0" prefWidth="64.0" />
-                  <CheckBox fx:id="favorite" mnemonicParsing="false" onAction="#save_object" prefHeight="17.0" prefWidth="159.0" style="" text="Add To Favorite">
+                  <CheckBox fx:id="favorite" mnemonicParsing="false" onAction="#save_object" prefHeight="17.0" prefWidth="159.0" style="-fx-text-fill: #ffffff;" text="Add To Favorite">
                      <padding>
                         <Insets left="10.0" />
                      </padding>
@@ -183,6 +183,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <Button fx:id="save_new_button" layoutX="83.0" layoutY="560.0" mnemonicParsing="false" onAction="#save_new_contact" prefHeight="17.0" prefWidth="113.0" style="-fx-background-color: #0d7ae0;" text="Save" textFill="#f7eded" />
+      <Button fx:id="save_new_button" layoutX="83.0" layoutY="560.0" mnemonicParsing="false" onAction="#save_new_contact" prefHeight="17.0" prefWidth="113.0" style="-fx-background-color: linear-gradient(to bottom,#4DA8FF,#1E88E5);
+-fx-background-radius: 20; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;" text="Save" textFill="#f7eded" />
    </children>
 </AnchorPane>

@@ -191,8 +191,10 @@ public class Contacts extends Application {
          int row = statement.executeUpdate();
          if(row>0){
              System.out.println("New contact added");
-             Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+             Parent root = FXMLLoader.load(
+                     Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
+             root.setLayoutY(25);
+             Main.MAIN_SCENE.getChildren().setAll(root);
          }else{
              System.out.println("New contact is not added");
          }

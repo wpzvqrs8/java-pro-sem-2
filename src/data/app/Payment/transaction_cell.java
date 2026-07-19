@@ -35,12 +35,12 @@ public class transaction_cell{
             display_upi_id.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: #FFFFFF;");
 
         if(!is_paid){
-            pill_border.setStyle("-fx-border-color:green;-fx-background-radius: 9999; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: null;");
+            pill_border.setStyle("-fx-border-color:green;-fx-background-radius: 9999; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: #313632;");
             display_amount.setStyle("-fx-text-fill:green;-fx-font-size: 14px; -fx-font-family: 'Arial';-fx-background-radius: 9999;-fx-border-color:green; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: #76cfa4;");
 
         }
         else{
-            pill_border.setStyle("-fx-border-color:red; -fx-background-radius: 9999; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: null;");
+            pill_border.setStyle("-fx-border-color:red; -fx-background-radius: 9999; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: #313632;");
             display_amount.setStyle("-fx-text-fill:red; -fx-font-size: 14px; -fx-font-family: 'Arial';-fx-background-radius: 9999;-fx-border-color:red; -fx-border-radius: 9999;  -fx-border-width: 2; -fx-background-color: #f5b0ae;");
         }
     }
@@ -71,8 +71,8 @@ class TransactionCell extends ListCell<Transaction> {
 //                controller.set_contact_cell(t);
                 setGraphic(root);
 
-
-                setStyle("-fx-background-color: black;");
+                    setStyle("-fx-background-color:#161717;");
+//                setStyle("-fx-background-color: linear-gradient(to right ,#FF7909,#FFFFFF,#FFFFFF,#018B3D);");
             } catch (Exception e) {
                 e.printStackTrace();
             }

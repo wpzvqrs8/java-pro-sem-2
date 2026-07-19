@@ -8,11 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import static data.app.Messages.Messages.openChat;
 
 public class open_chat {
     static String url = "jdbc:postgresql://localhost:5432/java_2_pro";
@@ -21,11 +24,14 @@ public class open_chat {
     static Connection conn;
     @FXML
     private Label user_name;
+    @FXML
+    private TextField chat_tf;
+
     static Message opened_chat;
     @FXML
     ListView<Chat> chats_listview;
     ObservableList<Chat> chat_lists = FXCollections.observableArrayList();
-
+    static  Message mu;
     @FXML
     Label avatar_label,display_name,display_msg;
     void setMessage(Message m) throws Exception {
@@ -59,6 +65,7 @@ public class open_chat {
         ObservableList<Chat> clist =
                 FXCollections.observableArrayList();
         Statement st = conn.createStatement();
+        mu = m;
         System.out.println(m);
         st.execute("SET client_encoding = 'UTF8'");
         PreparedStatement cs = conn.prepareStatement("SELECT * FROM chat_messages where from_name = ? or to_name =? ");
@@ -67,9 +74,9 @@ public class open_chat {
         cs.setString(2, m.name);
 
         ResultSet rs = cs.executeQuery();
-
+//todo my name =  set only my chat for my name
         while (rs.next()) {
-            boolean is_my_msg =rs.getString("from_name").equals(m.name);
+            boolean is_my_msg =rs.getString("from_name").equals(m.name) ;
             Chat messageee=new Chat(rs.getString("from_name"), rs.getString("to_name"),rs.getString("message"), is_my_msg,rs.getTimestamp("sent_at").toLocalDateTime());
             System.out.println(messageee);
             clist.add(messageee);
@@ -80,11 +87,22 @@ public class open_chat {
         rs.close();
         st.close();
         System.out.println(clist);
-        FXCollections.reverse(clist);
+//        FXCollections.reverse(clist);
         return clist;
 
     }
-
+    @FXML
+    void send_text() throws Exception {
+        if(!chat_tf.getText().isEmpty() || chat_tf.getText()!=null){
+            PreparedStatement cs = conn.prepareStatement("insert into  chat_messages (from_name , to_name , message) values(?,?,?)");
+            cs.setString(1,"Bhavy Patel");
+            cs.setString(2,mu.name );
+            cs.setString(3,chat_tf.getText());
+            cs.executeUpdate();
+            openChat(mu);
+        }
+        else return;
+    }
 }
 
 

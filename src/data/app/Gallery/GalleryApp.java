@@ -41,7 +41,7 @@ public class GalleryApp extends Application {
     @FXML
     private VBox col3;
 
-    private final String PHOTO_FOLDER ="C:\\Users\\Admin\\Pictures";
+    private final String PHOTO_FOLDER ="C:\\Users\\Admin\\IdeaProjects\\Java-2_Project\\src\\data\\media\\Pictures\\";
     private List<File> imageList = new ArrayList<>();
 
     @FXML
@@ -75,6 +75,7 @@ public class GalleryApp extends Application {
 
                 if (name.endsWith(".jpg")
                         || name.endsWith(".jpeg")
+                        || name.endsWith(".avif")
                         || name.endsWith(".png")) {
 
                     imageList.add(file);

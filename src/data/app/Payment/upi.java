@@ -62,21 +62,21 @@ public class upi extends Application {
         country_code_s = "+91";
         invalid_warning_message.setVisible(false);
     }
-void show_warning() {
-    invalid_warning_message.setVisible(true);
-    PauseTransition pause = new PauseTransition(Duration.seconds(3));
-    pause.setOnFinished(e -> {
-        invalid_warning_message.setVisible(false);
-    });
-    pause.play();
+    void show_warning() {
+        invalid_warning_message.setVisible(true);
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(e -> {
+            invalid_warning_message.setVisible(false);
+        });
+        pause.play();
 
 //    invalid_warning_message.setVisible(false);
-    System.out.println("warning");
-}
+        System.out.println("warning");
+    }
     @FXML
     public void login(ActionEvent event) throws Exception {
         if(!valid_values){
-           show_warning();
+            show_warning();
             name.requestFocus();
         }
         else {
