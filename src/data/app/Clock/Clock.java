@@ -142,7 +142,8 @@ pause.setOnFinished(e->notificationLabel.setVisible(false));
         root.setLayoutY(25);
 
         Main.MAIN_SCENE.getChildren().setAll(root);
-
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
     }
 
     @FXML
@@ -150,8 +151,9 @@ pause.setOnFinished(e->notificationLabel.setVisible(false));
         Parent root = FXMLLoader.load(
                 Objects.requireNonNull(TimerController.class.getResource("Timer.fxml")));
         root.setLayoutY(25);
-
         Main.MAIN_SCENE.getChildren().setAll(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
     }
 
     @Override

@@ -149,6 +149,8 @@ public class payment extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("transaction_history.fxml")));
         root.setLayoutY(25);
         data.Main.MAIN_SCENE.getChildren().setAll(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
 //        Main.MAIN_SCENE.getChildren().setAll(root);
     }
     @FXML
@@ -199,6 +201,9 @@ public class payment extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("money.fxml")));
         root.setLayoutY(25);
         data.Main.MAIN_SCENE.getChildren().setAll(root);
+        Main.prev_screen_stack.push(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
     }
 
 }

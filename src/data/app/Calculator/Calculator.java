@@ -59,7 +59,7 @@ public class Calculator extends Application {
 //        Parent root  = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Calculator.fxml")));
 //        Main.prev_screen_stack.push(root);
         System.out.println(history_list);
-        System.out.println("init");
+//        System.out.println("init");
         if (history_list != null){
             history_list.setEditable(false);
             history_list.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-background-color:black; ");
@@ -90,6 +90,8 @@ public class Calculator extends Application {
 //        stage.setScene(new Scene(root));
 //        stage.show();
         data.Main.MAIN_SCENE.getChildren().setAll(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
 
     }
 

@@ -71,11 +71,9 @@ public class Tic_Tac_Toe extends Application {
     }
     @FXML
     void play_with_computer(ActionEvent event) {
-        is_computer = true;
         try {
-//
-//            Main.prev.getChildren().setAll(root);
-
+            is_computer = true;
+            reset_game();
 //            data.Main.prev = (AnchorPane) data.Main.MAIN_SCENE.getChildren().get(0);
             Parent root = FXMLLoader.load(
                     getClass().getResource("main_frame_player_computer.fxml"));
@@ -89,9 +87,8 @@ public class Tic_Tac_Toe extends Application {
             root.setLayoutY(25);
             data.Main.MAIN_SCENE.getChildren().setAll(root);
             Main.prev_screen_stack.push(root);
-
-
-
+            Main.recent_apps_stack.pop();
+            Main.recent_apps_stack.push(root);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,22 +97,16 @@ public class Tic_Tac_Toe extends Application {
     @FXML
     void play_with_friend(ActionEvent event) {
         try {
-//            Main.prev.getChildren().setAll(root);
-
-//            data.Main.prev = (AnchorPane) data.Main.MAIN_SCENE.getChildren().get(0);
+            is_computer = false;
+            reset_game();
             Parent root = FXMLLoader.load(
                     getClass().getResource("main_frame_2player.fxml"));
             Main.prev_screen_stack.push(root);
-//            Stage stage = (Stage) ((Node) event.getSource())
-//                    .getScene()
-//                    .getWindow();
-//
-//            Scene scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
             root.setLayoutY(25);
-
             data.Main.MAIN_SCENE.getChildren().setAll(root);
+            Main.recent_apps_stack.pop();
+            Main.recent_apps_stack.push(root);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -129,14 +120,14 @@ public class Tic_Tac_Toe extends Application {
         return false;
     }
 
-     boolean check_win(char board[][] ,int player , boolean while_checking) {
+    boolean check_win(char board[][] ,int player , boolean while_checking) {
         if(while_checking){
             for (int i = 0; i < 3; i++) {
                 if (board[0][i] == player && board[1][i] == player && board[2][i] == player) return true;
                 else if (board[i][0] == player && board[i][1] == player && board[i][2] == player) return true;
                 else if (board[0][0] == player && board[1][1] == player && board[2][2] == player) return true;
                 else if (board[0][2] == player && board[1][1] == player && board[2][0] == player) return true;
-                }
+            }
             return false;
         }
         String btn_css = "-fx-text-fill: #db0707;" +
@@ -219,159 +210,82 @@ public class Tic_Tac_Toe extends Application {
         return true;
     }
 
-    @FXML
-    void change_cell(ActionEvent event) throws InterruptedException {
-
+    @FXML void change_cell(ActionEvent event) throws InterruptedException {
         Button b = (Button) event.getSource();
-//        System.out.println(b.getId().charAt(b.getId().toString().length()-1));
         int index = Integer.parseInt(""+(b.getId().charAt(b.getId().length()-1)));
-
         int r = index / 3;
         int c = index % 3;
+        if (board[r][c] != ' ') {
+            return;
+        }
+        if (is_computer) {
+            player = 'X';
+            is_bot_move = false;
+            b.setText("X");
+            b.setStyle("-fx-text-fill: #0324dd; -fx-font-size: 40px; -fx-background-color: #f0e3c0; -fx-border-color: transparent;");
+            board[r][c] = 'X';
 
-        if(is_computer){
-            if (move_no == 8 && !check_win(board,player,false)) {
+            move_no++;
+//            System.out.println("move no -"+move_no+" (X)");
+            if (check_win(board, 'X', false)) {
+                statusLabel.setVisible(true);
+                statusLabel.setText("X Wins!");
+                disableAllButtons();
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(e -> { statusLabel.setVisible(false); reset_game(); });
+                pause.play();
+                return;
+            }
+            if (move_no == 9) {  // changed from 8 to 9 for clarity
                 statusLabel.setVisible(true);
                 statusLabel.setText("Tie !!");
-
-                btn0.setDisable(true);
-                btn1.setDisable(true);
-                btn2.setDisable(true);
-                btn3.setDisable(true);
-                btn4.setDisable(true);
-                btn5.setDisable(true);
-                btn6.setDisable(true);
-                btn7.setDisable(true);
-                btn8.setDisable(true);
-
+                disableAllButtons();
                 PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                pause.setOnFinished(e -> {
-                    statusLabel.setVisible(false);
-                    is_bot_move  = false;
-                    reset_game();
-                });
+                pause.setOnFinished(e -> { statusLabel.setVisible(false); reset_game(); });
                 pause.play();
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        board[i][j] = ' ';
+                return;
+            }
+
+            is_bot_move = true;
+            if (best_move()) {
+                int i = bot_move[0] * 3 + bot_move[1];
+                Button botBtn = switch (i) {
+                    case 0 -> btn0; case 1 -> btn1; case 2 -> btn2;
+                    case 3 -> btn3; case 4 -> btn4; case 5 -> btn5;
+                    case 6 -> btn6; case 7 -> btn7; case 8 -> btn8;
+                    default -> null;
+                };
+
+                if (botBtn != null) {
+                    botBtn.setText("O");
+                    botBtn.setStyle("-fx-text-fill: #db0707; -fx-font-size: 40px; -fx-background-color: #f0e3c0; -fx-border-color: transparent;");
+                    board[bot_move[0]][bot_move[1]] = 'O';
+
+                    move_no++;
+                    System.out.println("move no -"+move_no+" (O)");
+
+                    if (check_win(board, 'O', false)) {
+                        statusLabel.setVisible(true);
+                        statusLabel.setText("O Wins!");
+                        disableAllButtons();
+                        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                        pause.setOnFinished(e -> { statusLabel.setVisible(false); reset_game(); });
+                        pause.play();
                     }
                 }
-
-            } else if (check_win(board,player,false)) {
-                statusLabel.setVisible(true);
-                statusLabel.setText(player + " Wins!");
-
-                btn0.setDisable(true);
-                btn1.setDisable(true);
-                btn2.setDisable(true);
-                btn3.setDisable(true);
-                btn4.setDisable(true);
-                btn5.setDisable(true);
-                btn6.setDisable(true);
-                btn7.setDisable(true);
-                btn8.setDisable(true);
-
-                PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                pause.setOnFinished(e -> {
-                    statusLabel.setVisible(false);
-                    is_bot_move  = false;
-                    reset_game();
-                });
-                pause.play();
-//                Thread.sleep(1000);
-
             }
-
-            if(is_bot_move&& best_move()){
-                player='O';
-
-                int i = bot_move[0] * 3 + bot_move[1];
-
-                board[bot_move[0]][bot_move[1]] = player;
-                System.out.println("--="+Arrays.toString(bot_move));
-                switch (i) {
-                    case 0 -> b = btn0;
-                    case 1 -> b = btn1;
-                    case 2 -> b = btn2;
-                    case 3 -> b = btn3;
-                    case 4 -> b = btn4;
-                    case 5 -> b = btn5;
-                    case 6 -> b = btn6;
-                    case 7 -> b = btn7;
-                    case 8 -> b = btn8;
-
-                }
-                b.setText(""+player);
-                if (player == 'X') {
-                    b.setStyle("-fx-text-fill: #0324dd;" +
-                            "-fx-font-size: 40px;" +
-                            "-fx-background-color: #f0e3c0;" +
-                            "-fx-border-color: transparent;");
-                } else b.setStyle("-fx-text-fill: #db0707;" +
-                        "-fx-font-size: 40px;" +
-                        "-fx-background-color: #f0e3c0;" +
-                        "-fx-border-color: transparent;");
-                is_bot_move = false;
-            }
-            else {
-                player='X';
-                is_bot_move = true;
-                b.setText("" + player);
-                if (player == 'X') {
-                    b.setStyle("-fx-text-fill: #0324dd;" +
-                            "-fx-font-size: 40px;" +
-                            "-fx-background-color: #f0e3c0;" +
-                            "-fx-border-color: transparent;");
-                } else b.setStyle("-fx-text-fill: #db0707;" +
-                        "-fx-font-size: 40px;" +
-                        "-fx-background-color: #f0e3c0;" +
-                        "-fx-border-color: transparent;");
-                switch (b.getId()) {
-                    case "btn0" -> board[0][0] = player;
-                    case "btn1" -> board[0][1] = player;
-                    case "btn2" -> board[0][2] = player;
-                    case "btn3" -> board[1][0] = player;
-                    case "btn4" -> board[1][1] = player;
-                    case "btn5" -> board[1][2] = player;
-                    case "btn6" -> board[2][0] = player;
-                    case "btn7" -> board[2][1] = player;
-                    case "btn8" -> board[2][2] = player;
-                }
-
-                b.setText("" + player);
-                if (player == 'X') {
-                    b.setStyle("-fx-text-fill: #0324dd;" +
-                            "-fx-font-size: 40px;" +
-                            "-fx-background-color: #f0e3c0;" +
-                            "-fx-border-color: transparent;");
-                } else b.setStyle("-fx-text-fill: #db0707;" +
-                        "-fx-font-size: 40px;" +
-                        "-fx-background-color: #f0e3c0;" +
-                        "-fx-border-color: transparent;");
-
-                change_cell(event);
-            }
+            is_bot_move = false;
+            player = 'X';
         }
-
-
-//
-//
-//
-//
-//
-//        System.out.println(r+" "+c);
-        if(!is_bot_move && (board[r][c]!='X' && board[r][c]!='O' )) {
+        else {
+            // 2-Player mode
             b.setText("" + player);
-
             if (player == 'X') {
-                b.setStyle("-fx-text-fill: #0324dd;" +
-                        "-fx-font-size: 40px;" +
-                        "-fx-background-color: #f0e3c0;" +
-                        "-fx-border-color: transparent;");
-            } else b.setStyle("-fx-text-fill: #db0707;" +
-                    "-fx-font-size: 40px;" +
-                    "-fx-background-color: #f0e3c0;" +
-                    "-fx-border-color: transparent;");
+                b.setStyle("-fx-text-fill: #0324dd;" + "-fx-font-size: 40px;" + "-fx-background-color: #f0e3c0;" + "-fx-border-color: transparent;");
+            } else {
+                b.setStyle("-fx-text-fill: #db0707;" + "-fx-font-size: 40px;" + "-fx-background-color: #f0e3c0;" + "-fx-border-color: transparent;");
+            }
+
             switch (b.getId()) {
                 case "btn0" -> board[0][0] = player;
                 case "btn1" -> board[0][1] = player;
@@ -384,94 +298,66 @@ public class Tic_Tac_Toe extends Application {
                 case "btn8" -> board[2][2] = player;
             }
 
-
-
-        }
-            if (move_no == 8 && !check_win(board,player,false)) {
-                statusLabel.setVisible(true);
-                statusLabel.setText("Tie !!");
-
-                btn0.setDisable(true);
-                btn1.setDisable(true);
-                btn2.setDisable(true);
-                btn3.setDisable(true);
-                btn4.setDisable(true);
-                btn5.setDisable(true);
-                btn6.setDisable(true);
-                btn7.setDisable(true);
-                btn8.setDisable(true);
-
-                PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                pause.setOnFinished(e -> {
-                    statusLabel.setVisible(false);
-                    reset_game();
-                });
-                pause.play();
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        board[i][j] = ' ';
-                    }
-                }
-            } else if (check_win(board,player,false)) {
+            if (check_win(board, player, false)) {
                 statusLabel.setVisible(true);
                 statusLabel.setText(player + " Wins!");
-
-                btn0.setDisable(true);
-                btn1.setDisable(true);
-                btn2.setDisable(true);
-                btn3.setDisable(true);
-                btn4.setDisable(true);
-                btn5.setDisable(true);
-                btn6.setDisable(true);
-                btn7.setDisable(true);
-                btn8.setDisable(true);
-
+                disableAllButtons();
                 PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                pause.setOnFinished(e -> {
-                    statusLabel.setVisible(false);
-                    reset_game();
-                });
+                pause.setOnFinished(e -> { statusLabel.setVisible(false); reset_game(); });
                 pause.play();
-//                Thread.sleep(1000);
-
+            } else if (move_no == 8) {
+                statusLabel.setVisible(true);
+                statusLabel.setText("Tie !!");
+                disableAllButtons();
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(e -> { statusLabel.setVisible(false); reset_game(); });
+                pause.play();
             }
 
-        move_no++;
-        System.out.println("move no -"+move_no+" ("+player+")");
-        player = player == 'X' ? 'O' : 'X';
-        display_cli();
+            move_no++;
+            player = player == 'X' ? 'O' : 'X';
+        }
 
+        display_cli();
+    }
+    void disableAllButtons() {
+        btn0.setDisable(true); btn1.setDisable(true); btn2.setDisable(true);
+        btn3.setDisable(true); btn4.setDisable(true); btn5.setDisable(true);
+        btn6.setDisable(true); btn7.setDisable(true); btn8.setDisable(true);
     }
     void reset_game(){
-
-        btn1.setDisable(false);
-        btn2.setDisable(false);
-        btn0.setDisable(false);
-        btn3.setDisable(false);
-        btn4.setDisable(false);
-        btn5.setDisable(false);
-        btn6.setDisable(false);
-        btn7.setDisable(false);
-        btn8.setDisable(false);
-        btn0.setText("");
-        btn1.setText("");
-        btn2.setText("");
-        btn3.setText("");
-        btn4.setText("");
-        btn5.setText("");
-        btn6.setText("");
-        btn7.setText("");
-        btn8.setText("");
-        btn0.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn1.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn2.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn3.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn4.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn5.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn6.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn7.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
-        btn8.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        try {
+            btn1.setDisable(false);
+            btn2.setDisable(false);
+            btn0.setDisable(false);
+            btn3.setDisable(false);
+            btn4.setDisable(false);
+            btn5.setDisable(false);
+            btn6.setDisable(false);
+            btn7.setDisable(false);
+            btn8.setDisable(false);
+            btn0.setText("");
+            btn1.setText("");
+            btn2.setText("");
+            btn3.setText("");
+            btn4.setText("");
+            btn5.setText("");
+            btn6.setText("");
+            btn7.setText("");
+            btn8.setText("");
+            btn0.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+            btn1.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+            btn2.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+            btn3.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+            btn4.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+            btn5.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+            btn6.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+            btn7.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+            btn8.setStyle("-fx-background-color: #f0e3c0;" +"-fx-border-color: transparent;" + "-fx-font-size: 40px;" + "-fx-text-fill: black;");
+        } catch (Exception e) {}
         move_no = 0;
+        player = 'X';
+        is_bot_move = false;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = ' ';
@@ -480,13 +366,12 @@ public class Tic_Tac_Toe extends Application {
     }
 
     static boolean available_square(int row, int col) {
-
         // TODO : write code
         return false;
     }
 
 
-     int minimax(char[][] mm_board, int depth, boolean is_max) {
+    int minimax(char[][] mm_board, int depth, boolean is_max) {
         if (check_win(mm_board,'O',true)) {
             return 1;
         } else if (check_win(mm_board,'X',true)) {
@@ -523,7 +408,7 @@ public class Tic_Tac_Toe extends Application {
         }
     }
 
-     boolean best_move() throws InterruptedException {
+    boolean best_move() throws InterruptedException {
         is_bot_move = true;
         float best_score = -1000;
         a[0] =-1;

@@ -170,10 +170,10 @@ public class Contacts extends Application {
                 Objects.requireNonNull(getClass().getResource("add_new_contact.fxml"))
         );
         root.setLayoutY(25);
-
-//        Main.prev_screen_stack.push(root);
+        Main.prev_screen_stack.push(root);
         data.Main.MAIN_SCENE.getChildren().setAll(root);
-//        Main.prev_screen_stack.push((AnchorPane) root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
     }
      @FXML
     void save_new_contact(ActionEvent event) throws Exception{
@@ -195,6 +195,9 @@ public class Contacts extends Application {
                      Objects.requireNonNull(Contacts.class.getResource("contacts_main_frame.fxml")));
              root.setLayoutY(25);
              Main.MAIN_SCENE.getChildren().setAll(root);
+             Main.prev_screen_stack.push(root);
+             Main.recent_apps_stack.pop();
+             Main.recent_apps_stack.push(root);
          }else{
              System.out.println("New contact is not added");
          }
@@ -290,12 +293,15 @@ public class Contacts extends Application {
         );
         root.setLayoutY(25);
         Main.MAIN_SCENE.getChildren().setAll(root);
+        Main.prev_screen_stack.push(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
     }
 
 }
 
 
-// BASE CLASS (Contact) ==================>
+// BASE_CLASS (Contact) ==================>
 class Contact {
     int id;
     String name,phoneNumber,email, category,address, company,notes;

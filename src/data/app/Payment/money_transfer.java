@@ -92,6 +92,8 @@ public class money_transfer extends Application {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("transaction_history.fxml")));
             root.setLayoutY(25);
             Main.MAIN_SCENE.getChildren().setAll(root);
+            Main.prev_screen_stack.push(root);
+
         }
         else {
             System.out.println("err-2");

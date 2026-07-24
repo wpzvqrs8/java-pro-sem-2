@@ -124,6 +124,8 @@ public class TimerController {
                 Objects.requireNonNull(Clock.class.getResource("Clock.fxml")));
         root.setLayoutY(25);
         Main.MAIN_SCENE.getChildren().setAll(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
 
     }
 

@@ -87,7 +87,9 @@ public class recent_apps extends Application {
 
     @FXML
     public void clear_recent_apps() throws IOException {
-//        Main.recent_apps.clear();
+        Main.recent_apps_stack.clear();
+        System.out.println(temp);
+        System.out.println(img_temp);
         temp.clear();
         img_temp.clear();;
         initialize();

@@ -86,18 +86,11 @@ public class Browser extends Application {
     void open_url(ActionEvent event){
         String input = url_text.getText();
         String url = "";
-        if (input.startsWith("http://") || input.startsWith("https://")) {
-            url = input;
-        }
-        else if (input.contains(".")) {
-            url = "https://" + input;
-        }
-        else {
-            url = "https://www.google.com/search?q=" + input;
-        }
+        if (input.startsWith("http://") || input.startsWith("https://")) {url = input;}
+        else if (input.contains(".")) {url = "https://" + input;}
+        else url = "https://www.google.com/search?q=" + input;
         browser_web_view.getEngine().load(url);
-        progressBar.progressProperty()
-                .bind(browser_web_view.getEngine().getLoadWorker().progressProperty());
+        progressBar.progressProperty().bind(browser_web_view.getEngine().getLoadWorker().progressProperty());
     }
 
 }

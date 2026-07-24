@@ -79,9 +79,9 @@ public class Messages extends Application {
             }
         });
 //        try {
-            if(selected_from_list!= null){
+//            if(selected_from_list!= null){
 
-            }
+//            }
 //        } catch (Exception e) {}
     }
 
@@ -96,7 +96,9 @@ public class Messages extends Application {
         controller.setMessage(selected);
         root.setLayoutY(25);
         Main.MAIN_SCENE.getChildren().setAll(root);
-
+        Main.prev_screen_stack.push(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
 
     }
 

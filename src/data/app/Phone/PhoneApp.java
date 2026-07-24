@@ -64,9 +64,9 @@ public class PhoneApp extends Application {
     // PANES
     @FXML
     private VBox recentPane;
-
+    boolean ZERO_Long_pressed;
     @FXML
-    private Button recent_btn,keypad_btn;
+    private Button recent_btn,keypad_btn,btn0;
     @FXML private ListView<String> recentList;
 
     // KEYPAD
@@ -85,6 +85,21 @@ public class PhoneApp extends Application {
 
         if(keypad_btn!=null){
             keypad_btn.setDisable(true);
+        }
+        if(btn0!=null){
+//for "+"
+                PauseTransition pt_plus = new PauseTransition(Duration.seconds(1));
+
+                btn0.setOnMousePressed(ev->
+                {
+                    ZERO_Long_pressed= false;
+                    pt_plus.setOnFinished(evv->
+                            {ZERO_Long_pressed = true;
+                                numberField.setText(numberField.getText() + "+");}
+                    );
+                    pt_plus.playFromStart();
+                });
+                btn0.setOnMouseReleased(ev->pt_plus.stop());
         }
         loadRecentCalls();
 
@@ -130,7 +145,9 @@ public class PhoneApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("keypad.fxml"));
         root.setLayoutY(25);
         Main.MAIN_SCENE.getChildren().setAll(root);
-
+        Main.prev_screen_stack.push(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
     }
 
     @FXML
@@ -141,7 +158,11 @@ public class PhoneApp extends Application {
 
         Parent root = loader.load();
         root.setLayoutY(25);
-        Main.MAIN_SCENE.getChildren().setAll(root);    }
+        Main.MAIN_SCENE.getChildren().setAll(root);
+        Main.prev_screen_stack.push(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
+    }
 
     @FXML
     public void handleNumber(ActionEvent e) {
@@ -149,6 +170,10 @@ public class PhoneApp extends Application {
             numberField.setText("");
         }
         Button b = (Button) e.getSource();
+        if (b.getText().equals("0") && ZERO_Long_pressed) {
+            ZERO_Long_pressed = false;
+            return;
+        }
         numberField.setText(numberField.getText() + b.getText());
     }
 
@@ -184,7 +209,7 @@ public class PhoneApp extends Application {
         // Exactly 10 digits
         if (!number.startsWith("+") && number.length() != 10) {
 
-            numberField.setText("Phone number must be 10 digits");
+            numberField.setText("No. must be 10 digits");
             PauseTransition pt = new PauseTransition(Duration.seconds(2));
             pt.setOnFinished(e->numberField.setText(number));
             pt.play();
@@ -192,10 +217,7 @@ public class PhoneApp extends Application {
         }
 
         // First digit must be 6,7,8,9
-        if (!number.startsWith("+") && !(number.startsWith("6") ||
-                number.startsWith("7") ||
-                number.startsWith("8") ||
-                number.startsWith("9"))) {
+        if (!number.startsWith("+") && !(number.startsWith("6") || number.startsWith("7") || number.startsWith("8") || number.startsWith("9"))) {
             numberField.setText("Invalid Mobile Number");
             PauseTransition pt = new PauseTransition(Duration.seconds(2));
             pt.setOnFinished(e->numberField.setText(number));
@@ -261,5 +283,8 @@ public class PhoneApp extends Application {
         Parent root =  FXMLLoader.load(PhoneApp.class.getResource("phone.fxml"));
         root.setLayoutY(25);
         Main.MAIN_SCENE.getChildren().setAll(root);
+        Main.prev_screen_stack.push(root);
+        Main.recent_apps_stack.pop();
+        Main.recent_apps_stack.push(root);
     }
 }

@@ -18,6 +18,8 @@ import data.app.Payment.upi;
 import data.app.Tic_Tac_Toe.Tic_Tac_Toe;
 import data.app.Youtube.Youtube;
 import data.data.sys_data.get_sys_info;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.time.LocalTime;
@@ -91,9 +94,6 @@ public class Main extends Application {
         if(!is_initialised) {
             is_initialised = true;
             print_sys_msg("System Booted Sucessfully");
-
-            System.out.println(MAIN_SCENE);
-
         }
 //        System.out.println(Font.getFamilies().contains("Segoe Fluent Icons"));
 //        java.time.LocalTime time = java.time.LocalTime.now();
@@ -126,16 +126,16 @@ public class Main extends Application {
 
             Image wallpaper_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/data/data/sys_data/wallpaper.jpg")));
             wallpaper.setImage(wallpaper_img);
-//        Timeline clock = new Timeline(
-//                new KeyFrame(Duration.seconds(0), e ->
-//                {
-//                    LocalTime time = LocalTime.now();
-//                    header1.setText("  " + (time.getHour() % 12 == 0 ? 12 : time.getHour() % 12) + " : " + String.format("%02d", time.getMinute())+" : " + String.format("%02d", time.getSecond()));
-//                }),
-//                new KeyFrame(Duration.seconds(1))
-//        );
-//        clock.setCycleCount(Timeline.INDEFINITE);
-//        clock.play();
+        Timeline clock = new Timeline(
+                new KeyFrame(Duration.seconds(0), e ->
+                {
+                    LocalTime time = LocalTime.now();
+                    header1.setText("  " + (time.getHour() % 12 == 0 ? 12 : time.getHour() % 12) + " : " + String.format("%02d", time.getMinute())+" : " + String.format("%02d", time.getSecond()));
+                }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.play();
 //        Timeline header_symbols = new Timeline(
 //                new KeyFrame(Duration.seconds(0), e ->
 //                {
@@ -161,8 +161,8 @@ public class Main extends Application {
             //TEMP
             header.setFont(iconFont);
             header.setText("             \uEC3B \uEC3F \uF5FC");
-            LocalTime time = LocalTime.now();
-            header1.setText("  " + (time.getHour() % 12 == 0 ? 12 : time.getHour() % 12) + " : " + String.format("%02d", time.getMinute()) + " : " + String.format("%02d", time.getSecond()));
+//            LocalTime time = LocalTime.now();
+//            header1.setText("  " + (time.getHour() % 12 == 0 ? 12 : time.getHour() % 12) + " : " + String.format("%02d", time.getMinute()) + " : " + String.format("%02d", time.getSecond()));
 
     }
 
@@ -248,8 +248,7 @@ public class Main extends Application {
 //        MAIN_SCENE.getChildren().setAll(root);
             recent_root = FXMLLoader.load(
                 Objects.requireNonNull(recent_apps.class.getResource("recent_screen.fxml")));
-
-        show_fxml(recent_root);
+            show_fxml(recent_root);
     }
 
 
