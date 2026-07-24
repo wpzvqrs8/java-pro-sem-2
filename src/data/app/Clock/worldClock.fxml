@@ -1,105 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.shape.Sphere?>
-<?import javafx.scene.paint.PhongMaterial?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.transform.Rotate?>
-<?import javafx.scene.SubScene?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.PerspectiveCamera?>
-<?import javafx.scene.AmbientLight?>
-<?import javafx.scene.PointLight?>
-<?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="600" prefWidth="300"
-            xmlns="http://javafx.com/javafx/26"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="data.app.Clock.WorldClockController"
-            style="-fx-background-color:#111827; -fx-font-family:'Segoe UI';">
+
+<AnchorPane prefHeight="600" prefWidth="300" style="-fx-background-color:#111827; -fx-font-family:'Segoe UI';" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data.app.Clock.WorldClockController">
    <children>
-      <VBox alignment="TOP_CENTER" spacing="15"
-            AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
-            AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"
-            style="-fx-background-color:#111827;">
+      <VBox alignment="TOP_CENTER" spacing="15" style="-fx-background-color:#111827;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
          <padding>
             <Insets left="10" right="10" top="15" />
          </padding>
          <children>
-            <Label text="World Clock" style="-fx-text-fill:white; -fx-font-size:24px;">
+            <Label style="-fx-text-fill:white; -fx-font-size:24px;" text="World Clock">
                <font>
                   <Font size="24" />
                </font>
             </Label>
-            <Separator prefWidth="280" style="-fx-border-color:#374151;"/>
+            <Separator prefWidth="280" style="-fx-border-color:#374151;" />
 
-            <StackPane fx:id="globePane" onMouseClicked="#handleGlobeClick"
-                       prefHeight="220" prefWidth="220" style="-fx-cursor:hand;">
+            
+            
+
+            <StackPane fx:id="globePane" onMouseClicked="#handleGlobeClick" prefHeight="220" prefWidth="220" style="-fx-cursor:hand;">
+
                <children>
-                  <SubScene fx:id="globeSubScene" width="220" height="220" fill="TRANSPARENT" depthBuffer="true">
-                     <camera>
-                        <PerspectiveCamera fx:id="globeCamera" translateZ="-230" nearClip="1" farClip="1000" />
-                     </camera>
-                     <root>
-                        <Group fx:id="globeGroup" translateX="110" translateY="110">
-                           <children>
-                              <AmbientLight color="#1a1a1a" />
-                              <PointLight color="white" translateX="-200" translateY="-200" translateZ="-400" />
-                              <Group fx:id="globeRotationGroup">
-                                 <children>
-                                    <Sphere fx:id="globeSphere" radius="100">
-                                       <material>
-                                          <PhongMaterial specularPower="20">
-                                             <diffuseMap>
-                                                <Image url="@images/earth.jpg" />
-                                             </diffuseMap>
-                                             <specularColor>
-                                                <Color red="0.3" green="0.3" blue="0.35" opacity="1.0" />
-                                             </specularColor>
-                                          </PhongMaterial>
-                                       </material>
-                                    </Sphere>
-                                 </children>
-                                 <transforms>
-                                    <Rotate fx:id="globeRotateY" angle="0">
-                                       <axis>
-                                          <Rotate fx:constant="Y_AXIS" />
-                                       </axis>
-                                    </Rotate>
-                                    <Rotate fx:id="globeRotateX" angle="-15">
-                                       <axis>
-                                          <Rotate fx:constant="X_AXIS" />
-                                       </axis>
-                                    </Rotate>
-                                 </transforms>
-                              </Group>
-                           </children>
-                        </Group>
-                     </root>
-                  </SubScene>
+                  <ImageView fx:id="globeImage" fitHeight="220" fitWidth="220" preserveRatio="true">
+
+                     <image>
+                        <Image url="@../../data/sys_data/globe.png" />
+                     </image>
+
+                  </ImageView>
                </children>
             </StackPane>
 
-            <Label text="Click Globe to Add City" style="-fx-text-fill:white;"/>
+            <Label style="-fx-text-fill:white;" text="Click Globe to Add City" />
 
-            <Button onAction="#handleGlobeClick" text="Add City"
-                    style="-fx-background-color:#1f6feb; -fx-background-radius:15;
-                           -fx-text-fill:white; -fx-font-size:14px; -fx-font-weight:bold;
-                           -fx-cursor:hand;"/>
+            <Button onAction="#handleGlobeClick" style="-fx-background-color:#1f6feb; -fx-background-radius:15;                            -fx-text-fill:white; -fx-font-size:14px; -fx-font-weight:bold;                            -fx-cursor:hand;" text="Add City" />
 
-            <ScrollPane fitToWidth="true" prefHeight="245.0" prefWidth="279.0"
-                        style="-fx-background-color:#111827;">
+            <ScrollPane fitToWidth="true" prefHeight="245.0" prefWidth="279.0" style="-fx-background-color:#111827;">
                <content>
-                  <VBox fx:id="cityBox" alignment="TOP_CENTER" spacing="10"
-                        />
+                  <VBox fx:id="cityBox" alignment="TOP_CENTER" spacing="10" />
                </content>
                <style>
                   -fx-background:#111827;
@@ -107,36 +58,22 @@
                </style>
             </ScrollPane>
 
-            <Button onAction="#backHome" text="← Back"
-                    style="-fx-background-color:#1f6feb; -fx-background-radius:15;
-                           -fx-text-fill:white; -fx-font-size:14px; -fx-font-weight:bold;
-                           -fx-cursor:hand;">
+            <Button onAction="#backHome" style="-fx-background-color:#1f6feb; -fx-background-radius:15;                            -fx-text-fill:white; -fx-font-size:14px; -fx-font-weight:bold;                            -fx-cursor:hand;" text="← Back">
                <VBox.margin>
                   <Insets left="170.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <VBox fx:id="cityDialog"
-            visible="false"
-            managed="false"
-            maxWidth="300"
-            spacing="10"
-            alignment="CENTER"
-            style="-fx-background-color:white;
-                 -fx-padding:20;
-                 -fx-background-radius:10;
-                 -fx-border-radius:10;
-                 -fx-border-color:gray;">
+      <VBox fx:id="cityDialog" alignment="CENTER" managed="false" maxWidth="300" spacing="10" style="-fx-background-color:white;                  -fx-padding:20;                  -fx-background-radius:10;                  -fx-border-radius:10;                  -fx-border-color:gray;" visible="false">
 
-         <Label text="Select a City"
-                style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+         <Label style="-fx-font-size:18px; -fx-font-weight:bold;" text="Select a City" />
 
-         <ComboBox fx:id="cityCombo"/>
+         <ComboBox fx:id="cityCombo" />
 
          <HBox alignment="CENTER" spacing="10">
-            <Button text="Add" onAction="#confirmCity"/>
-            <Button text="Cancel" onAction="#closeCityDialog"/>
+            <Button onAction="#confirmCity" text="Add" />
+            <Button onAction="#closeCityDialog" text="Cancel" />
          </HBox>
 
       </VBox>

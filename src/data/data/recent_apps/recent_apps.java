@@ -31,10 +31,6 @@ public class recent_apps extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-
-
-
-
         Parent root = FXMLLoader.load(getClass().getResource("recent_screen.fxml"));
 //        MAIN_SCENE.getChildren().setAll(root);
         stage.setScene(new Scene(root));

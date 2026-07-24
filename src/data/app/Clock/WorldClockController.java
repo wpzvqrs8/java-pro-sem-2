@@ -48,27 +48,26 @@ public class WorldClockController {
 
     private final Map<String, ZoneId> cities = new HashMap<>();
     @FXML private StackPane globePane;
-    @FXML private SubScene globeSubScene;
-    @FXML private Group globeGroup;
-    @FXML private Group globeRotationGroup;
-    @FXML private Sphere globeSphere;
-    @FXML private Rotate globeRotateY;
-    @FXML private Rotate globeRotateX;
-    @FXML private PerspectiveCamera globeCamera;
+
+
 
     @FXML
     public void initialize() {
-        Timeline spin = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(globeRotateY.angleProperty(), 0)),
-                new KeyFrame(Duration.seconds(12), new KeyValue(globeRotateY.angleProperty(), 360))
-        );
-        spin.setCycleCount(Animation.INDEFINITE);
-        spin.play();
+
         cities.put("Ahmedabad", ZoneId.of("Asia/Kolkata"));
         cities.put("London", ZoneId.of("Europe/London"));
         cities.put("New York", ZoneId.of("America/New_York"));
         cities.put("Tokyo", ZoneId.of("Asia/Tokyo"));
         cities.put("Sydney", ZoneId.of("Australia/Sydney"));
+        globePane.setOnMouseEntered(e -> {
+            globePane.setScaleX(1.05);
+            globePane.setScaleY(1.05);
+        });
+
+        globePane.setOnMouseExited(e -> {
+            globePane.setScaleX(1.0);
+            globePane.setScaleY(1.0);
+        });
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), e -> updateTimes())

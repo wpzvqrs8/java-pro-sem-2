@@ -101,8 +101,8 @@ SELECT
     v.phone_number,
     v.call_status,
     v.duration_seconds,
-    v.started_at,
-    v.ended_at
+    v.started_at::Timestamp,
+    v.ended_at::Timestamp
 FROM (
          VALUES
              ('+91 9876543210', 'Answered', 320, '2026-07-05 09:15:00', '2026-07-05 09:20:20'),
@@ -114,6 +114,48 @@ FROM (
      ) v(phone_number, call_status, duration_seconds, started_at, ended_at)
          LEFT JOIN contacts c
                    ON c.phone_number = v.phone_number;
+
+
+-- trigger -
+CREATE OR REPLACE FUNCTION calculate_call_duration()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.started_at IS NOT NULL AND NEW.ended_at IS NOT NULL THEN
+        NEW.duration_seconds :=
+            EXTRACT(EPOCH FROM (NEW.ended_at - NEW.started_at))::INT;
+ELSE
+        NEW.duration_seconds := 0;
+END IF;
+
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_calculate_call_duration
+    BEFORE INSERT OR UPDATE
+                         ON call_history
+                         FOR EACH ROW
+                         EXECUTE FUNCTION calculate_call_duration();
+--cc trigger +91
+CREATE OR REPLACE FUNCTION add_default_country_code()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.phone_number IS NOT NULL
+       AND NEW.phone_number NOT LIKE '+%' THEN
+        NEW.phone_number := '+91 ' || TRIM(NEW.phone_number);
+END IF;
+
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trg_add_country_code
+    BEFORE INSERT OR UPDATE OF phone_number
+                     ON call_history
+                         FOR EACH ROW
+                         EXECUTE FUNCTION add_default_country_code();
+
+
+
 -- contacts query for history
 
 
